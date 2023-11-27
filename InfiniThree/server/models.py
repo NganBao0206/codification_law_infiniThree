@@ -59,7 +59,7 @@ class CodificationIndex(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50))
     order = Column(Integer, nullable=False)
-    index_type = Columnn(db.Enum(IndexType), nullable=False)
+    index_type = Column(db.Enum(IndexType), nullable=False)
     children = relationship('CodificationIndex',
                             secondary=codification_index_parent,
                             primaryjoin=id==codification_index_parent.c.index_parent_id,
@@ -77,7 +77,7 @@ if __name__ == '__main__':
         sub_topic = CodificationSubTopic(name="testsub", order=1, topic=topic)
         
         index = CodificationIndex(name="testindex", order=1, index_type=IndexType.LQ)
-        index2 = CodificationIndex(name="child", order=1, index_type=IndexType.)
+        index2 = CodificationIndex(name="child", order=1, index_type=IndexType.ND)
         index.children.append(index2)
         sub_topic.indexes.append(index)
         db.session.add_all([topic, sub_topic, index])
