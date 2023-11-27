@@ -26,9 +26,9 @@ Python 3.6, VSCode
 
 
 # Authors
-Nguyen Kim Bao Ngan
-Vo Phu Phat
-Tran Le Lan
+> Nguyen Kim Bao Ngan
+> Vo Phu Phat
+> Tran Le Lan
 
 # License
 ...
