@@ -1,14 +1,6 @@
 # codification_law_infiniThree
 
-# Running the Program in VSCode
-> 1. Open VSCode.
-> 2. Go to File -> Open Folder.
-> 2. Navigate to and select the codification_law_infiniThree/InfiniThree/server folder.
-> 3. Press `Ctrl+Shift+P` to open the Command Palette.
-> 4. Type and select `Python:Create Environment`.
-> 5. In the terminal, activate the virtual environment using the command `source .venv/bin/activate`.
-> 6. Install the required packages with `pip install -r requirements.txt`.
-> 7. Run your program with `python run.py`.
+
 
 # Project Title
 Codification Law - InfiniThree
@@ -20,8 +12,14 @@ An overview of what the project does or is used for.
 ## Dependencies
 Python 3.6, VSCode
 
-## Installing
-Step-by-step guide on setting up the development environment. This could include steps similar to the ones above.
+## Running the Program in VSCode
+> 1. Open VSCode.
+> 2. Go to File -> Open Folder.
+> 2. Navigate to and select the codification_law_infiniThree/InfiniThree/server folder.
+> 3. Press `Ctrl+Shift+P` to open the Command Palette.
+> 4. Type and select `Python:Create Environment`.
+> 5. In the terminal, activate the virtual environment using the command `source .venv/bin/activate`.
+> 6. Install the required packages with `pip install -r requirements.txt`.
 
 ## Executing Program
 `python run.py`.
