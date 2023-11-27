@@ -9,8 +9,18 @@ Codification Law - InfiniThree
 An overview of what the project does or is used for.
 
 # Getting Started
-## Dependencies
-Python 3.6, VSCode
+
+## Set up
+  1. Open `codification_law_infiniThree/InfiniThree/server` folder.
+  2. Create a new file named `.env`.
+  3. Open the `.env` file and set your environment variables as follows:
+     ```
+     DB_USER=<your-database-username>
+     DB_PASS=<your-database-password>
+     DB_HOST=<your-database-host>
+     DB_NAME=<your-database-name>
+
+     ```
 
 ## Running the Program in VSCode
 > 1. Open VSCode.
