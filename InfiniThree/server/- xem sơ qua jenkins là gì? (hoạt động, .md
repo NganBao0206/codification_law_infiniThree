@@ -1,5 +1,0 @@
-- xem sơ qua jenkins là gì? (hoạt động, cấu hình,...)
-- tạo 1 container trên docker, chạy image Ubuntu, bind port 80, 8080,... (tùy port em muốn bind)
-- trong container Ubuntu tìm cách setup Jenkins => mục tiêu là truy cập đc vào Jenkins trên localhost (*)
-- tập setup ci/cd cho 1 project (back-end/front-end) => mục tiêu là truy cập đc vào back-end/front-end thông qua bind port ở trên
-- sau khi chạy ở local thành công thì setup trên server bắt đầu từ (*)
