@@ -4,14 +4,14 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    command: python run.py
     ports:
       - 5000:5000
     environment:
       - DB_USER=root
       - DB_PASS=Admin@123
-      - DB_HOST=localhost
+      - DB_HOST=db
       - DB_NAME=law-db
-
     depends_on:
       - db
   db:
@@ -21,3 +21,5 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=Admin@123
       - MYSQL_DATABASE=law-db
+    volumes:
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
