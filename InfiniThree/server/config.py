@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from urllib.parse import quote
 
 
-load_dotenv()
+# load_dotenv()
 
 
 class Config:
