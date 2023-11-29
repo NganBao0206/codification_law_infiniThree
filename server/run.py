@@ -10,7 +10,7 @@ app.register_blueprint(codification_indexes_bp)
 
 @app.route('/')
 def home():
-    return "test jenkins neeeeeeeeeeeeeeeeeeee"
+    return "home page"
 
 if __name__ == '__main__':
     app.run(host=host)
