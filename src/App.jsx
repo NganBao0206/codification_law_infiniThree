@@ -17,10 +17,10 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="legal-dictionary" element={<Dictionary />} />
-              <Route path="/forum" element={<Home />} />
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/send-news" element={<SendNews />} />
+              <Route path="/bo-phap-dien" element={<Dictionary />} />
+              <Route path="/dien-dan" element={<Home />} />
+              <Route path="/dang-nhap" element={<SignIn />} />
+              <Route path="/gui-bai" element={<SendNews />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --focus-border: #007fd4;
+    --separator-border: #838383;
+}
+
 * {
     font-family: "Archivo", sans-serif;
     margin: 0;
@@ -21,11 +26,6 @@ body {
 
 .styled-input {
     @apply border border-dark/75 text-gray-900 focus:border-dark block w-full p-3 col-span-8;
-}
-
-.home-title {
-    @apply font-extrabold text-5xl leading-normal;
-    font-family: "Montserrat", sans-serif;
 }
 
 .background {
