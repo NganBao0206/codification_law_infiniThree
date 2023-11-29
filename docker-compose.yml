@@ -23,5 +23,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=Admin@123
       - MYSQL_DATABASE=law-db
-    # volumes:
-    #   - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+    volumes:
+      - law-db-data:/var/lib/mysql
+
+volumes:
+  law-db-data:
