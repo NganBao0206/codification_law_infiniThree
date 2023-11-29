@@ -183,9 +183,7 @@ const Dictionary = () => {
         }
     ];
 
-    let url = "/bophapdiendientu/demuc/0abd54e4-923f-48a3-9f22-b9672dcf4185.html";
-    console.log(url)
-
+    let url = import.meta.env.VITE_PUBLIC_URL + "0abd54e4-923f-48a3-9f22-b9672dcf4185.html";
     const [html, setHTML] = useState("");
     const FileContext = createContext();
     const [file, setFile] = useState();
