@@ -9,7 +9,7 @@ def topics():
     topics = get_all_topics()
     return jsonify([topic.to_dict() for topic in topics])
     
-@codification_topics_bp.route('/codification-topics/<int:topic_id>/sub-topics/', methods=['GET'])
+@codification_topics_bp.route('/codification-topics/<topic_id>/sub-topics/', methods=['GET'])
 def get_sub_topics_topic(topic_id):
     sub_topics = get_sub_topics_of_topic(topic_id)
     return jsonify([sub_topic.to_dict() for sub_topic in sub_topics])

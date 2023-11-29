@@ -1,7 +1,4 @@
-from server_app.api.codification_topic_api import get_all_topics
-from server_app.api.codification_sub_topic_api import get_sub_topics_of_topic
-from server_app.api.codification_indexes_api import get_indexes_sub_topic, get_indexes_child
-
+from server_app.dao.codification_topic_dao import get_all_topics
 def test_get_all_topics():
     topics = get_all_topics()
     print(topics)

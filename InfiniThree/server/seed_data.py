@@ -18,15 +18,15 @@ if __name__ == '__main__':
         listAll = []
         for chuDe in dataObj:
             topic = dataObj.get(chuDe)
-            cd = CodificationTopic(name=topic.get('Text'), order=topic.get('STT'))
+            cd = CodificationTopic(id=topic.get('Value'), name=topic.get('Text'), order=topic.get('STT'))
             listAll.append(cd)
             for deMuc in topic.get('children'):
-                dm = CodificationSubTopic(name=deMuc.get('Text'), order=deMuc.get('STT'), topic=cd)
+                dm = CodificationSubTopic(id=deMuc.get('Value'), name=deMuc.get('Text'), order=deMuc.get('STT'), topic=cd)
                 if deMuc.get('children'):
                     for loop, items  in enumerate(deMuc.get('children')):
                         type = index.get(items.get('index'))
                         value = items.get('value')
-                        cm = CodificationIndex(name=value.get('TEN'), order=loop+1, sub_topic=dm, index_type=type)
+                        cm = CodificationIndex(id=value.get('ID') , name=value.get('TEN'), order=loop+1, map_index=value.get('MAPC'), sub_topic=dm, index_type=type)
                         
                         if items.get('children'):
                             obj = items
@@ -35,7 +35,7 @@ if __name__ == '__main__':
                                 for loop, item in enumerate(obj.get('children')):
                                     type = index.get(item.get('index'))
                                     value = item.get('value')
-                                    cmCo = CodificationIndex(name=value.get('TEN'), order=loop+1, index_type=type, parent=objData)
+                                    cmCo = CodificationIndex(id=value.get('ID'), name=value.get('TEN'), order=loop+1, map_index=value.get('MAPC'), sub_topic=dm, index_type=type, parent=objData)
                                 obj = item
                                 objData = cmCo                                
 
