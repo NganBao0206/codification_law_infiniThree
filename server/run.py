@@ -10,7 +10,7 @@ app.register_blueprint(codification_indexes_bp)
 
 @app.route('/')
 def home():
-    return "home page"
+    return "home page new"
 
 if __name__ == '__main__':
     app.run(host=host)
