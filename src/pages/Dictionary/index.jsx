@@ -92,7 +92,7 @@ const Dictionary = () => {
                         <TreeView data={topics}></TreeView>
                     </div>
                     <div className="col-span-7 px-5" >
-                        <div className="px-10 py-5 bg-white shadow-3xl" dangerouslySetInnerHTML={{ __html: html }} />
+                        {/* <div className="px-10 py-5 bg-white shadow-3xl" dangerouslySetInnerHTML={{ __html: html }} /> */}
                     </div>
 
                 </div>
