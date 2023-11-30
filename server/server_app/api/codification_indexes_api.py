@@ -1,9 +1,7 @@
-from flask import Blueprint, jsonify
-from server_app.dao.codification_index_dao import *
+from flask import Blueprint
+from server_app.controller.codification_index_controller import get_indexes_child
 
 codification_indexes_bp = Blueprint('codification_indexes', __name__)
 
-@codification_indexes_bp.route('/codification-indexes/<indexes_id>/children/', methods=['GET'])
-def get_indexes_child(indexes_id):
-    indexes = get_child_indexes_of_index(indexes_id)
-    return jsonify([index.to_dict() for index in indexes])
+codification_indexes_bp.route('/<indexes_id>/children/', methods=['GET'])(get_indexes_child)
+
