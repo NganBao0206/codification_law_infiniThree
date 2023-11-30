@@ -56,7 +56,7 @@ const SignUp = () => {
                         <h3 className="mb-2">Mã captcha</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="captcha" className="styled-input" type="text" />
                     </div>
-                    <div className="col-span-1 w-full relative">
+                    <div className="col-span-2 md:col-span-1 w-full relative">
                         <div className="captcha styled-input">{captcha}</div>
                         <div onClick={generateCaptcha} className="reload-captcha"><TbReload size="25" className="text-white" /> </div>
                     </div>

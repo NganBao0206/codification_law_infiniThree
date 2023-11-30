@@ -10,32 +10,59 @@ const Dictionary = () => {
     const FileContext = createContext();
     const [file, setFile] = useState();
     const [topics, setTopics] = useState([]);
+    const [subTopics, setSubTopics] = useState([]);
+    const [selectedTopic, setSelectedTopic] = useState('');
 
     useEffect(() => {
-        const getTopics = async () => {
-            try {
-                const res = APIs.get(endpoints["topics"]);
-                if (res.status == 200) {
-                    setTopics(res.data);
-                }
-            } catch (ex) {
-                console.error(ex);
-            }
-        }
-        const getHtml = () => {
-            fetch(url).then(res => res.text())
-                .then(data => setHTML(data));
-        }
         getTopics();
         getHtml();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (selectedTopic) {
+            getSubTopic(selectedTopic);
+        }
+    }, [selectedTopic]);
+
+    const getTopics = async () => {
+        try {
+            const res = await APIs.get(endpoints["topics"]);
+            if (res.status === 200) {
+                setTopics(res.data);
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
+
+    const getHtml = () => {
+        fetch(url).then(res => res.text())
+            .then(data => setHTML(data));
+    };
+
+    const getSubTopic = async (id) => {
+        try {
+            const url = endpoints.subTopics(id);
+            const res = await APIs.get(url);
+            if (res.status === 200) {
+                setSubTopics(res.data);
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    };
+
+    const changeTopic = (event) => {
+        setSelectedTopic(event.target.value);
+    };
+
 
     return (
         <div >
             <h1 className="dictionary-title">Bộ pháp điển điện tử</h1>
             <div className="search-grid">
                 <div className="relative">
-                    <select className="select-title" >
+                    <select onChange={changeTopic} className="select-title" >
                         <option value="">-- Xem theo chủ đề --</option>
                         <>
                             {topics && topics.map((topic, index) => {
@@ -48,10 +75,9 @@ const Dictionary = () => {
                 <div className="relative">
                     <select className="select-title" >
                         <option >-- Xem theo Đề mục --</option>
-                        <option value="US">United States</option>
-                        <option value="CA">Canada</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
+                        {subTopics.map((subTopic, index) => (
+                            <option key={index} value={subTopic.id}>{subTopic.name}</option>
+                        ))}
                     </select>
                     <FaCaretDown className="arrow" />
                 </div>

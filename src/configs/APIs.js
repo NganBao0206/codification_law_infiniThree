@@ -5,7 +5,7 @@ const SERVER = import.meta.env.VITE_SERVER_URL;
 
 export const endpoints = {
     "topics": `/api/codification-topics/`,
-
+    "subTopics": (id) => `/api/codification-topics/${id}/sub-topics/`
 
     // "current-user": `/api/current-user/`,
     // "register": `/api/users/`,
