@@ -25,7 +25,7 @@ body {
 }
 
 .styled-input {
-    @apply border border-dark/75 text-gray-900 focus:border-dark block w-full p-3 col-span-8;
+    @apply border border-dark/75 text-gray-900 focus:border-dark block w-full p-2 md:p-3 col-span-8;
 }
 
 .background {

@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound"
 import Dictionary from "./pages/Dictionary"
 import SignIn from "./pages/SignIn"
 import SendNews from "./pages/SendNews"
+import SignUp from "./pages/SignUp"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
               <Route path="/bo-phap-dien" element={<Dictionary />} />
               <Route path="/dien-dan" element={<Home />} />
               <Route path="/dang-nhap" element={<SignIn />} />
+              <Route path="/dang-ky" element={<SignUp />} />
               <Route path="/gui-bai" element={<SendNews />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

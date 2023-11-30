@@ -17,7 +17,7 @@ const Home = () => {
 
                 </div>
                 <div className="right-side">
-                    <img className="object-fit h-full" src={content} alt="Content" />
+                    <img className="object-cover h-full" src={content} alt="Content" />
                 </div>
             </div >
 

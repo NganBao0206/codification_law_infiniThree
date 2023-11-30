@@ -1,19 +1,15 @@
 .login-title {
-    @apply text-center font-bold text-xl py-6 lg:py-12 lg:text-3xl;
-}
-
-.login-input {
-    @apply w-full lg:w-1/2 md:grid grid-cols-10 mx-auto items-center;
-}
-
-.login-input > h3 {
-    @apply col-span-2;
+    @apply text-center font-bold text-xl py-6 lg:pt-12 lg:text-3xl;
 }
 
 .login-form {
-    @apply px-5 border-dark border-2 mb-5 mx-auto flex flex-col gap-5 md:px-10 pb-12 bg-white shadow-4xl mt-12 lg:w-1/2;
+    @apply px-5 border-dark border-2 mb-5 mx-auto flex flex-col gap-3 md:px-10 pb-12 bg-white shadow-4xl lg:w-1/2;
 }
 
 .login-btn {
     @apply border-dark border-[2px] px-4 py-2 bg-button text-white hover:bg-buttonShadow w-full md:w-1/4 md:mx-auto lg:w-1/2;
+}
+
+.text-link {
+    @apply ml-1 font-bold text-button hover:underline;
 }
