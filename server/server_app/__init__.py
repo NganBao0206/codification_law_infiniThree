@@ -1,3 +1,4 @@
+import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config, config_type, CORS_URL, JWT_SECRET_KEY
@@ -8,6 +9,7 @@ app = Flask(__name__)
 app.config.from_object(config[config_type])
 app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+app.logger.setLevel(logging.DEBUG)
 
 jwt = JWTManager(app)
 
