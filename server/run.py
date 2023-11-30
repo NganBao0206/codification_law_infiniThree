@@ -10,7 +10,7 @@ app.register_blueprint(codification_indexes_bp, url_prefix='/api/codification-in
 
 @app.route('/')
 def home():
-    return "home page new"
+    return "home page test remove -v"
 
 if __name__ == '__main__':
     app.run(host=host)
