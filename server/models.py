@@ -41,7 +41,7 @@ class UserRole(Enum):
 
 class User(BaseModel):
     __tablename__ = 'user'
-    id = Column(Integer, primary_key=True, autoincreament=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100))
     username = Column(String(50), unique=True)
     password = Column(String(100))
@@ -49,7 +49,7 @@ class User(BaseModel):
     avatar = Column(Text, nullable=True)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
-    role = Column(Enum(UserRole), default=UserRole.USER)
+    role = Column(db.Enum(UserRole), default=UserRole.USER)
 
     def __str__(self):
         return self.name
