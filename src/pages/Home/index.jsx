@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 import { LuArrowUpRight } from "react-icons/lu";
-import content from "../../assets/content.png";
+import content from "../../assets/poster.png";
 
 const Home = () => {
 
