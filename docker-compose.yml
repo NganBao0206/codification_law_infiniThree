@@ -14,7 +14,7 @@ services:
       - DB_NAME=law-db
       - DOCKER_ENV=1
       - HOST=0.0.0.0
-      - CORS_URL=https://infinithree.netlify.app/
+      - CORS_URL=https://infinithree.netlify.app
     depends_on:
       - db
   db:
