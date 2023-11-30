@@ -1,10 +1,10 @@
 import axios from "axios";
 // import cookie from "react-cookies";
 
-const SERVER = "http://localhost:5000";
+const SERVER = import.meta.env.VITE_SERVER_URL;
 
 export const endpoints = {
-    "topics": `/codification-topics/`,
+    "topics": `/api/codification-topics/`,
 
 
     // "current-user": `/api/current-user/`,
