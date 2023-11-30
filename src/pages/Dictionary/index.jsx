@@ -5,7 +5,7 @@ import { FaCaretDown } from "react-icons/fa6";
 import APIs, { endpoints } from "../../configs/APIs";
 
 const Dictionary = () => {
-    let url = import.meta.env.VITE_PUBLIC_URL + "0abd54e4-923f-48a3-9f22-b9672dcf4185.html";
+    // let url = import.meta.env.VITE_PUBLIC_URL + "0abd54e4-923f-48a3-9f22-b9672dcf4185.html";
     const [html, setHTML] = useState("");
     const FileContext = createContext();
     const [file, setFile] = useState();
@@ -15,7 +15,7 @@ const Dictionary = () => {
 
     useEffect(() => {
         getTopics();
-        getHtml();
+        //  getHtml();
     }, []);
 
     useEffect(() => {
