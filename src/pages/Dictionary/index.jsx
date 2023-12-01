@@ -4,10 +4,10 @@ import "./style.css";
 import { FaCaretDown } from "react-icons/fa6";
 import APIs, { endpoints } from "../../configs/APIs";
 
+export const FileContext = createContext();
+
 const Dictionary = () => {
-    // let url = import.meta.env.VITE_PUBLIC_URL + "0abd54e4-923f-48a3-9f22-b9672dcf4185.html";
-    const [html, setHTML] = useState("");
-    const FileContext = createContext();
+    const [html, setHTML] = useState();
     const [file, setFile] = useState();
     const [topics, setTopics] = useState([]);
     const [subTopics, setSubTopics] = useState([]);
@@ -15,8 +15,13 @@ const Dictionary = () => {
 
     useEffect(() => {
         getTopics();
-        //  getHtml();
     }, []);
+
+    useEffect(() => {
+        let url = import.meta.env.VITE_PUBLIC_URL + file + ".html";
+        console.log(url)
+        getHtml(url);
+    }, [file])
 
     useEffect(() => {
         if (selectedTopic) {
@@ -35,10 +40,20 @@ const Dictionary = () => {
         }
     };
 
-    const getHtml = () => {
-        fetch(url).then(res => res.text())
-            .then(data => setHTML(data));
+    const getHtml = async (url) => {
+        try {
+            const res = await fetch(url);
+            if (res.status === 200) {
+                const text = await res.text();
+                setHTML(text);
+                console.log(text);
+            }
+        }
+        catch (ex) {
+            console.error(ex);
+        }
     };
+
 
     const getSubTopic = async (id) => {
         try {
@@ -92,7 +107,9 @@ const Dictionary = () => {
                         <TreeView data={topics}></TreeView>
                     </div>
                     <div className="col-span-7 px-5" >
-                        {/* <div className="px-10 py-5 bg-white shadow-3xl" dangerouslySetInnerHTML={{ __html: html }} /> */}
+                        {html &&
+                            <div className="px-10 py-5 bg-white shadow-3xl" dangerouslySetInnerHTML={{ __html: html }} />
+                        }
                     </div>
 
                 </div>

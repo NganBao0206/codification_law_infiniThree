@@ -8,7 +8,7 @@ const TreeView = ({ data }) => {
     return (
         <>
             {data.map((node, index) => {
-                return (<TreeNode key={index} data={node}></TreeNode>);
+                return (<TreeNode key={index} data={node} level={0}></TreeNode>);
             })}
         </>
     );
