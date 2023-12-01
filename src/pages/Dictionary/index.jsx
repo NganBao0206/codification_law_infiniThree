@@ -12,6 +12,7 @@ const Dictionary = () => {
     const [topics, setTopics] = useState([]);
     const [subTopics, setSubTopics] = useState([]);
     const [selectedTopic, setSelectedTopic] = useState('');
+    const [filterTopic, setFilterTopic] = useState(null);
 
     useEffect(() => {
         getTopics();
@@ -19,15 +20,18 @@ const Dictionary = () => {
 
     useEffect(() => {
         let url = import.meta.env.VITE_PUBLIC_URL + file + ".html";
-        console.log(url)
         getHtml(url);
     }, [file])
 
     useEffect(() => {
-        if (selectedTopic) {
+        if (selectedTopic.length > 0) {
             getSubTopic(selectedTopic);
+            setFilterTopic(topics.filter(topic => String(topic.id) === selectedTopic));
         }
-    }, [selectedTopic]);
+        else {
+            setFilterTopic(topics);
+        }
+    }, [selectedTopic, topics]);
 
     const getTopics = async () => {
         try {
@@ -46,7 +50,6 @@ const Dictionary = () => {
             if (res.status === 200) {
                 const text = await res.text();
                 setHTML(text);
-                console.log(text);
             }
         }
         catch (ex) {
@@ -70,7 +73,6 @@ const Dictionary = () => {
     const changeTopic = (event) => {
         setSelectedTopic(event.target.value);
     };
-
 
     return (
         <div >
@@ -104,11 +106,11 @@ const Dictionary = () => {
             <FileContext.Provider value={{ file, setFile }}>
                 <div className="p-2 lg:p-10 grid grid-cols-10">
                     <div className="col-span-3 border-r-2 border-dark p-2">
-                        <TreeView data={topics}></TreeView>
+                        <TreeView data={filterTopic ? filterTopic : topics}></TreeView>
                     </div>
                     <div className="col-span-7 px-5" >
                         {html &&
-                            <div className="px-10 py-5 bg-white shadow-3xl" dangerouslySetInnerHTML={{ __html: html }} />
+                            <div className="px-10 py-5 bg-white shadow-3xl h-[120rem] overflow-y-auto" dangerouslySetInnerHTML={{ __html: html }} />
                         }
                     </div>
 
