@@ -69,9 +69,9 @@ const TreeNode = ({ data, level }) => {
             case 0:
                 return <span className="col-span-9">Chủ đề {data.order}: {data.name} </span>;
             case 1:
-                return <span className="col-span-9">Đề mục {data.order}: {data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data.id); }} className="hover:underline">(Xem chi tiết)</span> </span>;
+                return <span className="col-span-9">Đề mục {data.order}: {data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data.id); }} className="hover:underline hover:font-bold hover:text-button">(Xem chi tiết)</span> </span>;
             default:
-                return <span className="col-span-9">{data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data["sub_topic_id"]); }} className="hover:underline">(Xem chi tiết)</span> </span>;
+                return <span className="col-span-9">{data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data["sub_topic_id"]); }} className="hover:underline hover:font-bold hover:text-button">(Xem chi tiết)</span> </span>;
         }
     }
 

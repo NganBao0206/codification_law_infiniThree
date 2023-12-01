@@ -99,7 +99,7 @@ const Dictionary = () => {
 
     return (
         <div >
-            <h1 className="title">Bộ pháp điển điện tử</h1>
+            <h1 className="title">Bộ pháp điể n điện tử</h1>
             <div className="search-grid">
                 <div className="relative">
                     <select onChange={changeTopic} className="select-title" >

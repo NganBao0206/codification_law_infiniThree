@@ -1,0 +1,7 @@
+.page-btn {
+    @apply join-item btn bg-transparent rounded text-lg border border-dark hover:border-dark;
+}
+
+.current-page {
+    @apply bg-dark hover:bg-black text-white border border-dark;
+}

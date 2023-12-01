@@ -9,6 +9,8 @@ import SendNews from "./pages/SendNews"
 import SignUp from "./pages/SignUp"
 import Documents from "./pages/Documents"
 import Terms from "./pages/Terms"
+import ChatBot from "./components/ChatBot"
+import SearchTerms from "./pages/SearchTerms"
 
 function App() {
 
@@ -21,7 +23,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/bo-phap-dien" element={<Dictionary />} />
-              <Route path="/thuat-ngu" element={<Terms />} />
+              <Route path="/tra-cuu-thuat-ngu" element={<Terms />} />
+              <Route path="/tim-trong-van-ban" element={<SearchTerms />} />
               <Route path="/dang-nhap" element={<SignIn />} />
               <Route path="/dang-ky" element={<SignUp />} />
               <Route path="/gui-bai" element={<SendNews />} />

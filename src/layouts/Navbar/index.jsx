@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/infinity.png";
 import "./style.css";
+import { FaAngleDown } from "react-icons/fa6";
 
 
 const Navbar = () => {
@@ -16,7 +17,18 @@ const Navbar = () => {
                 <ul className="navbar-menu">
                     <li><Link to="/">Trang chủ</Link></li>
                     <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
-                    <li><Link to="/thuat-ngu">Thuật ngữ</Link></li>
+                    <li>
+                        <div className="dropdown dropdown-bottom dropdown-end ">
+                            <div tabIndex={0} role="button" className="flex items-center gap-2">
+                                <span className="cursor-pointer">Thuật ngữ</span>
+                                <FaAngleDown />
+                            </div>
+                            <ul className="menu dropdown-content mt-3 z-[1] bg-white w-52">
+                                <li><Link to="/tra-cuu-thuat-ngu">Tra cứu</Link></li>
+                                <li><Link to="/tim-trong-van-ban">Tìm trong đoạn văn</Link></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><Link to="/gui-bai">Gửi bài</Link></li>
                     <li><Link to="/dang-nhap"><div className="styled-button">Đăng nhập</div></Link></li>
                 </ul>
@@ -28,7 +40,7 @@ const Navbar = () => {
                 <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                     <li><Link to="/">Trang chủ</Link></li>
                     <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
-                    <li><Link to="/thuat-ngu">Thuật ngữ</Link></li>
+                    <li><Link to="/tra-cuu-thuat-ngu">Thuật ngữ</Link></li>
                     <li><Link to="/gui-bai">Gửi bài</Link></li>
                     <li><Link to="/dang-nhap">Đăng nhập</Link></li>
                 </ul>
