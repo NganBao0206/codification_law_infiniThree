@@ -5,7 +5,7 @@ import hashlib
 def add_user(name, username, password, email, avatar = None):
     user = User(name=name,
                 username=username,
-                password=str(bcrypt.generate_password_hash(password).decode('utf-8')), email=email, avatar = avatar)
+                password=str(bcrypt.generate_password_hash(password).decode('utf-8')), email=email, avatar=avatar)
     db.session.add(user)
     db.session.commit()
     return user

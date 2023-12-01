@@ -14,6 +14,9 @@ services:
       - DB_NAME=law-db
       - DOCKER_ENV=1
       - HOST=0.0.0.0
+      - CLOUDINARY_CLOUD_NAME=dljmwib1r
+      - CLOUDINARY_API_KEY=551239148838771
+      - CLOUDINARY_API_SECRET=FCXYKNM3fQHa9ein5j-WJB90H0s
       - CORS_URL=https://infinithree.netlify.app
     depends_on:
       - db
