@@ -7,12 +7,19 @@ import Dictionary from "./pages/Dictionary"
 import SignIn from "./pages/SignIn"
 import SendNews from "./pages/SendNews"
 import SignUp from "./pages/SignUp"
-import Documents from "./pages/Documents"
 import Terms from "./pages/Terms"
-import ChatBot from "./components/ChatBot"
 import SearchTerms from "./pages/SearchTerms"
+import { createContext, useReducer } from "react"
+import UserReducer from "./reducers/UserReducer"
+import cookies from 'react-cookies'
 
-function App() {
+
+export const UserContext = createContext();
+
+
+const App = () => {
+  const [currentUser, dispatch] = useReducer(UserReducer, cookies.load("user") || null);
+
 
   return (
     <>
