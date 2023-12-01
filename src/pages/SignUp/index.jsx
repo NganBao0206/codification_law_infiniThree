@@ -67,9 +67,11 @@ const SignUp = () => {
         const process = async () => {
             try {
                 let form = new FormData();
-                form.append("register", new Blob([JSON.stringify(user)], {
-                    type: "application/json"
-                }));
+                form.append("name", user.name);
+                form.append("username", user.username);
+                form.append("email", user.username);
+                form.append("password", user.password);
+                form.append("confirm", user.confirm);
                 form.append("avatar", avatarFile[0]);
 
                 let res = await APIs.post(endpoints['register'], form);
@@ -117,7 +119,7 @@ const SignUp = () => {
                     </div>
                     <div className="flex gap-1">
                         <div className="flex items-center justify-center w-full">
-                            <label htmlFor="avatar" className="text-white flex gap-1 items-center justify-center w-fit px-3 py-2 bg-button hover:bg-buttonShadow border-2 border-dark cursor-pointer">
+                            <label htmlFor="avatar" className="add-button">
                                 <p>Thêm ảnh đại điện</p>
                                 <BiImageAdd size="25"></BiImageAdd>
                                 <input id="avatar" type="file" className="hidden" accept='image/*' onChange={(evt) => handleFileChange(evt)} />

@@ -128,10 +128,10 @@ const Dictionary = () => {
 
             <FileContext.Provider value={{ file, setFile, topics, subTopics }}>
                 <div className="p-2 lg:p-10 grid grid-cols-10">
-                    <div className="col-span-3 border-r-2 border-dark p-2">
+                    <div className="col-span-10 lg:col-span-3 border-r-0 border-b-2 lg:border-r-2 lg:border-b-0 border-dark p-2">
                         <TreeView data={filterTopic ? filterTopic : topics}></TreeView>
                     </div>
-                    <div className="col-span-7 px-5" >
+                    <div className="col-span-10 lg:col-span-7 px-5" >
                         {html &&
                             <div className="px-10 py-5 bg-white shadow-3xl h-[120rem] overflow-y-auto" dangerouslySetInnerHTML={{ __html: html }} />
                         }
