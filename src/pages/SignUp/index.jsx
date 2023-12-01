@@ -10,8 +10,8 @@ const SignUp = () => {
     const [user, setUser] = useState();
     const [avatar, setAvatar] = useState(null);
     const [avatarFile, setAvatarFile] = useState(null);
-
     const [errors, setErrors] = useState({});
+    const [showError, setShowError] = useState(false);
     const nav = useNavigate();
 
     const changeUser = (value, field) => {
@@ -62,8 +62,10 @@ const SignUp = () => {
         evt.preventDefault();
         if (Object.keys(errors).length > 0 || !avatarFile) {
             alert("Thông tin đăng ký chưa hợp lệ, vui lòng kiểm tra trước khi hoàn tất");
+            setShowError(true);
             return;
         }
+        setShowError(false);
         const process = async () => {
             try {
                 let form = new FormData();
@@ -73,7 +75,6 @@ const SignUp = () => {
                 form.append("password", user.password);
                 form.append("confirm", user.confirm);
                 form.append("avatar", avatarFile[0]);
-
                 let res = await APIs.post(endpoints['register'], form);
                 if (res.status === 201) {
                     nav("/dang-nhap");
@@ -89,29 +90,32 @@ const SignUp = () => {
         <div className="p-5 md:p-24 ">
             <form onSubmit={register} className="register-form">
                 <h1 className="register-title">Đăng ký tài khoản</h1>
-
                 <div className="form-left">
                     <div>
                         <h3 className="mb-2">Họ tên</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="name" className="styled-input" type="text" />
+                        {showError ? <p id="standard_error_help" className="mt-2 text-sm text-button">{errors.user && errors.user.name}</p> : <></>}
                     </div>
                     <div>
                         <h3 className="mb-2">Tên tài khoản</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="username" className="styled-input" type="text" />
+                        {showError ? <p id="standard_error_help" className="text-sm mt-2 text-button">{errors.user && errors.user.username}</p> : <></>}
                     </div>
                     <div>
-                        <h3 className="mb-2">Tài khoản email</h3>
+                        <h3 className="mb-2">Email</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="email" className="styled-input" type="email" />
+                        {showError ? <p id="standard_error_help" className="text-sm mt-2 text-button">{errors.user && errors.user.email}</p> : <></>}
                     </div>
                     <div>
                         <h3 className="mb-2">Mật khẩu</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="password" className="styled-input" type="password" />
+                        {showError ? <p id="standard_error_help" className="text-sm mt-2 text-button">{errors.user && errors.user.password}</p> : <></>}
                     </div>
                     <div className="mb-5 lg:mb-10" >
                         <h3 className="mb-2">Xác nhận mật khẩu</h3>
                         <input onChange={e => changeUser(e.target.value, e.target.name)} name="confirm" className="styled-input" type="password" />
+                        {showError ? <p id="standard_error_help" className="text-sm mt-2 text-button">{errors.user && errors.user.confirm}</p> : <></>}
                     </div>
-
                 </div>
                 <div className="form-right">
                     <div className="avatar-div">

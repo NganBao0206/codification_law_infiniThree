@@ -11,6 +11,7 @@ export const endpoints = {
     "login": `/api/users/login/`,
     "current-user": `/api/current-user/`,
     "register": `/api/users/register/`,
+    "terminologies": `/api/terminologies/`
 
 }
 
