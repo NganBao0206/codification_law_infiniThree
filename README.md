@@ -1,10 +1,4 @@
-# LLM-ReactJS
-
-
-
-# Getting Started
-
-#Setting Up a Vite + React Project
+# Setting Up a Vite + React Project
 1. Create a React App with Vite
 Create a new directory for your project
 `mkdir my-react-app`
