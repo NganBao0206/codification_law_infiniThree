@@ -7,10 +7,15 @@ def register():
     email = request.form.get("email", None)
     name = request.form.get('name', None)
     password = request.form.get("password", None)
+    try:
+        user = add_user(name = name, username = username, password = password, email = email)
+        print(user)
+        return jsonify({"msg": "register sucess"}), 201
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 400
 
-    user = add_user(name = name, username = username, password = password, email = email)
-    print(user)
-    return jsonify({"msg": "register sucess"}), 201
+
+
 
 def login():
     username = request.json.get("username", None)
