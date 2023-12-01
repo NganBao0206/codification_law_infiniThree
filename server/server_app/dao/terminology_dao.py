@@ -21,4 +21,3 @@ def count_terminology(kw: str = None):
         query = query.filter(or_(Terminology.value.ilike(f"%{kw}%"), Terminology.description.ilike(f"%{kw}%")))
 
     return query.count()
-

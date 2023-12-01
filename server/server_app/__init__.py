@@ -16,5 +16,3 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/api/*": {"origins": CORS_URL}})
 db = SQLAlchemy(app=app)        
-
-        
