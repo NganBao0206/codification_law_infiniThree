@@ -30,21 +30,17 @@ def search_terminology_form_paragraph():
     file_path = os.path.join(app.root_path, 'data_terminologies', 'full_thuat_ngu_procesing_v3.csv')
     data_terminologies = pd.read_csv(file_path)
     words = []
-    for x in data_terminologies.iloc:
-        try: 
-            if x['thuatngu']:
-                rs = is_in(x['thuatngu'].lower().strip(), paragraph)
-                if rs != -1:
-                    words.append({'word': x['thuatngu'], 'mean': x['mota']})
-        except:
-            print("err")
+    for row in data_terminologies.iloc:
+        if row['thuatngu']:
+            if is_existed(row['thuatngu'].lower().strip(), paragraph):
+                words.append({'word': row['thuatngu'], 'mean': row['mota']})
+        print("err")
                 
-    
     return jsonify(words), 200
     
     
 
-def is_in(x, paragraph):
-    if (x in paragraph):
-        return x
-    return -1
+def is_existed(w, paragraph):
+    if (w in paragraph):
+        return True
+    return False

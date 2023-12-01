@@ -29,6 +29,11 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     DEBUG = False
 
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://test_user:test_password@test_host/test_db'
+
+
 config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig

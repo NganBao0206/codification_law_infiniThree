@@ -97,3 +97,6 @@ for de in finalDeMuc:
     
 
 dataObj = finalChuDe
+
+with open('output.json', 'w') as f:
+    json.dump(dataObj, f)

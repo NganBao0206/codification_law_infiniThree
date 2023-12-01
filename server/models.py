@@ -5,11 +5,6 @@ from enum import Enum
 from sqlalchemy.inspection import inspect
 from datetime import datetime
 
-
-
-
-    
-
 codification_index_parent = db.Table('codification_index_parent',
     Column('id', String(100), primary_key=True),
     Column('index_parent_id', String(100)),
@@ -62,6 +57,9 @@ class CodificationTopic(BaseModel):
     order = Column(Integer, nullable=False)
     
     sub_topics = relationship('CodificationSubTopic', backref=backref('topic', lazy=False), lazy=True)
+    
+    def __str__(self):
+        return self.name
 
 
 codification_sub_topic_index = db.Table('codification_sub_topic_index',
@@ -103,25 +101,6 @@ class CodificationIndex(BaseModel):
     sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id), nullable=False)
     
     # legal_document_indexes = relationship('LegalDocumentIndex', backref=backref('codification_index', uselist=False), uselist=False, lazy=False)
-
-
-# class LegalDocument(BaseModel):
-#     __tablename__ = 'legal_document'
-#     id = Column(String(100), primary_key=True)
-#     name = Column(String(500), nullable=False)
-#     document_type = Column(db.Enum(DocumentType), nullable=False)    
-#     legal_indexes = relationship('LegalDocumentIndex', backref=backref('legal_document', lazy=False), lazy=True)
-    
-    
-# class LegalDocumentIndex(BaseModel):
-#     __tablename__ = 'legal_document_index'
-#     id = Column(String(100), primary_key=True)
-#     name = Column(String(500), nullable=False)
-#     order = Column(Integer, nullable=False)
-#     codification_index_id = Column(String(100), ForeignKey(CodificationIndex.id), nullable=True)
-#     legal_document_id = Column(String(100), ForeignKey(LegalDocument.id), nullable=True)
-
-
     
 
 class Terminology(BaseModel):
