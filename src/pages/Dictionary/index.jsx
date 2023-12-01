@@ -13,6 +13,7 @@ const Dictionary = () => {
     const [subTopics, setSubTopics] = useState([]);
     const [selectedTopic, setSelectedTopic] = useState('');
     const [filterTopic, setFilterTopic] = useState(null);
+    const [selectedSubTopic, setSelectedSubTopic] = useState('');
 
     useEffect(() => {
         getTopics();
@@ -48,7 +49,20 @@ const Dictionary = () => {
         try {
             const res = await fetch(url);
             if (res.status === 200) {
-                const text = await res.text();
+                let text = await res.text();
+
+                // Tạo một DOMParser
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(text, 'text/html');
+
+                // Loại bỏ tất cả các thẻ <img>
+                let imgs = doc.getElementsByTagName('img');
+                while (imgs.length > 0) {
+                    imgs[0].parentNode.removeChild(imgs[0]);
+                }
+
+                // Cập nhật HTML
+                text = doc.body.innerHTML;
                 setHTML(text);
             }
         }
@@ -56,6 +70,7 @@ const Dictionary = () => {
             console.error(ex);
         }
     };
+
 
 
     const getSubTopic = async (id) => {
@@ -74,6 +89,10 @@ const Dictionary = () => {
         setSelectedTopic(event.target.value);
     };
 
+    const changeSubTopic = (event) => {
+        setSelectedSubTopic(event.target.value);
+    };
+
     return (
         <div >
             <h1 className="dictionary-title">Bộ pháp điển điện tử</h1>
@@ -90,7 +109,7 @@ const Dictionary = () => {
                     <FaCaretDown className="arrow" />
                 </div>
                 <div className="relative">
-                    <select className="select-title" >
+                    <select onChange={changeSubTopic} className="select-title" >
                         <option >-- Xem theo Đề mục --</option>
                         {subTopics.map((subTopic, index) => (
                             <option key={index} value={subTopic.id}>{subTopic.name}</option>
