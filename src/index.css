@@ -33,6 +33,10 @@ body {
     background-image: url(./assets/bg.png);
 }
 
+.title {
+    @apply text-center font-bold text-2xl lg:text-4xl p-5 lg:p-10;
+}
+
 .pChuong {
     text-align: center;
     font-weight: bold;

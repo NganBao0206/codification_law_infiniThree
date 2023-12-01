@@ -7,8 +7,10 @@ export const endpoints = {
     "topics": `/api/codification-topics/`,
     "subTopics": (id) => `/api/codification-topics/${id}/sub-topics/`,
     "indexes": (id) => `/api/codification-sub-topics/${id}/indexes/`,
-    "indexChildren": (id) => `/api/codification-indexes/${id}/children/`
-
+    "indexChildren": (id) => `/api/codification-indexes/${id}/children/`,
+    "login": `/api/users/login/`,
+    "current-user": `/api/current-user/`,
+    "register": `/api/users/register/`,
 
 }
 
