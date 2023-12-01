@@ -123,6 +123,20 @@ class CodificationIndex(BaseModel):
 
 
     
+
+class Terminology(BaseModel):
+    __tablename__ = 'terminology'
+    __table_args__ = {'extend_existing': True}
     
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    value = Column(Text)
+    description = Column(Text)
+    source = Column(Text)
+    link = Column(Text)
+    province = Column(String(255))
+
+
+    def __str__(self):
+        return str(self.value)
     
     

@@ -3,6 +3,7 @@ from server_app.api.codification_topic_api import codification_topics_bp
 from server_app.api.codification_sub_topic_api import codification_sub_topics_bp
 from server_app.api.codification_indexes_api import codification_indexes_bp
 from server_app.api.user_api import user_bp
+from server_app.api.terminology_api import terminology_bp
 
 from config import HOST
 from flask import request
@@ -11,6 +12,7 @@ app.register_blueprint(codification_topics_bp, url_prefix='/api/codification-top
 app.register_blueprint(codification_sub_topics_bp, url_prefix='/api/codification-sub-topics')
 app.register_blueprint(codification_indexes_bp, url_prefix='/api/codification-indexes')
 app.register_blueprint(user_bp, url_prefix='/api/users')
+app.register_blueprint(terminology_bp, url_prefix='/api/terminologies')
 
 @app.route('/')
 def home():
