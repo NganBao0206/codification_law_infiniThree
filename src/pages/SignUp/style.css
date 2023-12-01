@@ -33,3 +33,11 @@
 .add-button {
     @apply text-white flex gap-1 items-center justify-center w-fit px-3 py-2 bg-button hover:bg-buttonShadow border-2 border-dark cursor-pointer;
 }
+
+.avatar-div {
+    @apply w-40 h-40 relative shadow-3xl border-2 border-dark;
+}
+
+.avatar-content {
+    @apply w-full h-full flex justify-center items-center font-bold;
+}

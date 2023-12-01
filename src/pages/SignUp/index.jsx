@@ -114,8 +114,8 @@ const SignUp = () => {
 
                 </div>
                 <div className="form-right">
-                    <div className="w-40 h-40 relative shadow-3xl border-2 border-dark">
-                        {avatar ? <img src={avatar} alt="Avatar" className="w-full h-full object-cover" /> : <div className="w-full h-full flex justify-center items-center font-bold">Ảnh đại điện</div>}
+                    <div className="avatar-div">
+                        {avatar ? <img src={avatar} alt="Avatar" className="w-full h-full object-cover" /> : <div className="avatar-content">Ảnh đại điện</div>}
                     </div>
                     <div className="flex gap-1">
                         <div className="flex items-center justify-center w-full">
