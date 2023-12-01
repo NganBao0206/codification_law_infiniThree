@@ -47,3 +47,13 @@ def check_username_existed():
         return jsonify({"msg": "existed"}), 302
     else:
         return jsonify({"msg": "not existed"}), 204
+
+
+def check_email_existed():
+    email = request.args.get('email', default=None, type=str)
+    user = get_user_by_email(email)
+    
+    if user:
+        return jsonify({"msg": "existed"}), 302
+    else:
+        return jsonify({"msg": "not existed"}), 204

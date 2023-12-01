@@ -15,6 +15,10 @@ def get_user_by_username(username):
     return User.query.filter(User.username.__eq__(username.strip())).first()
 
 
+def get_user_by_email(email):
+    return User.query.filter(User.email.__eq__(email.strip())).first()
+
+
 def auth_user(username, password):
     user = get_user_by_username(username=username)
     if user and bcrypt.check_password_hash(user.password, password):
