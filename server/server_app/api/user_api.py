@@ -1,7 +1,8 @@
 from flask import Blueprint
-from server_app.controller.codification_topic_controller import *
+from server_app.controller.user_controller import *
 
-codification_topics_bp = Blueprint('codification_topics', __name__)
+user_bp = Blueprint('user', __name__)
 
-codification_topics_bp.route('/', methods=['GET'])(get_topics)
-codification_topics_bp.route('/<topic_id>/sub-topics/', methods=['GET'])(get_sub_topics_topic)
+user_bp.route('/register/', methods=['POST'])(register)
+user_bp.route('/login/', methods=['POST'])(login)
+
