@@ -14,6 +14,8 @@ const Dictionary = () => {
     const [selectedTopic, setSelectedTopic] = useState('');
     const [filterTopic, setFilterTopic] = useState(null);
     const [selectedSubTopic, setSelectedSubTopic] = useState('');
+    const [filterSubTopic, setFilterSubTopic] = useState(null);
+
 
     useEffect(() => {
         getTopics();
@@ -34,6 +36,15 @@ const Dictionary = () => {
         }
     }, [selectedTopic, topics]);
 
+    useEffect(() => {
+        if (selectedTopic.length > 0) {
+            setFilterSubTopic(subTopics.filter(subTopic => String(subTopic.id) === selectedSubTopic));
+        }
+        else {
+            setFilterTopic(subTopics);
+        }
+    }, [selectedSubTopic, subTopics]);
+
     const getTopics = async () => {
         try {
             const res = await APIs.get(endpoints["topics"]);
@@ -50,18 +61,12 @@ const Dictionary = () => {
             const res = await fetch(url);
             if (res.status === 200) {
                 let text = await res.text();
-
-                // Tạo một DOMParser
                 let parser = new DOMParser();
                 let doc = parser.parseFromString(text, 'text/html');
-
-                // Loại bỏ tất cả các thẻ <img>
                 let imgs = doc.getElementsByTagName('img');
                 while (imgs.length > 0) {
                     imgs[0].parentNode.removeChild(imgs[0]);
                 }
-
-                // Cập nhật HTML
                 text = doc.body.innerHTML;
                 setHTML(text);
             }
@@ -70,7 +75,6 @@ const Dictionary = () => {
             console.error(ex);
         }
     };
-
 
 
     const getSubTopic = async (id) => {
@@ -122,7 +126,7 @@ const Dictionary = () => {
                 </div>
             </div>
 
-            <FileContext.Provider value={{ file, setFile }}>
+            <FileContext.Provider value={{ file, setFile, topics, subTopics }}>
                 <div className="p-2 lg:p-10 grid grid-cols-10">
                     <div className="col-span-3 border-r-2 border-dark p-2">
                         <TreeView data={filterTopic ? filterTopic : topics}></TreeView>
