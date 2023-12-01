@@ -7,6 +7,8 @@ def register():
     email = request.form.get("email", None)
     name = request.form.get('name', None)
     password = request.form.get("password", None)
+    print(request)
+    print(request.form)
     print(username)
     print(email)
     print(name)
