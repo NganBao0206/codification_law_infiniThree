@@ -7,6 +7,11 @@ def register():
     email = request.form.get("email", None)
     name = request.form.get('name', None)
     password = request.form.get("password", None)
+    print(username)
+    print(email)
+    print(name)
+    print(password)
+
     try:
         user = add_user(name = name, username = username, password = password, email = email)
         print(user)
