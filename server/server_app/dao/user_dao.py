@@ -2,7 +2,7 @@ from server_app import db, bcrypt
 from models import User
 import hashlib
 
-def add_user(name, username, password, email, avatar):
+def add_user(name, username, password, email, avatar = None):
     user = User(name=name,
                 username=username,
                 password=str(bcrypt.generate_password_hash(password).decode('utf-8')), email=email, avatar = avatar)
