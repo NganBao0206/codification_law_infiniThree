@@ -39,7 +39,7 @@ def test_login(client, db_test):
         'username': username,
         'password': password
     }
-    response = client.post('/api/users/login/', json=user_data)
+    response = client.post('/api/users/login/', json=jsonify(user_data))
     assert response.status_code == 200
     assert response.content_type == 'application/json'
     data = json.loads(response.data)
