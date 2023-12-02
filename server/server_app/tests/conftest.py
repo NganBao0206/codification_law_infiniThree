@@ -12,6 +12,8 @@ from server_app.api.terminology_api import terminology_bp
 @pytest.fixture(scope='session', autouse=True)
 def app_test():
     app.config.update({"TESTING": True})
+    app.config['JWT_SECRET_KEY'] = "31231231hn1j2kbkjn13u123ih11"
+
     yield app
 
 

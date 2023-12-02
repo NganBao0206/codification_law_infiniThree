@@ -44,3 +44,5 @@ def is_existed(w, paragraph):
     if (w in paragraph):
         return True
     return False
+
+
