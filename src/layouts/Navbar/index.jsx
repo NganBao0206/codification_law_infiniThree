@@ -29,7 +29,8 @@ const Navbar = () => {
                             </ul>
                         </div>
                     </li>
-                    <li><Link to="/gui-bai">Gửi bài</Link></li>
+                    <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
+                    <li><Link to="/lien-he">Liên hệ</Link></li>
                     <li><Link to="/dang-nhap"><div className="styled-button">Đăng nhập</div></Link></li>
                 </ul>
             </div>
@@ -41,7 +42,8 @@ const Navbar = () => {
                     <li><Link to="/">Trang chủ</Link></li>
                     <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
                     <li><Link to="/tra-cuu-thuat-ngu">Thuật ngữ</Link></li>
-                    <li><Link to="/gui-bai">Gửi bài</Link></li>
+                    <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
+                    <li><Link to="/lien-he">Liên hệ</Link></li>
                     <li><Link to="/dang-nhap">Đăng nhập</Link></li>
                 </ul>
             </div>

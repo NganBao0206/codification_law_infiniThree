@@ -14,6 +14,7 @@ import cookies from 'react-cookies'
 import DictionaryLayout from "./layouts/DictionaryLayout"
 import DictionaryDetail from "./pages/DictionaryDetail"
 import Forums from "./pages/Forums"
+import Contact from "./pages/Contact"
 
 
 export const UserContext = createContext();
@@ -39,7 +40,9 @@ const App = () => {
               <Route path="/dien-dan-phap-luat" element={<Forums />} />
               <Route path="/dang-nhap" element={<SignIn />} />
               <Route path="/dang-ky" element={<SignUp />} />
+              <Route path="/lien-he" element={<Contact />} />
               <Route path="/gui-bai" element={<SendNews />} />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

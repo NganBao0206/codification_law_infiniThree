@@ -4,7 +4,6 @@ import { LuArrowUpRight } from "react-icons/lu";
 import content from "../../assets/poster.png";
 
 const Home = () => {
-
     return (
         <>
             <div className="content">
@@ -14,7 +13,6 @@ const Home = () => {
                         <span>Xem ngay</span>
                         <LuArrowUpRight size="23" />
                     </Link>
-
                 </div>
                 <div className="right-side">
                     <img className="object-cover w-full" src={content} alt="Content" />

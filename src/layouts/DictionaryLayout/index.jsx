@@ -59,6 +59,7 @@ const DictionaryLayout = () => {
 
     const getHtml = async (url) => {
         try {
+            if (!url) return;
             const res = await fetch(url);
             if (res.status === 200) {
                 let text = await res.text();
