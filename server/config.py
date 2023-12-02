@@ -19,6 +19,7 @@ CORS_URL = os.getenv('CORS_URL')
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 PER_PAGE = 50
 
+SQLALCHEMY_DATABASE_URI = ""
 
 class Config:
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.getenv('DB_USER')}:{quote(os.getenv('DB_PASS'))}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
@@ -31,7 +32,7 @@ class ProductionConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://test_user:test_password@test_host/test_db'
+    SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{os.getenv('DB_USER')}:{quote(os.getenv('DB_PASS'))}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
 
 
 config = {

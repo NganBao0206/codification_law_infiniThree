@@ -26,17 +26,16 @@ def register():
         return jsonify({"msg": str(e)}), 400
 
 
-
-
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     user = auth_user(username, password)
     if user:
         access_token = create_access_token(identity=user.id)
-        return jsonify({"access_token": access_token, "user": user}), 200
+        return jsonify({"access_token": access_token, "user": user.to_dict()}), 200
     else:
         return jsonify({"msg": "Login mismatch. Try again"}), 401
+
 
 
 def check_username_existed():

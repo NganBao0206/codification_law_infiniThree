@@ -1,5 +1,6 @@
 from server_app import db, bcrypt
 from models import User
+    
 
 def add_user(name, username, password, email, avatar = None):
     user = User(name=name,

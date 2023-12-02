@@ -19,14 +19,10 @@ bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/api/*": {"origins": CORS_URL}})
 db = SQLAlchemy(app=app)        
 
-def create_app_test():
+def create_app():
     app = Flask(__name__)
     app.config.from_object(config[config_type])
     app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
     app.config["JWT_TOKEN_LOCATION"] = ["headers"]
     app.logger.setLevel(logging.DEBUG)
     return app
-
-def create_db_test(app):
-    return SQLAlchemy(app=app)        
-
