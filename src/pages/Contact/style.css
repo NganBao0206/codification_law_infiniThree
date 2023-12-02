@@ -1,0 +1,3 @@
+.contact-form {
+    @apply px-5 md:px-10 border-dark border-2 mb-5 mx-auto  pb-10 w-full lg:w-[70%] bg-white shadow-4xl;
+}

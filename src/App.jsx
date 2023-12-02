@@ -22,33 +22,34 @@ export const UserContext = createContext();
 
 const App = () => {
   const [currentUser, dispatch] = useReducer(UserReducer, cookies.load("user") || null);
-
-
   return (
     <>
-      <div className="background">
-        <BrowserRouter>
-          <div className="md:container mx-auto min-h-screen">
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/bo-phap-dien" element={<DictionaryLayout />} >
-                <Route path=":slugTopic" element={<DictionaryDetail />}></Route>
-              </Route>
-              <Route path="/tra-cuu-thuat-ngu" element={<Terms />} />
-              <Route path="/tim-trong-van-ban" element={<SearchTerms />} />
-              <Route path="/dien-dan-phap-luat" element={<Forums />} />
-              <Route path="/dang-nhap" element={<SignIn />} />
-              <Route path="/dang-ky" element={<SignUp />} />
-              <Route path="/lien-he" element={<Contact />} />
-              <Route path="/gui-bai" element={<SendNews />} />
+      <UserContext.Provider value={{ currentUser, dispatch }}>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-          <Footer />
-        </BrowserRouter >
-      </div>
+        <div className="background">
+          <BrowserRouter>
+            <div className="md:container mx-auto min-h-screen">
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/bo-phap-dien" element={<DictionaryLayout />} >
+                  <Route path=":slugTopic" element={<DictionaryDetail />}></Route>
+                </Route>
+                <Route path="/tra-cuu-thuat-ngu" element={<Terms />} />
+                <Route path="/tim-trong-van-ban" element={<SearchTerms />} />
+                <Route path="/dien-dan-phap-luat" element={<Forums />} />
+                <Route path="/dang-nhap" element={<SignIn />} />
+                <Route path="/dang-ky" element={<SignUp />} />
+                <Route path="/lien-he" element={<Contact />} />
+                <Route path="/gui-bai" element={<SendNews />} />
+
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+            <Footer />
+          </BrowserRouter >
+        </div>
+      </UserContext.Provider>
     </>
   )
 }

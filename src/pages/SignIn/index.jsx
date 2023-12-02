@@ -1,12 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./style.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import APIs, { endpoints } from "../../configs/APIs";
+import cookies from "react-cookies";
+import { UserContext } from "../../App";
 
 const SignIn = () => {
 
     const [user, setUser] = useState();
     const nav = useNavigate();
+    const { dispatch, currentUser } = useContext(UserContext);
 
     const changeUser = (value, field) => {
         setUser((current) => {
@@ -29,7 +32,14 @@ const SignIn = () => {
                         }
                     });
                 if (res.status === 200) {
+                    cookies.save("access_token", res.data["access_token"], {});
+                    cookies.save("user", res.data["user"], {});
+                    dispatch({
+                        "type": "login",
+                        "payload": res.data["user"]
+                    });
                     nav("/");
+
                 }
             } catch (ex) {
                 console.error(ex);
@@ -38,6 +48,9 @@ const SignIn = () => {
         process();
     }
 
+    if (currentUser) {
+        return <Navigate to="/" />
+    }
 
     return (
         <div className="p-5 md:p-24 ">

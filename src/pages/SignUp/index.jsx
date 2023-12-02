@@ -121,7 +121,7 @@ const SignUp = () => {
 
     return (
         <div className="p-5 md:p-24 ">
-            <form onSubmit={register} className="primary-form">
+            <form onSubmit={register} className="register-form">
                 <h1 className="register-title">Đăng ký tài khoản</h1>
                 <div className="form-left">
                     <div>

@@ -25,7 +25,6 @@ const DictionaryLayout = () => {
     useEffect(() => {
         let url = import.meta.env.VITE_PUBLIC_URL + file + ".html";
         getHtml(url);
-        console.log('[DEBUG - USESTATE FILE] - ' + url)
     }, [file])
 
     useEffect(() => {
@@ -61,12 +60,9 @@ const DictionaryLayout = () => {
     const getHtml = async (url) => {
         try {
             if (!url) {
-                console.log('[DEBUG - gethtml] - empty -' + url)
                 return;
             }
             const res = await fetch(url);
-            console.log('[DEBUG - gethtml] - finish -' + url)
-
             if (res.status === 200) {
                 let text = await res.text();
                 let parser = new DOMParser();
@@ -77,13 +73,10 @@ const DictionaryLayout = () => {
                 }
                 text = doc.body.innerHTML;
                 setHTML(text);
-                console.log('[DEBUG - gethtml] - finish -' + text)
-
             }
         }
         catch (ex) {
             console.error(ex);
-            console.log('[DEBUG - gethtml] - error -' + url)
         }
     };
 

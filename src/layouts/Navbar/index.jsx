@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import logo from "../../assets/infinity.png";
 import "./style.css";
 import { FaAngleDown } from "react-icons/fa6";
+import { useContext } from "react";
+import { UserContext } from "../../App";
 
 
 const Navbar = () => {
+    const { currentUser, dispatch } = useContext(UserContext);
+
+    const logOut = () => {
+        dispatch({
+            "type": "logout"
+        })
+        return (<Navigate to="/dang-nhap" />)
+    }
+
     return (
         <div className="navbar border-b-2 border-dark">
             <div className="flex-1">
@@ -31,7 +42,21 @@ const Navbar = () => {
                     </li>
                     <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
                     <li><Link to="/lien-he">Liên hệ</Link></li>
-                    <li><Link to="/dang-nhap"><div className="styled-button">Đăng nhập</div></Link></li>
+                    {
+                        currentUser ? <>
+                            <div className="dropdown dropdown-bottom dropdown-end ">
+                                <div tabIndex={0} role="button" className="flex items-center gap-2">
+                                    <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small cursor-pointer hover:" src={currentUser.avatar} alt="" />
+                                </div>
+                                <ul className="menu dropdown-content font-normal mt-3 z-[1] bg-white w-52">
+                                    <div className="py-3 px-4"><h1 className="font-bold text-lg">{currentUser.name}</h1></div>
+                                    <li onClick={logOut}><Link >Đăng xuất</Link></li>
+                                </ul>
+                            </div>
+                        </>
+                            : <li><Link to="/dang-nhap"><div className="styled-button">Đăng nhập</div></Link></li>
+
+                    }
                 </ul>
             </div>
             <div className="dropdown dropdown-bottom dropdown-end lg:hidden">

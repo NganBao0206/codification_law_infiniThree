@@ -19,6 +19,7 @@ export default {
       },
     },
     boxShadow: {
+      'small': '0.2rem 0.2rem #483b34',
       '3xl': '0.5rem 0.5rem #483b34',
       '4xl': '0.75rem 0.75rem #483b34',
       'disabled': '0 0 #000',
