@@ -58,7 +58,6 @@ const TreeNode = ({ data, level }) => {
     const handleExpand = async () => {
         if (!fetched) {
             const fetchedItems = await fetchData(level, data.id);
-            console.log(fetchedItems);
             setItems(fetchedItems);
             setFetched(true);
         }

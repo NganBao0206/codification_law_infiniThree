@@ -13,9 +13,6 @@ const Terms = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(currentPage)
-    }, [currentPage]);
 
     useEffect(() => {
         const getTerminologies = async () => {

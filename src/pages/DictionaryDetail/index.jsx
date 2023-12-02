@@ -10,7 +10,6 @@ const DictionaryDetail = () => {
     const { file, setFile, html } = useContext(FileContext);
 
     useEffect(() => {
-        console.log(slugTopic);
         const arr = slugTopic.split("&");
         if (file !== arr[0]) {
             setFile(arr[0]);

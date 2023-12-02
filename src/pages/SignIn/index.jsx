@@ -16,7 +16,6 @@ const SignIn = () => {
 
     const login = (evt) => {
         evt.preventDefault();
-        console.log(user);
         const process = async () => {
             try {
                 let res = await APIs.post(endpoints['login'],
