@@ -58,10 +58,43 @@ const SignUp = () => {
         setAvatarFile(null);
     }
 
+    const checkEmail = async () => {
+        try {
+            const res = APIs.get(endpoints["check-email"], {
+                "email": user.email
+            });
+            if (res.status === 302) {
+                setErrors({
+                    ...errors,
+                    "email": "Email đã tồn tại"
+                });
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
+    const checkUser = async () => {
+        try {
+            const res = await APIs.get(endpoints["check-username"], {
+                "username": user.username
+            });
+            if (res.status === 302) {
+                setErrors({
+                    ...errors,
+                    "username": "Tên tài khoản đã tồn tại"
+                });
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
     const register = (evt) => {
         evt.preventDefault();
+        checkEmail();
+        checkUser();
         if (Object.keys(errors).length > 0 || !avatarFile) {
-            alert("Thông tin đăng ký chưa hợp lệ, vui lòng kiểm tra trước khi hoàn tất");
             setShowError(true);
             return;
         }

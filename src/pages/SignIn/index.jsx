@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import { useState } from "react";
+import APIs, { endpoints } from "../../configs/APIs";
 
 const SignIn = () => {
 
     const [user, setUser] = useState();
+    const nav = useNavigate();
+
     const changeUser = (value, field) => {
         setUser((current) => {
             return { ...current, [field]: value }
@@ -13,8 +16,29 @@ const SignIn = () => {
 
     const login = (evt) => {
         evt.preventDefault();
-        console.log(user)
+        console.log(user);
+        const process = async () => {
+            try {
+                let res = await APIs.post(endpoints['login'],
+                    {
+                        "username": user.username,
+                        "password": user.password
+                    }
+                    , {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                if (res.status === 200) {
+                    nav("/");
+                }
+            } catch (ex) {
+                console.error(ex);
+            }
+        }
+        process();
     }
+
 
     return (
         <div className="p-5 md:p-24 ">
@@ -28,7 +52,7 @@ const SignIn = () => {
                     <h3 className="mb-2">Mật khẩu</h3>
                     <input onChange={e => changeUser(e.target.value, e.target.name)} name="password" className="styled-input" type="password" />
                 </div>
-                <button className="login-btn">Đăng nhập</button>
+                <button onSubmit={login} className="login-btn">Đăng nhập</button>
                 <h3 className="pt-5 text-center text-xs md:text-base">Chưa có tài khoản? <span className="text-link"><Link to="/dang-ky">Đăng ký ngay</Link></span></h3>
             </form>
         </div>

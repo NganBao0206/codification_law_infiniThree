@@ -3,7 +3,6 @@ import Navbar from "./layouts/Navbar"
 import Footer from "./layouts/Footer"
 import Home from "./pages/Home"
 import NotFound from "./pages/NotFound"
-import Dictionary from "./pages/Dictionary"
 import SignIn from "./pages/SignIn"
 import SendNews from "./pages/SendNews"
 import SignUp from "./pages/SignUp"
@@ -12,6 +11,8 @@ import SearchTerms from "./pages/SearchTerms"
 import { createContext, useReducer } from "react"
 import UserReducer from "./reducers/UserReducer"
 import cookies from 'react-cookies'
+import DictionaryLayout from "./layouts/DictionaryLayout"
+import DictionaryDetail from "./pages/DictionaryDetail"
 
 
 export const UserContext = createContext();
@@ -29,7 +30,9 @@ const App = () => {
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/bo-phap-dien" element={<Dictionary />} />
+              <Route path="/bo-phap-dien" element={<DictionaryLayout />} >
+                <Route path=":slugTopic" element={<DictionaryDetail />}></Route>
+              </Route>
               <Route path="/tra-cuu-thuat-ngu" element={<Terms />} />
               <Route path="/tim-trong-van-ban" element={<SearchTerms />} />
               <Route path="/dang-nhap" element={<SignIn />} />

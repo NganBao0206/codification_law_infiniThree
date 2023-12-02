@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { PiFolderOpen, PiFolder, PiFile } from "react-icons/pi";
 import APIs, { endpoints } from "../../../../configs/APIs";
 import { FileContext } from "../..";
+import { Link } from "react-router-dom";
 
 
 const TreeNode = ({ data, level }) => {
@@ -69,14 +70,17 @@ const TreeNode = ({ data, level }) => {
             case 0:
                 return <span className="col-span-9">Chủ đề {data.order}: {data.name} </span>;
             case 1:
-                return <span className="col-span-9">Đề mục {data.order}: {data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data.id); }} className="hover:underline hover:font-bold hover:text-button">(Xem chi tiết)</span> </span>;
+                return <span className="col-span-9">Đề mục {data.order}: {data.name} <span onClick={(evt) => { evt.stopPropagation(); }} className="hover:underline hover:font-bold hover:text-button"><Link to={`${data.id}`}>(Xem chi tiết)</Link></span></span >;
+            case 2:
+                return <span className="col-span-9">{data.name} <span onClick={(evt) => { evt.stopPropagation(); }} className="hover:underline hover:font-bold hover:text-button"> <Link to={`${data["sub_topic_id"]}&${data["map_index"]}`}>(Xem chi tiết)</Link></span> </span>;
             default:
-                return <span className="col-span-9">{data.name} <span onClick={(evt) => { evt.stopPropagation(); setFile(data["sub_topic_id"]); }} className="hover:underline hover:font-bold hover:text-button">(Xem chi tiết)</span> </span>;
+                return <span className="col-span-9">{data.name} <span onClick={(evt) => { evt.stopPropagation(); }} className="hover:underline hover:font-bold hover:text-button"> <Link to={`${data["sub_topic_id"]}&${data["map_index"]}`}>(Xem chi tiết)</Link></span> </span>;
+
         }
     }
 
     useEffect(() => {
-        setExpand(false);
+        setExpand(false); Link
     }, [topics, subTopics]);
 
 

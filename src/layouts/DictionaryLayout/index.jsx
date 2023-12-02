@@ -1,12 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import TreeView from "./components/TreeView";
 import "./style.css";
 import { FaCaretDown } from "react-icons/fa6";
 import APIs, { endpoints } from "../../configs/APIs";
+import { Outlet } from "react-router-dom";
+import TreeView from "./components/TreeView";
 
 export const FileContext = createContext();
 
-const Dictionary = () => {
+const DictionaryLayout = () => {
     const [html, setHTML] = useState();
     const [file, setFile] = useState();
     const [topics, setTopics] = useState([]);
@@ -126,15 +127,13 @@ const Dictionary = () => {
                 </div>
             </div>
 
-            <FileContext.Provider value={{ file, setFile, topics, subTopics }}>
+            <FileContext.Provider value={{ file, setFile, topics, subTopics, html }}>
                 <div className="p-2 lg:p-10 grid grid-cols-10">
-                    <div className="col-span-10 lg:col-span-3 border-r-0 border-b-2 lg:border-r-2 lg:border-b-0 border-dark p-2">
+                    <div className="tree-view">
                         <TreeView data={filterTopic ? filterTopic : topics}></TreeView>
                     </div>
                     <div className="col-span-10 lg:col-span-7 px-5" >
-                        {html &&
-                            <div className="px-10 py-5 bg-white shadow-3xl h-[120rem] overflow-y-auto" dangerouslySetInnerHTML={{ __html: html }} />
-                        }
+                        <Outlet />
                     </div>
 
                 </div>
@@ -143,4 +142,4 @@ const Dictionary = () => {
     );
 };
 
-export default Dictionary;  
+export default DictionaryLayout;  

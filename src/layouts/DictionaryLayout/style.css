@@ -1,0 +1,7 @@
+.dict-grid {
+    @apply p-2 lg:p-10 grid grid-cols-10 overflow-y-auto h-[200vh] my-10;
+}
+
+.tree-view {
+    @apply col-span-10 lg:col-span-3 border-r-0 border-b-2 lg:border-r-2 lg:border-b-0 border-dark p-2 h-[120rem] overflow-y-auto;
+}
