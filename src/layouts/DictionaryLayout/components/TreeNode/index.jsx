@@ -12,17 +12,7 @@ const TreeNode = ({ data, level }) => {
     const { setFile, topics, subTopics } = useContext(FileContext);
 
     const fetchData = async (level, id) => {
-        const fetchIndexChildren = async function (id) {
-            try {
-                const url = endpoints.indexChildren(id);
-                const res = await APIs.get(url);
-                if (res.status === 200) {
-                    return res.data;
-                }
-            } catch (ex) {
-                console.error(ex);
-            }
-        }
+
         switch (level) {
             case 0:
                 const fetchSubTopics = async function (id) {
@@ -51,6 +41,17 @@ const TreeNode = ({ data, level }) => {
                 }
                 return await fetchTopicIndexes(id);
             default:
+                const fetchIndexChildren = async function (id) {
+                    try {
+                        const url = endpoints.indexChildren(id);
+                        const res = await APIs.get(url);
+                        if (res.status === 200) {
+                            return res.data;
+                        }
+                    } catch (ex) {
+                        console.error(ex);
+                    }
+                }
                 return await fetchIndexChildren(id);
         }
     };
