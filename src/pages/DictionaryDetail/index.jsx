@@ -10,24 +10,18 @@ const DictionaryDetail = () => {
     const { file, setFile, html } = useContext(FileContext);
 
     useEffect(() => {
-        const HtmlRefresh = async () => {
-            const arr = slugTopic.split("&");
-            if (file !== arr[0]) {
-                setFile(arr[0]);
-                scrollToTop();
-            }
-            if (arr.length === 2) {
-                if (file !== arr[0]) {
-                    scrollToTop();
-                    setFile(arr[0]);
-                }
-                const curFile = await file;
-                if (curFile === arr[0]) {
-                    scrollToElement(arr[1]);
-                }
-            }
+        console.log(slugTopic);
+        const arr = slugTopic.split("&");
+        if (file !== arr[0]) {
+            setFile(arr[0]);
         }
-        HtmlRefresh();
+        if (arr.length === 2) {
+            if (file !== arr[0]) {
+                scrollToTop();
+                setFile(arr[0]);
+            }
+            scrollToElement(arr[1]);
+        }
     }, [slugTopic])
 
     return (
