@@ -13,6 +13,7 @@ import UserReducer from "./reducers/UserReducer"
 import cookies from 'react-cookies'
 import DictionaryLayout from "./layouts/DictionaryLayout"
 import DictionaryDetail from "./pages/DictionaryDetail"
+import Forums from "./pages/Forums"
 
 
 export const UserContext = createContext();
