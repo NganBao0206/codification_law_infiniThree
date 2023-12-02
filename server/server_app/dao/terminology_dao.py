@@ -14,6 +14,8 @@ def get_terminology(kw: str = None, page: int = 1, per_page: int = PER_PAGE):
 
     return query.all()
 
+
+
 def count_terminology(kw: str = None):
     query = db.session.query(Terminology)
 

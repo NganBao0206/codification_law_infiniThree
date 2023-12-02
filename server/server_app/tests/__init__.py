@@ -23,4 +23,3 @@ index1_2_1 = CodificationIndex(id="5", name="Test Index 1.2.1", order=1, index_t
 index1_2_2 = CodificationIndex(id="6", name="Test Index 1.2.2", order=2, index_type="Chuong", map_index="1", sub_topic_id="2")
 
 index2_1_1 = CodificationIndex(id="7", name="Test Index 1.3.1", order=1, index_type="Chuong", map_index="1312", sub_topic_id="3")
-    

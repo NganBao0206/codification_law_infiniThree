@@ -50,11 +50,7 @@ def test_login(client, db_test):
 
 
 def test_check_username_existed(client, db_test):
-    username = "test_user"
-    user = User(username=username)
-    db_test.session.add(user)
-    db_test.session.commit()
-
+    username = "test_user_api"
     response = client.get('/api/users/username-existed/', query_string={
         'username': username
     })
@@ -66,12 +62,8 @@ def test_check_username_existed(client, db_test):
 
 
 
-def test_check_email_existed(client, db_test):
-    email = "test@example.com"
-    user = User(email=email)
-    db_test.session.add(user)
-    db_test.session.commit()
-
+def test_check_email_existed(client):
+    email = "test_user_api@example.com"
     response = client.get('/api/users/email-existed/', query_string={
         'email': email
     })
