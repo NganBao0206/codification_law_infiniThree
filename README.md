@@ -99,6 +99,14 @@ You will need the following:
 - Python Installation.
 - Pip Installation.
 
+# Features included in the project
+- Register / Login: Includes new user registration and login functionality, information authentication, database storage, and access authorization via tokens.
+- Searching codification tree
+- Look up legal terms: query terms and return pagination results based on keywords and page numbers.
+- Discussion forum
+- Chat bot
+- Contact: provides a JWT-protected API endpoint for sending reports via email. It uses Flask and JWT to authenticate users and send email reports with the content and subject provided from the request.
+
 2. Open your terminal and run the command: `pip install pytest`
 
 # Authors
