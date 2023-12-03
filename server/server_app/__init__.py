@@ -5,7 +5,7 @@ from config import config, config_type, CORS_URL, JWT_SECRET_KEY
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-
+import os
 
 
 app = Flask(__name__)
@@ -18,3 +18,5 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 cors = CORS(app, resources={r"/api/*": {"origins": CORS_URL}})
 db = SQLAlchemy(app=app)        
+
+

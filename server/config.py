@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from urllib.parse import quote
 import cloudinary
 
+# import py_vncorenlp
 
 config_type = ''
 
@@ -18,6 +19,9 @@ HOST = os.getenv('HOST')
 CORS_URL = os.getenv('CORS_URL')
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 PER_PAGE = 50
+
+EMAIL_NAME = os.getenv('EMAIL_NAME')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASS')
 
 SQLALCHEMY_DATABASE_URI = ""
 
@@ -45,3 +49,6 @@ cloudinary.config(
   api_key = os.getenv('CLOUDINARY_API_KEY'), 
   api_secret = os.getenv('CLOUDINARY_API_SECRET')
 )
+
+
+# vncorenlp = py_vncorenlp.VnCoreNLP(save_dir= os.path.join(os.path.dirname(__file__)))
