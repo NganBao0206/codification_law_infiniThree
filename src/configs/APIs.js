@@ -1,5 +1,5 @@
 import axios from "axios";
-// import cookie from "react-cookies";
+import cookies from "react-cookies";
 
 const SERVER = import.meta.env.VITE_SERVER_URL;
 
@@ -22,13 +22,15 @@ export const endpoints = {
     "terminologies": `/api/terminologies/`,
     "search": `/api/terminologies/search-paragraph/`,
 
+    "contact": `/api/contact/`,
+
 }
 
 export const authApi = () => {
     return axios.create({
         baseURL: SERVER,
         headers: {
-            "Authorization": cookie.load("token")
+            "Authorization": 'Bearer ' + cookies.load("token")
         }
     })
 }

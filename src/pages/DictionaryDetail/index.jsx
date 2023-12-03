@@ -25,9 +25,11 @@ const DictionaryDetail = () => {
 
     return (
         <>
-            {html &&
-                <div className="px-10 py-5 bg-white shadow-3xl h-[120rem] overflow-y-auto" dangerouslySetInnerHTML={{ __html: html }} />
-            }
+            <div className="p-10 bg-white shadow-3xl h-[120rem] overflow-y-auto">
+                {html &&
+                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                }
+            </div>
         </>
     );
 };

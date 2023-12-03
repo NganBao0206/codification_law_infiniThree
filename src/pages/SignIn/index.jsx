@@ -32,7 +32,7 @@ const SignIn = () => {
                         }
                     });
                 if (res.status === 200) {
-                    cookies.save("access_token", res.data["access_token"], {});
+                    cookies.save("token", res.data["access_token"], {});
                     cookies.save("user", res.data["user"], {});
                     dispatch({
                         "type": "login",
