@@ -61,8 +61,15 @@ const SignUp = () => {
     const checkEmail = async () => {
         try {
             const res = APIs.get(endpoints["check-email"], {
-                "email": user.email
-            });
+                params: {
+                    "email": user.email
+                },
+
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            },);
             if (res.status === 302) {
                 setErrors({
                     ...errors,
@@ -77,7 +84,12 @@ const SignUp = () => {
     const checkUser = async () => {
         try {
             const res = await APIs.get(endpoints["check-username"], {
-                "username": user.username
+                params: {
+                    "username": user.username
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
             if (res.status === 302) {
                 setErrors({

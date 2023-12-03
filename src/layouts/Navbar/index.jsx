@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="navbar border-b-2 border-dark">
             <div className="flex-1">
                 <Link to="/" className="flex items-center gap-3 lg:p-5">
-                    <img src={logo} alt="logo" className="h-8 w-8" />
+                    <img src={logo} alt="logo" className="h-12 w-12" />
                     <h1 className="font-extrabold lg:text-2xl">InfiniThree</h1>
                 </Link>
             </div>
