@@ -102,12 +102,43 @@ You will need the following:
 2. Open your terminal and run the command: `pip install pytest`
 
 # Features included in the project
+
 - Register / Login: Includes new user registration and login functionality, information authentication, database storage, and access authorization via tokens.
 - Searching codification tree
 - Look up legal terms: query terms and return pagination results based on keywords and page numbers.
 - Discussion forum
 - Chat bot
 - Contact: provides a JWT-protected API endpoint for sending reports via email. It uses Flask and JWT to authenticate users and send email reports with the content and subject provided from the request.
+
+# Dependencies and libraries
+
+1. Flask and related extensions:
+  - Flask (3.0.0)
+  - Flask-Bcrypt (1.0.1)
+  - Flask-Cors (4.0.0)
+  - Flask-JWT-Extended (4.5.3)
+  - Flask-RESTful (0.3.10)
+  - Flask-SQLAlchemy (3.1.1)
+2. Libraries that support data processing and calculations:
+  - NumPy (1.26.2)
+  - Pandas (2.1.3)
+  - SciPy (1.11.4)
+  - Scikit-learn (1.3.2)
+  - sklearn-crfsuite (0.3.6)
+3. Libraries that support authentication, encryption, and security:
+  - PyJWT (2.8.0)
+  - Bcrypt (4.1.1)
+  - Cryptography (41.0.7)
+  - Werkzeug (3.0.1)
+4. Other supporting libraries:
+  - Cloudinary (1.36.0)
+  - Jinja2 (3.1.2)
+  - MarkupSafe (2.1.3)
+  - SQLAlchemy (2.0.23)
+  - Tabulate (0.9.0)
+  - Jenkins
+  - Docker
+
 
 # Authors
   1. Nguyen Kim Bao Ngan
