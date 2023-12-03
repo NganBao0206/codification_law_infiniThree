@@ -2,41 +2,45 @@
 
 # How to Install and Run the Project
 
-## Setting Up a Vite + React Project:
-1. Create a React App with Vite
-Create a new directory for your project
-```
-mkdir my-react-app
-cd my-react-app
-```
+## Setting Up the ReactJS Project:
+  1. Clone the ReactJS project to your folder
+  ```
+  git clone https://github.com/NganBao0206/codification_law_infiniThree.git
+  ```
+  then move to the frontend folder
+  ```
+  cd codification_law_infiniThree/frontend
+  ```
+  2. Install project dependencies
+  ```
+  npm install
+  ```
+  3. Run the project
+  ```
+  npm run dev
+  ```
+  This will start the development server, and your React app will be available at http://localhost:5173 by default.
 
-Initialize a new Node.js project `npm init -y`
-
-Install Vite globally (if not installed) `npm install -g create-vite`
-
-Create a new React app using Vite
-```
-create-vite my-react-app --template react
-cd my-react-app
-```
-
-2. Running the Project
-Install project dependencies `npm install`
-
-Start the development server `npm run dev`
-
-This will start the development server, and your React app will be available at http://localhost:3000 by default.
-
-## Set up the server
-  1. Open `codification_law_infiniThree/InfiniThree/server` folder.
-  2. Create a new file named `.env`.
-  3. Open the `.env` file and set your environment variables as follows:
-       
+## Setting up the Python Flask server
+  1. Clone the Python Flask project
+  ```
+  git clone https://github.com/NganBao0206/codification_law_infiniThree.git
+  ```
+  3. Open `codification_law_infiniThree/backend/server` folder.
+  4. Create a new file named `.env`.
+  5. Open the `.env` file and set your environment variables as follows:
+ 
        ```
        DB_USER=<your-database-username>
        DB_PASS=<your-database-password>
        DB_HOST=<your-database-host>
        DB_NAME=<your-database-name>
+       HOST=localhost
+       CORS_URL=http://localhost:5173
+       JWT_SECRET_KEY=n3rfq83r18fhnc12rh19dic12ndcn3u9cuwecnjc2i3uhf981h12ufn1fo1u93fhi
+       CLOUDINARY_CLOUD_NAME=dljmwib1r
+       CLOUDINARY_API_KEY=551239148838771
+       CLOUDINARY_API_SECRET=FCXYKNM3fQHa9ein5j-WJB90H0s
        ```
   
 ## Running the Program in VSCode
