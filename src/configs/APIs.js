@@ -31,10 +31,17 @@ export const authApi = () => {
         baseURL: SERVER,
         headers: {
             "Authorization": 'Bearer ' + cookies.load("token")
+        },
+        validateStatus: function (status) {
+            return status >= 200 && status < 500;
         }
+
     })
 }
 
 export default axios.create({
-    baseURL: SERVER
+    baseURL: SERVER,
+    validateStatus: function (status) {
+        return status >= 200 && status < 500;
+    }
 })  

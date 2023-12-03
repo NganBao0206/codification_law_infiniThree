@@ -60,21 +60,23 @@ const SignUp = () => {
 
     const checkEmail = async () => {
         try {
-            const res = APIs.get(endpoints["check-email"], {
+            const res = await APIs.get(endpoints["check-email"], {
                 params: {
                     "email": user.email
                 },
-
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-
-            },);
+            });
+            if (res.status === 204) {
+                return true;
+            }
             if (res.status === 302) {
                 setErrors({
-                    ...errors,
-                    "email": "Email đã tồn tại"
+                    user: {
+                        ...errors.user,
+                        "email": "Email đã tồn tại"
+                    }
                 });
+                setShowError(true);
+                return false;
             }
         } catch (ex) {
             console.error(ex);
@@ -87,15 +89,19 @@ const SignUp = () => {
                 params: {
                     "username": user.username
                 },
-                headers: {
-                    'Content-Type': 'application/json'
-                }
             });
+            if (res.status === 204) {
+                return true;
+            }
             if (res.status === 302) {
                 setErrors({
-                    ...errors,
-                    "username": "Tên tài khoản đã tồn tại"
+                    user: {
+                        ...errors.user,
+                        "username": "Username đã tồn tại"
+                    }
                 });
+                setShowError(true);
+                return false;
             }
         } catch (ex) {
             console.error(ex);
@@ -104,29 +110,32 @@ const SignUp = () => {
 
     const register = (evt) => {
         evt.preventDefault();
-        checkEmail();
-        checkUser();
+
         if (Object.keys(errors).length > 0 || !avatarFile) {
             setShowError(true);
             return;
         }
         setShowError(false);
         const process = async () => {
-            try {
-                let form = new FormData();
-                form.append("name", user.name);
-                form.append("username", user.username);
-                form.append("email", user.username);
-                form.append("password", user.password);
-                form.append("confirm", user.confirm);
-                form.append("avatar", avatarFile[0]);
-                let res = await APIs.post(endpoints['register'], form);
-                if (res.status === 201) {
-                    nav("/dang-nhap");
+            let flag = await checkUser() && checkEmail();
+            if (flag) {
+                try {
+                    let form = new FormData();
+                    form.append("name", user.name);
+                    form.append("username", user.username);
+                    form.append("email", user.username);
+                    form.append("password", user.password);
+                    form.append("confirm", user.confirm);
+                    form.append("avatar", avatarFile[0]);
+                    let res = await APIs.post(endpoints['register'], form);
+                    if (res.status === 201) {
+                        nav("/dang-nhap");
+                    }
+                } catch (ex) {
+                    console.error(ex);
                 }
-            } catch (ex) {
-                console.error(ex);
             }
+
         }
         process();
     }
