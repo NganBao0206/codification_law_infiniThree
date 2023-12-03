@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "./style.css";
 import { authApi, endpoints } from '../../configs/APIs';
+import { Navigate } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const Contact = () => {
     const [info, setInfo] = useState({});
+    const { currentUser } = useContext(UserContext);
 
     const changeInfo = (value, field) => {
         setInfo((current) => {
@@ -23,10 +26,12 @@ const Contact = () => {
                 alert("Gửi thông tin thành công");
             }
         }
-
         process();
     }
 
+    if (!currentUser) {
+        return <Navigate to="/dang-nhap?next=/lien-he" />
+    }
 
     return (
         <div className="p-5 md:p-24 ">

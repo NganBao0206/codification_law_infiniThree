@@ -111,7 +111,7 @@ const Terms = () => {
                                 })}
                             </> : <>
                                 {currentPage !== 1 ? <>{[...Array(3).keys()].map((index) => {
-                                    return (<button key={index} className={`page-btn ${currentPage === (currentPage - 1 + index) ? "current-page" : ""}`}>{currentPage - 1 + index}</button>);
+                                    return (<button onClick={() => { setCurrentPage(currentPage - 1 - index) }} key={index} className={`page-btn ${currentPage === (currentPage - 1 + index) ? "current-page" : ""}`}>{currentPage - 1 + index}</button>);
                                 })}</> : <>{[...Array(3).keys()].map((index) => {
                                     return (<button key={index} className={`page-btn ${currentPage === (index + 1) ? "current-page" : ""}`}>{index + 1}</button>);
                                 })}</>}

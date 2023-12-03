@@ -16,6 +16,12 @@ import DictionaryDetail from "./pages/DictionaryDetail"
 import Forums from "./pages/Forums"
 import Contact from "./pages/Contact"
 
+import moment from "moment";
+import 'moment/min/moment-with-locales';
+import 'moment/locale/vi';
+
+moment.locale('vi');
+
 
 export const UserContext = createContext();
 

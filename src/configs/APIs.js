@@ -13,7 +13,6 @@ export const endpoints = {
 
     // User Login && Register
     "login": `/api/users/login/`,
-    "current-user": `/api/current-user/`,
     "register": `/api/users/register/`,
     "check-email": `api/users/email-existed/`,
     "check-username": `api/users/username-existed/`,
@@ -22,7 +21,15 @@ export const endpoints = {
     "terminologies": `/api/terminologies/`,
     "search": `/api/terminologies/search-paragraph/`,
 
+    // Contact
     "contact": `/api/contact/`,
+
+    // Forum
+    "questions": `/api/questions/`,
+    "questionInfo": (id) => `/api/questions/${id}`,
+    "repliesOfQuestion": (id) => `/api/replies/${id}`,
+    "repliesOfUser": `/api/replies/`,
+
 
 }
 

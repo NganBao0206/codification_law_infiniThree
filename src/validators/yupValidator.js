@@ -7,3 +7,10 @@ export const schemaUser = yup.object().shape({
     name: yup.string().required('Họ tên không được để trống').min(1, 'Họ tên phải có ít nhất 1 ký tự').max(50, 'Họ tên không được vượt quá 50 ký tự'),
     email: yup.string().required('Email không được để trống').email('Email không hợp lệ').max(100, 'Email không được vượt quá 100 ký tự'),
 });
+
+export const schemaQuestion = yup.object().shape({
+    title: yup.string().required('Tiêu đề không được trống').min(20, 'Tiêu đề có tối thiểu 20 kí tự và tối đa 255 kí tự').max(255, 'Tiêu đề có tối thiểu 20 kí tự và tối đa 255 kí tự'),
+    description: yup.string().required('Nội dung không được trống').min(50, 'Nội dung phải có ít nhất 50 kí tự và tối đa 65535 kí tự').max(65535, 'Nội dung phải có ít nhất 50 kí tự và tối đa 65535 kí tự'),
+    topic: yup.string().required('Chủ đề không được bỏ trống'),
+
+});

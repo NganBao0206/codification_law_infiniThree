@@ -41,9 +41,9 @@ const Navbar = () => {
                         </div>
                     </li>
                     <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
-                    <li><Link to="/lien-he">Liên hệ</Link></li>
                     {
                         currentUser ? <>
+                            <li><Link to="/lien-he">Liên hệ</Link></li>
                             <div className="dropdown dropdown-bottom dropdown-end ">
                                 <div tabIndex={0} role="button" className="flex items-center gap-2">
                                     <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small cursor-pointer hover:" src={currentUser.avatar} alt="" />
@@ -68,7 +68,7 @@ const Navbar = () => {
                     <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
                     <li><Link to="/tra-cuu-thuat-ngu">Thuật ngữ</Link></li>
                     <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
-                    <li><Link to="/lien-he">Liên hệ</Link></li>
+                    {currentUser && <li><Link to="/lien-he">Liên hệ</Link></li>}
                     <li><Link to="/dang-nhap">Đăng nhập</Link></li>
                 </ul>
             </div>

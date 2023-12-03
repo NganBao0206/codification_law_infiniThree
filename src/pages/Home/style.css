@@ -18,7 +18,7 @@
 }
 
 .right-side {
-    @apply h-[80vh] hidden lg:flex my-10 ml-20 w-[80%] rounded-t-full bg-background items-center overflow-hidden shadow-4xl relative overflow-hidden;
+    @apply h-fit lg:h-[80vh]  col-span-2 lg:col-span-1 flex my-10 mx-auto lg:ml-20 w-[80%] rounded-t-full bg-background items-center overflow-hidden shadow-4xl relative overflow-hidden;
 }
 
 .grid-content {
