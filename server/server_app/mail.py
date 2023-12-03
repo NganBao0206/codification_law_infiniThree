@@ -3,7 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import ssl
 import smtplib
-from config import EMAIL_NAME, EMAIL_PASSWORD
+from config import EMAIL_NAME, EMAIL_PASSWORD, EMAIL_RECEIVER
 
 
 def send_report(user, subject_report, body_report):
@@ -39,7 +39,7 @@ def send_report(user, subject_report, body_report):
     </html>
     """.format(user.name, user.username, body_report, user.name, user.username, user.email)
     
-    send("nganbaoy@gmail.com", body_html, subject)
+    send(EMAIL_RECEIVER, body_html, subject)
     
     
 
