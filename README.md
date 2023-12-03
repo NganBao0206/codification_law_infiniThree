@@ -1,6 +1,4 @@
-# codification_law_infiniThree
-
-# Gioi thieu project
+# Open Source Project 2023 - InfiniThree Source Code - Using ReactJS as Frontend Side and Python Flask as Backend Side
 
 # How to Install and Run the Project
 
