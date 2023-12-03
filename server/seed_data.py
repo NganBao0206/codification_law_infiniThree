@@ -41,13 +41,5 @@ if __name__ == '__main__':
 
                                     
                             
-                                
-        # topic = CodificationTopic(name="test", order=1)
-        # sub_topic = CodificationSubTopic(name="testsub", order=1, topic=topic)
-        
-        # index = CodificationIndex(name="testindex", order=1, index_type=IndexType.Chuong)
-        # index2 = CodificationIndex(name="child", order=1, index_type=IndexType.Dieu)
-        # index.children.append(index2)
-        # sub_topic.codification_indexes.append(index)
         db.session.add_all(listAll)
         db.session.commit()

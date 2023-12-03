@@ -26,6 +26,7 @@ def register():
         return jsonify({"msg": str(e)}), 400
 
 
+
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -35,6 +36,7 @@ def login():
         return jsonify({"access_token": access_token, "user": user.to_dict()}), 200
     else:
         return jsonify({"msg": "Login mismatch. Try again"}), 401
+
 
 
 
@@ -48,6 +50,7 @@ def check_username_existed():
         return jsonify({"msg": "not existed"}), 204
 
 
+
 def check_email_existed():
     email = request.args.get('email', default=None, type=str)
     user = get_user_by_email(email)
@@ -56,3 +59,7 @@ def check_email_existed():
         return jsonify({"msg": "existed"}), 302
     else:
         return jsonify({"msg": "not existed"}), 204
+    
+
+
+

@@ -45,7 +45,8 @@ class User(BaseModel):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
     role = Column(db.Enum(UserRole), default=UserRole.USER)
-
+    rooms = relationship('ChatRoom', backref=backref('user'), lazy=True)
+    
     def __str__(self):
         return self.name
     
@@ -74,10 +75,27 @@ class CodificationSubTopic(BaseModel):
     name = Column(String(500), nullable=False)
     order = Column(Integer, nullable=False)
     
+    
     topic_id = Column(String(100), ForeignKey(CodificationTopic.id), nullable=False)
     
     codification_indexes = relationship('CodificationIndex', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
-        
+
+    legal_documents = relationship('LegalDocument', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
+
+
+
+class LegalDocument(BaseModel):
+    __tablename__ = 'legal_document'
+    id = Column(String(100), primary_key=True)
+    order = Column(Integer, nullable=False)
+    name = Column(String(500), nullable=False)
+    link = Column(String(500), nullable=False) 
+    agency = Column(String(50), nullable=True)
+    issued_date = Column(DateTime, nullable=False)
+    effective_date = Column(DateTime, nullable=False)
+    symbols = Column(String(20), nullable=False) 
+    sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id), nullable=False)
+
     
 class CodificationIndex(BaseModel):
     __tablename__ = 'codification_index'
@@ -100,7 +118,24 @@ class CodificationIndex(BaseModel):
     
     sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id), nullable=False)
     
-    # legal_document_indexes = relationship('LegalDocumentIndex', backref=backref('codification_index', uselist=False), uselist=False, lazy=False)
+    
+
+class ChatRoom(BaseModel):
+    __tablename__ = 'chat_room'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    name = Column(String(100), nullable=True)
+    messages = relationship('Message', backref=backref('chat_room', lazy=True, uselist=False), uselist=True, lazy=True)
+ 
+ 
+ 
+class Message(BaseModel):
+    __tablename__ = 'message'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_room_id = Column(Integer, ForeignKey(ChatRoom.id), nullable=False)
+    content = Column(String(200), nullable=True)
+    is_user_message = Column(Boolean, nullable=False)
+    
     
 
 class Terminology(BaseModel):
