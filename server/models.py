@@ -30,11 +30,8 @@ class BaseModel(db.Model):
     __abstract__ = True
     def to_dict(self):
         return {c.key: getattr(self, c.key).name if isinstance(getattr(self, c.key), Enum) else getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
-    # result = {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
-    #     for attr, relation in self.__mapper__.relationships.items():
-    #         if relation.lazy == 'joined':
-    #             result[attr] = [to_dict(instance) for instance in getattr(self, attr)]
-    #     return result
+
+
 
 class UserRole(Enum):
     ADMIN = 1
@@ -64,7 +61,7 @@ class CodificationTopic(BaseModel):
     name = Column(String(500), nullable=False)
     order = Column(Integer, nullable=False)
     
-    sub_topics = relationship('CodificationSubTopic', backref=backref('topic', lazy=False), lazy=True)
+    sub_topics = relationship('CodificationSubTopic', back_populates="topic", lazy=True)
     
     def __str__(self):
         return self.name
@@ -84,7 +81,7 @@ class CodificationSubTopic(BaseModel):
     
     
     topic_id = Column(String(100), ForeignKey(CodificationTopic.id), nullable=False)
-    
+    topic = relationship(CodificationTopic, back_populates="sub_topics", uselist=False, lazy=False)
     codification_indexes = relationship('CodificationIndex', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
 
     legal_documents = relationship('LegalDocument', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
@@ -102,6 +99,7 @@ class LegalDocument(BaseModel):
     effective_date = Column(DateTime, nullable=False)
     symbols = Column(String(20), nullable=False) 
     sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id), nullable=False)
+
 
     
 class CodificationIndex(BaseModel):

@@ -26,7 +26,7 @@ app.register_blueprint(codification_sub_topics_bp, url_prefix='/api/codification
 app.register_blueprint(codification_indexes_bp, url_prefix='/api/codification-indexes')
 app.register_blueprint(user_bp, url_prefix='/api/users')
 app.register_blueprint(contact_bp, url_prefix='/api/contact')
-app.register_blueprint(chat_bot_bp, url_prefix='/api/chat-bot')
+# app.register_blueprint(chat_bot_bp, url_prefix='/api/chat-bot')
 app.register_blueprint(terminology_bp, url_prefix='/api/terminologies')
 
 @app.route('/')
