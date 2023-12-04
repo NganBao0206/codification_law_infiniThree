@@ -3,7 +3,7 @@ from server_app.api.codification_topic_api import codification_topics_bp
 from server_app.api.codification_sub_topic_api import codification_sub_topics_bp
 from server_app.api.codification_indexes_api import codification_indexes_bp
 from server_app.api.user_api import user_bp
-# from server_app.api.chat_bot_api import chat_bot_bp
+from server_app.api.chat_bot_api import chat_bot_bp
 
 from server_app.api.contact_api import contact_bp
 
