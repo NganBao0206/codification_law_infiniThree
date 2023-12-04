@@ -4,7 +4,7 @@ import { FaCaretDown } from "react-icons/fa6";
 import { schemaQuestion } from '../../validators/yupValidator';
 import { UserContext } from '../../App';
 import { Link } from 'react-router-dom';
-import Moment from 'react-moment';
+import moment from 'moment';
 
 const Forums = () => {
 
@@ -198,7 +198,7 @@ const Forums = () => {
                                                         <h3><span className="font-bold">Lượt trả lời: </span></h3>
                                                     </div>
                                                     <div>
-                                                        <h3><span className="font-bold">Thời gian đăng: </span><Moment locale="vi" fromNow>{q['created_at']}</Moment></h3>
+                                                        <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
                                                     </div>
                                                     <div className="flex justify-end items-center">
                                                         <button className=" border-dark border-[2px] px-4 py-2 bg-button text-white hover:bg-buttonShadow w-[75%]">Xem câu trả lời</button>

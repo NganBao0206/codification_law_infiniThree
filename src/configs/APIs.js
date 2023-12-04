@@ -26,7 +26,7 @@ export const endpoints = {
 
     // Forum
     "questions": `/api/questions/`,
-    "questionInfo": (id) => `/api/questions/${id}`,
+    "questionsByTopic": (id) => `/api/questions/topic/${id}`,
     "repliesOfQuestion": (id) => `/api/replies/${id}`,
     "repliesOfUser": `/api/replies/`,
 
