@@ -113,6 +113,7 @@ You will need the following:
 - Contact: provides a JWT-protected API endpoint for sending reports via email. It uses Flask and JWT to authenticate users and send email reports with the content and subject provided from the request.
 
 # Dependencies and libraries
+Python (3.11.4)
 
 1. Flask and related extensions:
   - Flask (3.0.0)
