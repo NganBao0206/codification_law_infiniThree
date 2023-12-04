@@ -129,7 +129,6 @@ You will need the following:
 3. Libraries that support authentication, encryption, and security:
   - PyJWT (2.8.0)
   - Bcrypt (4.1.1)
-  - Cryptography (41.0.7)
   - Werkzeug (3.0.1)
 4. Other supporting libraries:
   - Cloudinary (1.36.0)
