@@ -47,6 +47,9 @@ def send_msg():
     chat_room_id = request.json.get("room_id", None)
     file_path = os.path.join(app.root_path, 'data', sub_topic_id)
 
+    if msg and not msg.endswith('?'):
+        msg += '?'
+    
     if os.path.exists(file_path):
         documents = [Document(page_content="", metadata={'source': 0})]
         files = os.listdir(file_path)
@@ -58,7 +61,7 @@ def send_msg():
                     content = f.read().replace('\n\n', "\n")
                     texts = split_with_source(content, file)
                     documents = documents +texts
-        retriever = Chroma.from_documents(documents, embedding=embeddings).as_retriever(
+        retriever = Chroma(persist_directory=(os.path.join(app.root_path, 'data', 'chroma_db')), embedding_function=embeddings).as_retriever(
             search_kwargs={"k": 5}
         )
         bm25_retriever = BM25Retriever.from_documents(documents)
@@ -66,7 +69,7 @@ def send_msg():
         ensemble_retriever = EnsembleRetriever(
             retrievers=[bm25_retriever, retriever], weights=[0.5, 0.5]
         )
-        docs = ensemble_retriever.get_relevant_documents("Các biện pháp bảo vệ dữ liệu cá nhân là gì?")
+        docs = ensemble_retriever.get_relevant_documents(msg)
         result = []
         
         import time
@@ -92,12 +95,11 @@ def send_msg():
                 })
                 
             if "error" not in output:
-                if output['score'] >= 0.7:
-                    result.append({
-                        'answer': output['answer'],
-                        'scores': output['score'],
-                        'sources': i.metadata['source']
-                    })
+                result.append({
+                    'answer': output['answer'],
+                    'scores': output['score'],
+                    'sources': i.metadata['source']
+                })
         
         best_answer = {}
         for r in result:

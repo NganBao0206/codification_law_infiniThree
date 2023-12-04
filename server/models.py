@@ -29,8 +29,19 @@ class DocumentType(Enum):
 class BaseModel(db.Model):
     __abstract__ = True
     def to_dict(self):
-        return {c.key: getattr(self, c.key).name if isinstance(getattr(self, c.key), Enum) else getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
-
+        result = {}
+        for key in self.__mapper__.c.keys():
+            attr = getattr(self, key)
+            if isinstance(attr, db.Model):
+                result[key] = attr.to_dict()
+            elif isinstance(attr, list):
+                result[key] = [item.to_dict() for item in attr]
+            else:
+                result[key] = attr
+        for key, value in self.__dict__.items():
+            if isinstance(value, db.Model):
+                result[key] = value.to_dict()
+        return result
 
 
 class UserRole(Enum):
