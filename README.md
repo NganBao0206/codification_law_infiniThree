@@ -117,7 +117,6 @@ You will need the following:
   - Flask-Bcrypt (1.0.1)
   - Flask-Cors (4.0.0)
   - Flask-JWT-Extended (4.5.3)
-  - Flask-RESTful (0.3.10)
   - Flask-SQLAlchemy (3.1.1)
 2. Libraries that support data processing and calculations:
   - NumPy (1.26.2)
@@ -136,8 +135,9 @@ You will need the following:
   - MarkupSafe (2.1.3)
   - SQLAlchemy (2.0.23)
   - Tabulate (0.9.0)
-  - Jenkins
-  - Docker
+  - Jenkins LTS (2.426.1)
+  - Docker (24.0.7)
+  - Docker-compose (2.17.2)
 
 
 # Authors
