@@ -27,6 +27,7 @@ def register():
 
 
 
+
 def login():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
@@ -48,6 +49,7 @@ def check_username_existed():
         return jsonify({"msg": "existed"}), 302
     else:
         return jsonify({"msg": "not existed"}), 204
+
 
 
 

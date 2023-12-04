@@ -1,6 +1,6 @@
 import chromadb
 from flask import jsonify, request
-from server_app.dao.codification_index_dao import get_indexes_of_sub_topic
+from server_app.dao.chat_room_message_dao import add_message, add_chat_room
 from flask_jwt_extended import jwt_required, current_user
 from server_app import app, embeddings
 import os 
@@ -40,12 +40,11 @@ def split_with_source(text, source):
 
 
 # [POST] - /api/chat-bot/
-# @jwt_required()
+@jwt_required()
 def send_msg():
-    # msg = request.json.get("msg")
-    # sub_topic_id = request.json.get("sub_topic_id")
-    # chat_room_id = request.json.get("room_id")
-    sub_topic_id = '1fd42d83-9d78-4dd4-b6b6-73e9bd3472e1'
+    msg = request.json.get("msg")
+    sub_topic_id = request.json.get("sub_topic_id")
+    chat_room_id = request.json.get("room_id", None)
     file_path = os.path.join(app.root_path, 'data', sub_topic_id)
 
     if os.path.exists(file_path):
@@ -99,11 +98,26 @@ def send_msg():
                         'scores': output['score'],
                         'sources': i.metadata['source']
                     })
-            print(output, i)
+        
+        best_answer = {}
+        for r in result:
+            if not best_answer:
+                best_answer = r
+            elif r.get('score') > best_answer.get('score'):
+                    best_answer = r
+                                         
+        if best_answer:
+            if chat_room_id is None:
+                room = add_chat_room(name=msg, user=current_user)
+                chat_room_id = room.id
             
-        return jsonify(result), 200
+            user_message = add_message(chat_room_id=room.id, content=msg, is_user_message=True)
+            bot_message = add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False)
+            
+            return jsonify({'bot_msg': bot_message.to_dict()}), 200
     return jsonify({}), 404
 
+        
         
 def query(payload):
 	response = requests.post(API_URL, headers=headers, json=payload)

@@ -25,14 +25,21 @@ class DocumentType(Enum):
     TT = 'Thông Tư'
     QD = 'Quyết Định'
     
+    
 class BaseModel(db.Model):
     __abstract__ = True
     def to_dict(self):
         return {c.key: getattr(self, c.key).name if isinstance(getattr(self, c.key), Enum) else getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+    # result = {c.key: getattr(self, c.key) for c in inspect(self).mapper.column_attrs}
+    #     for attr, relation in self.__mapper__.relationships.items():
+    #         if relation.lazy == 'joined':
+    #             result[attr] = [to_dict(instance) for instance in getattr(self, attr)]
+    #     return result
 
 class UserRole(Enum):
     ADMIN = 1
     USER = 2
+
 
 class User(BaseModel):
     __tablename__ = 'user'
@@ -133,7 +140,7 @@ class Message(BaseModel):
     __tablename__ = 'message'
     id = Column(Integer, primary_key=True, autoincrement=True)
     chat_room_id = Column(Integer, ForeignKey(ChatRoom.id), nullable=False)
-    content = Column(String(200), nullable=True)
+    content = Column(String(100), nullable=True)
     is_user_message = Column(Boolean, nullable=False)
     
     
@@ -152,5 +159,41 @@ class Terminology(BaseModel):
 
     def __str__(self):
         return str(self.value)
+    
+    
+    
+class Question(BaseModel):
+    _tablename_ = 'question'
+    _table_args_ = {'extend_existing': True}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(Text)
+    description = Column(Text)
+    topic_id = Column(String(255), ForeignKey(CodificationTopic.id))
+    user_id = Column(Integer, ForeignKey(User.id))
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
+    topic = relationship(CodificationTopic, backref='questions', lazy=False)
+    user = relationship(User, backref='questions', lazy=False)
+    def __str__(self):
+        return str(self.title)
+    
+
+
+class Reply(BaseModel):
+    _tablename_ = 'reply'
+    _table_args_ = {'extend_existing': True}
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    content = Column(Text)
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
+    question_id = Column(Integer, ForeignKey(Question.id))
+    user_id = Column(Integer, ForeignKey(User.id))
+    user = relationship(User, backref='replies', lazy=True)
+    question = relationship(Question, backref='replies', lazy=True)
+    def __str__(self):
+        return str(self.content)
+    
+    
+    
     
     

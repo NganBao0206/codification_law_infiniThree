@@ -17,3 +17,5 @@ def add_chat_room(name, user):
     db.session.add(room)
     db.session.commit()
     return room
+
+

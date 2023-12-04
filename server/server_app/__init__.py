@@ -14,11 +14,7 @@ app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
 app.logger.setLevel(logging.DEBUG)
 
-from transformers import AutoModel, AutoTokenizer
-
 from langchain.embeddings import HuggingFaceEmbeddings
-from fast_sentence_transformers import FastSentenceTransformer as SentenceTransformer
-
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 
 
