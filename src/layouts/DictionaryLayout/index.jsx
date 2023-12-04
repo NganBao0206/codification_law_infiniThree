@@ -132,7 +132,7 @@ const DictionaryLayout = () => {
 
             <FileContext.Provider value={{ file, setFile, topics, subTopics, html }}>
                 <div className="p-2 lg:p-10 grid grid-cols-10">
-                    <div className="tree-view">
+                    <div className={`${file ? "cols-span-3" : "col-span-10 border-r-0 "} tree-view`}>
                         <TreeView data={filterTopic ? filterTopic : topics}></TreeView>
                     </div>
                     <div className="col-span-10 lg:col-span-7 px-5" >

@@ -13,6 +13,7 @@ const Forums = () => {
     const [errors, setErrors] = useState({});
     const [showError, setShowError] = useState(false);
     const [questions, setQuestions] = useState([]);
+    const [filterQuestions, setFilterQuestions] = useState([]);
 
     const { currentUser } = useContext(UserContext);
 
@@ -100,7 +101,17 @@ const Forums = () => {
         process();
     }
 
+    const filterTopic = async () => {
+        try {
+            const res = APIs.get(endpoints["filter-questions"], {});
+            if (res.status === 200) {
 
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+
+    }
 
     return (
         <div>
@@ -110,7 +121,7 @@ const Forums = () => {
                     <div className="grid grid-cols-10 gap-5 items-center mx-5">
                         <div className="relative col-span-10 lg:col-span-4">
                             <select className="select-title" >
-                                <option value="">-- Xem theo chủ đề --</option>
+                                <option value="" onChange={filterTopic}>-- Xem theo chủ đề --</option>
                                 <>
                                     {topics && topics.map((topic, index) => {
                                         return <option key={index} value={topic.id}>{topic.name}</option>
@@ -173,10 +184,10 @@ const Forums = () => {
                                 {
                                     questions && questions.map((q, index) => {
                                         return (
-                                            <div className="w-full bg-white border-2 border-dark shadow-3xl p-5 grid grid-cols-6 items-start">
+                                            <div key={index} className="w-full bg-white border-2 border-dark shadow-3xl p-5 grid grid-cols-6 items-start">
                                                 <div className="flex flex-col gap-2 items-center justify-start  border-r-2 border-dark py-10">
-                                                    <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
-                                                    <span className="font-bold text-lg">{q.user.name}</span>
+                                                    {/* <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
+                                                    <span className="font-bold text-lg">{q.user.name}</span> */}
                                                 </div>
                                                 <div className="col-span-5 flex flex-col gap-2 px-5">
                                                     <h1 className="font-bold text-xl">{q.title}</h1>

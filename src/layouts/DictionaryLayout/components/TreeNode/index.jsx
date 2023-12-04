@@ -9,7 +9,7 @@ const TreeNode = ({ data, level }) => {
     const [expand, setExpand] = useState(false);
     const [fetched, setFetched] = useState(false);
     const [items, setItems] = useState([]);
-    const { setFile, topics, subTopics } = useContext(FileContext);
+    const { file, topics, subTopics } = useContext(FileContext);
 
     const fetchData = async (level, id) => {
 
@@ -86,7 +86,7 @@ const TreeNode = ({ data, level }) => {
 
     return (
         <div className="cursor-pointer">
-            <div className="w-full p-2 grid grid-cols-10 gap-2 items-start hover:bg-blue-100 " onClick={handleExpand}>
+            <div className={`w-full p-2 gap-2 items-start hover:bg-blue-100 ${file ? "grid grid-cols-10" : "flex"}`} onClick={handleExpand}>
                 <div className="col-span-1">
                     {data["index_type"] !== "Dieu" ? (expand ? <PiFolderOpen size="20" /> : <PiFolder size="20" />) : <PiFile size="20" />}
                 </div>
