@@ -1,5 +1,7 @@
 # Open Source Project 2023 - InfiniThree Source Code - Using ReactJS as Frontend Side and Python Flask as Backend Side
 
+Public source code demo: https://infinithree.netlify.app/
+
 # How to Install and Run the Project
 
 ## Setting Up the ReactJS Project:
