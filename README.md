@@ -109,7 +109,7 @@ You will need the following:
 - Searching codification tree
 - Look up legal terms: query terms and return pagination results based on keywords and page numbers.
 - Discussion forum
-- Chat bot
+- Chat bot: Currently, this feature only runs locally due to deployment difficulties as the server only has 2GB of RAM.
 - Contact: provides a JWT-protected API endpoint for sending reports via email. It uses Flask and JWT to authenticate users and send email reports with the content and subject provided from the request.
 
 # Dependencies and libraries
