@@ -161,12 +161,6 @@ Việc bảo vệ dữ liệu cá nhân được thực hiện theo quy định 
 
 5. Lợi dụng hoạt động bảo vệ dữ liệu cá nhân để vi phạm pháp luật.
 
-Chương II
-
-HOẠT ĐỘNG BẢO VỆ DỮ LIỆU CÁ NHÂN
-
-Mục 1. QUYỀN VÀ NGHĨA VỤ CỦA CHỦ THỂ DỮ LIỆU
-
 Điều 9. Quyền của chủ thể dữ liệu
 
 1. Quyền được biết
@@ -770,10 +764,6 @@ Thực hiện đầy đủ các quy định về trách nhiệm xử lý dữ li
 3. Thông báo kịp thời cho Bộ Công an về những vi phạm liên quan tới hoạt động bảo vệ dữ liệu cá nhân.
 
 4. Phối hợp với Bộ Công an trong xử lý những vi phạm liên quan tới hoạt động bảo vệ dữ liệu cá nhân.
-
-Chương IV
-
-ĐIỀU KHOẢN THI HÀNH
 
 Điều 43. Hiệu lực thi hành
 

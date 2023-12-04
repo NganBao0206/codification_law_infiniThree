@@ -36,6 +36,8 @@ class BaseModel(db.Model):
                 result[key] = attr.to_dict()
             elif isinstance(attr, list):
                 result[key] = [item.to_dict() for item in attr]
+            elif isinstance(attr, Enum):
+                result[key] = attr.name
             else:
                 result[key] = attr
         for key, value in self.__dict__.items():
@@ -206,3 +208,36 @@ class Reply(BaseModel):
     
     
     
+    
+#     from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
+# import pysolr
+
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/db'
+# db = SQLAlchemy(app)
+# solr = pysolr.Solr('http://localhost:8983/solr/my_index', timeout=10)
+
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(50), nullable=False)
+#     email = db.Column(db.String(120), unique=True, nullable=False)
+
+#     def __repr__(self):
+#         return '<User %r>' % self.username
+
+#     @staticmethod
+#     def after_insert(mapper, connection, target):
+#         solr.add([target.__dict__])
+
+#     @staticmethod
+#     def after_update(mapper, connection, target):
+#         solr.add([target.__dict__])
+
+#     @staticmethod
+#     def after_delete(mapper, connection, target):
+#         solr.delete(id=target.id)
+
+# db.event.listen(User, 'after_insert', User.after_insert)
+# db.event.listen(User, 'after_update', User.after_update)
+# db.event.listen(User, 'after_delete', User.after_delete)

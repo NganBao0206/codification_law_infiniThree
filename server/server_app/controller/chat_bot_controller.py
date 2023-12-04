@@ -82,30 +82,33 @@ def send_msg():
                 "context": context
             },
             })
-            step = 0  
-            while "error" in output and step < 20:
+            
+            step = 0
+            while "error" in output and step < 2:
                 print('fail')
-                step += 1
                 time.sleep(1)
+                step += 1
                 output = query({
                 "inputs": {
                     "question": question,
                     "context": context
                 },
                 })
+            
+            if (step >= 2 and "error" in output):
+                continue
                 
-            if "error" not in output:
-                result.append({
-                    'answer': output['answer'],
-                    'scores': output['score'],
-                    'sources': i.metadata['source']
-                })
+            result.append({
+                'answer': output['answer'],
+                'scores': output['score'],
+                'sources': i.metadata['source']
+            })
         
         best_answer = {}
         for r in result:
             if not best_answer:
                 best_answer = r
-            elif r.get('score') > best_answer.get('score'):
+            elif r.get('scores') > best_answer.get('scores'):
                     best_answer = r
                                          
         if best_answer:
