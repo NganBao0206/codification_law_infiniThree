@@ -24,6 +24,8 @@ EMAIL_NAME = os.getenv('EMAIL_NAME')
 EMAIL_PASSWORD = os.getenv('EMAIL_PASS')
 EMAIL_RECEIVER = os.getenv('EMAIL_RECEIVER')
 
+SOLR_HOST = os.getenv('SOLR_HOST')
+
 SQLALCHEMY_DATABASE_URI = ""
 
 class Config:

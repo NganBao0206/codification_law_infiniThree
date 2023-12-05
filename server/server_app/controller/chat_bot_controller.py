@@ -1,4 +1,3 @@
-import chromadb
 from flask import jsonify, request
 from server_app.dao import chat_room_message_dao
 from flask_jwt_extended import jwt_required, current_user
@@ -62,25 +61,18 @@ def send_msg():
     msg = request.json.get("msg")
     sub_topic_id = request.json.get("sub_topic_id")
     chat_room_id = request.json.get("room_id", None)
-    file_path = os.path.join(app.root_path, 'data', sub_topic_id)
+    folder_path = os.path.join(app.root_path, 'data', sub_topic_id)
 
     if msg and not msg.endswith('?'):
         msg += '?'
     
-    if os.path.exists(file_path):
+    if os.path.exists(folder_path):
         documents = [Document(page_content="", metadata={'source': 0})]
-        files = os.listdir(file_path)
-        for file in files:
-            full_path = os.path.join(file_path, file)
-            print(file)
-            if os.path.isfile(full_path):
-                with open(full_path, 'r') as f:
-                    content = f.read().replace('\n\n', "\n")
-                    texts = split_with_source(content, file)
-                    documents = documents +texts
-        retriever = Chroma(persist_directory=(os.path.join(app.root_path, 'data', 'chroma_db')), embedding_function=embeddings).as_retriever(
+    
+        retriever = Chroma(persist_directory=(folder_path), embedding_function=embeddings).as_retriever(
             search_kwargs={"k": 5}
         )
+        
         bm25_retriever = BM25Retriever.from_documents(documents)
         bm25_retriever.k = 5
         ensemble_retriever = EnsembleRetriever(
@@ -136,7 +128,7 @@ def send_msg():
             user_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=msg, is_user_message=True)
             bot_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False)
             
-            return jsonify({'bot_msg': bot_message.to_dict()}), 200
+            return jsonify({'bot_msg': bot_message.to_dict(), 'source': best_answer.get('sourcec')}), 200
     return jsonify({}), 404
 
         

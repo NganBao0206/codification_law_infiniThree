@@ -7,4 +7,4 @@ chat_bot_bp.route('/', methods=['POST'])(send_msg)
 
 chat_bot_bp.route('/rooms/<room_id>/', methods=['GET'])(get_msg) 
 
-chat_bot_bp.route('/rooms/', method=['GET'])(get_rooms)
+chat_bot_bp.route('/rooms/', methods=['GET'])(get_rooms)

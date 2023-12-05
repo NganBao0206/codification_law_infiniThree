@@ -43,4 +43,4 @@ def home():
 
 
 if __name__ == '__main__':
-    app.run(host=HOST)
+    app.run(host=HOST, port=5051)
