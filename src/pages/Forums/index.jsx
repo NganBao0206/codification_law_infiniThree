@@ -14,8 +14,7 @@ const Forums = () => {
     const [errors, setErrors] = useState({});
     const [showError, setShowError] = useState(false);
     const [questions, setQuestions] = useState([]);
-    const [filterQuestions, setFilterQuestions] = useState([]);
-
+    const [selectedTopic, setSelectedTopic] = useState();
     const { currentUser } = useContext(UserContext);
 
     useEffect(() => {
@@ -47,6 +46,23 @@ const Forums = () => {
         validateAll();
     }, [question]);
 
+    useEffect(() => {
+        const filterTopic = async () => {
+            if (selectedTopic)
+                try {
+                    let url = endpoints.questionsByTopic(selectedTopic);
+                    const res = await APIs.get(url);
+                    if (res.status === 200) {
+                        setQuestions(res.data);
+                    }
+                } catch (ex) {
+                    console.error(ex);
+                }
+        }
+
+        filterTopic();
+    }, [selectedTopic]);
+
     const getTopics = async () => {
         try {
             const res = await APIs.get(endpoints["topics"]);
@@ -74,13 +90,13 @@ const Forums = () => {
             return { ...current, [field]: value }
         })
     }
+
     const postQuestion = async (evt) => {
         evt.preventDefault();
         if (Object.keys(errors).length > 0) {
             setShowError(true);
             return;
         }
-
         setShowError(false);
         const process = async () => {
             try {
@@ -102,16 +118,8 @@ const Forums = () => {
         process();
     }
 
-    const filterTopic = async () => {
-        try {
-            const res = APIs.get(endpoints["filter-questions"], {});
-            if (res.status === 200) {
-
-            }
-        } catch (ex) {
-            console.error(ex);
-        }
-
+    const replyQuestion = async (evt) => {
+        evt.preventDefault();
     }
 
     return (
@@ -121,8 +129,8 @@ const Forums = () => {
                 <div className="col-span-10">
                     <div className="grid grid-cols-10 gap-5 items-center mx-5">
                         <div className="relative col-span-10 lg:col-span-4">
-                            <select className="select-title" >
-                                <option value="" onChange={filterTopic}>-- Xem theo chủ đề --</option>
+                            <select className="select-title" onChange={(evt) => setSelectedTopic(evt.target.value)} >
+                                <option value="">-- Xem theo chủ đề --</option>
                                 <>
                                     {topics && topics.map((topic, index) => {
                                         return <option key={index} value={topic.id}>{topic.name}</option>
@@ -138,7 +146,7 @@ const Forums = () => {
                             currentUser ? <div className="col-span-10 lg:col-span-2 flex justify-center">
                                 <button className="styled-button w-full" onClick={() => document.getElementById('question_modal').showModal()}>Đặt câu hỏi</button>
                             </div> : <Link to="/dang-nhap?next=/dien-dan" className="col-span-10 lg:col-span-2 flex justify-center">
-                                <button className="styled-button w-full" onClick={() => document.getElementById('question_modal').showModal()}>Đặt câu hỏi</button>
+                                <button className="styled-button w-full" >Đặt câu hỏi</button>
                             </Link>
                         }
                         <dialog id="question_modal" className="modal">
@@ -180,7 +188,7 @@ const Forums = () => {
                             </div>
                         </dialog>
 
-                        <div className="col-span-7">
+                        <div className="col-span-10">
                             <>
                                 {
                                     questions && questions.map((q, index) => {
@@ -202,16 +210,35 @@ const Forums = () => {
                                                         <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
                                                     </div>
                                                     <div className="flex justify-end items-center">
-                                                        <button className="replies-btn">Xem câu trả lời</button>
+                                                        <button className="replies-btn" onClick={() => document.getElementById('reply-modal').showModal()}>Xem câu trả lời</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         )
                                     })
                                 }
+                                <dialog id="reply-modal" className="modal">
+                                    <div className="modal-box p-8 shadow-3xl  w-11/12 max-w-5xl rounded-none">
+                                        <form method="dialog">
+                                            <button className="exit-btn">✕</button>
+                                        </form>
+                                        <div className="w-full">
+
+                                        </div>
+                                        <form onSubmit={replyQuestion} className="mt-8 grid grid-cols-5 gap-3 w-full">
+                                            <div className="col-span-4">
+                                                <input value={question.title} onChange={(evt) => changeQuestion(evt.target.value, evt.target.name)} name="title" className="styled-input" type="text" />
+                                                {showError ? <p id="standard_error_help" className="mt-2 text-sm text-button">{errors.question && errors.question.title}</p> : <></>}
+                                            </div>
+
+                                            <button className='ask-btn'>
+                                                Gửi phản hồi
+                                            </button>
+                                        </form>
+                                    </div>
+                                </dialog>
                             </>
                         </div>
-
                     </div>
                 </div>
             </div>

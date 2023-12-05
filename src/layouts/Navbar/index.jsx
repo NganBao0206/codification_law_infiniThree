@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className="flex-none hidden lg:flex">
                 <ul className="navbar-menu">
                     <li><Link to="/">Trang chủ</Link></li>
-                    <li><Link to="/chat">Bộ pháp điển</Link></li>
+                    <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
                     <li>
                         <div className="dropdown dropdown-bottom dropdown-end ">
                             <div tabIndex={0} role="button" className="flex items-center gap-2">
@@ -69,8 +69,12 @@ const Navbar = () => {
                     <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
                     <li><Link to="/tra-cuu-thuat-ngu">Thuật ngữ</Link></li>
                     <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
-                    {currentUser && <li><Link to="/lien-he">Liên hệ</Link></li>}
-                    <li><Link to="/dang-nhap">Đăng nhập</Link></li>
+                    {currentUser ? (<><li><Link to="/lien-he">Liên hệ</Link></li>
+                        <div className="py-3 px-4"><h1 className="font-bold text-lg">{currentUser.name}</h1></div>
+                        <li onClick={logOut}><Link >Đăng xuất</Link></li> </>) : (
+                        <li><Link to="/dang-nhap">Đăng nhập</Link></li>
+
+                    )}
                 </ul>
             </div>
         </div>

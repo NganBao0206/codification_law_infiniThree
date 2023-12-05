@@ -7,6 +7,7 @@ export const endpoints = {
 
     // Topics Tree
     "topics": `/api/codification-topics/`,
+    "allsubTopics": `/api/codification-sub-topics/`,
     "subTopics": (id) => `/api/codification-topics/${id}/sub-topics/`,
     "indexes": (id) => `/api/codification-sub-topics/${id}/indexes/`,
     "indexChildren": (id) => `/api/codification-indexes/${id}/children/`,
@@ -30,6 +31,8 @@ export const endpoints = {
     "repliesOfQuestion": (id) => `/api/replies/${id}`,
     "repliesOfUser": `/api/replies/`,
 
+    // Message 
+    "sendMessege": `/api/chat-bot/`
 
 }
 
