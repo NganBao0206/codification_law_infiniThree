@@ -3,147 +3,6 @@
 ### Public client: https://infinithree.netlify.app/
 ### Public server restful api: http://infinithree-law.site/
 
-# API Docs
-
-  1. /api/codification-topics/
-  - Method: GET.
-  - Description: This endpoint returns all topics about the encryption.
-  - Return result: List of topics about encoding is returned as JSON.
-
-  2. /api/codification-topics/<topic_id>/sub-topics/
-  - Method: GET.
-  - Parameters: `topic_id` - ID of the topic to get information about child topics.
-  - Description: This endpoint returns all child themes of a specific theme.
-  - Returned result: List of child topics of the topic with corresponding IDs returned as JSON.
-
-  3. /questions
-  - Method: GET.
-  - Description: Retrieves a list of questions with optional keyword-based search and pagination.
-  - Parameters:
-    + kw (string, optional): Keyword for searching questions.
-    + page (integer, optional): Page number for pagination (default is 1).
-  - Returned Result: Returns a JSON object containing the total number of pages, total questions, and a list of questions matching the search criteria.
-
-  4. /questions
-  - Method: POST.
-  - Description: Adds a new question.
-  - Parameters: Form data containing:
-    + title (string): Title of the question.
-    + description (string): Description of the question.
-    + user_id (string): ID of the user posting the question.
-    + topic_id (string): ID of the topic associated with the question.
-  - Returned Result:
-    + If successful, returns a JSON response indicating success: {"msg": "Post Question success"} with status code 201.
-    + If there's an error, returns a JSON response with an error message: {"msg": "Error message"} with status code 400.
-
-  5. questions/topic/<topic_id>
-  - Method: GET.
-  - Description: Retrieves all questions related to a specific topic.
-  - Parameters: <topic_id> (string) - ID of the topic to fetch related questions.
-  - Returned Result: Returns a JSON list containing the questions associated with the provided topic ID.
-
-  6. /questions/user/<user_id>
-  - Method: GET.
-  - Description: Retrieves all questions posted by a specific user.
-  - Parameters: <user_id> (string) - ID of the user to fetch related questions.
-  - Returned Result: Returns a JSON list containing the questions associated with the provided user ID.
-
-  7. /api/codification-indexes/<indexes_id>/children/
-  - Method: GET.
-  - Description: This endpoint retrieves all child indexes of a specific index.
-  - Parameters: <indexes_id> (string) - ID of the index to fetch child indexes information.
-  - Returned Result: Returns a JSON list of child indexes belonging to the corresponding index.
-
-  8. /api/codification-sub-topics/<sub_topic_id>/indexes/
-  - Method: GET.
-  - Description: Retrieves all indexes related to a specific sub-topic.
-  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related indexes.
-  - Returned Result: Returns a JSON list containing the indexes associated with the provided sub-topic.
-
-  9. /api/codification-sub-topics/<sub_topic_id>/legal-documents/
-  - Method: GET.
-  - Description: Retrieves all legal documents related to a specific sub-topic.
-  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related legal documents.
-  - Returned Result: Returns a JSON list containing the legal documents associated with the provided sub-topic.
-
-  10. /replies
-  - Method: POST.
-  - Description: Adds a reply to a question.
-  - Parameters: Form data containing:
-    + content (string): Content of the reply.
-    + user_id (string): ID of the user posting the reply.
-    + question_id (string): ID of the question the reply is posted to.
-  - Returned Result:
-    + If successful, returns a JSON response indicating success: {"msg": "Post Question success"} with status code 201.
-    + If there's an error, returns a JSON response with an error message: {"msg": "Error message"} with status code 400.
-
-  11. /replies/question?question_id=<question_id>
-  - Method: GET.
-  - Description: Retrieves all replies related to a specific question.
-  - Parameters: question_id (string) - ID of the question to fetch related replies.
-  - Returned Result: Returns a JSON list containing the replies associated with the provided question ID.
-
-  12. /replies/user?user_id=<user_id>
-  - Method: GET.
-  - Description: Retrieves all replies posted by a specific user.
-  - Parameters: user_id (string) - ID of the user to fetch related replies.
-  - Returned Result: Returns a JSON list containing the replies associated with the provided user ID.
-
-  13. /terminology
-  - Method: GET.
-  - Description: Retrieves a list of terminologies with optional keyword-based search and pagination.
-  - Parameters:
-    + kw (string, optional): Keyword for searching terminologies.
-    + page (integer, optional): Page number for pagination (default is 1).
-  - Returned Result: Returns a JSON object containing the total number of pages, total terminologies, and a list of terminologies matching the search criteria.
-
-  14. /terminology/search-paragraph
-  - Method: POST.
-  - Description: Searches for terminologies in a provided paragraph.
-  - Parameters: JSON data containing:
-    + paragraph (string): Paragraph to search for terminologies.
-  - Returned Result: Returns a JSON array containing the found terminologies from the provided paragraph.
-
-  15. /user/register
-  - Method: POST.
-  - Description: Registers a new user with provided details including username, email, name, password, and an optional avatar.
-  - Parameters:
-    + username (string): User's username.
-    + email (string): User's email.
-    + name (string): User's name.
-    + password (string): User's password.
-    + avatar (file, optional): User's avatar image file.
-  - Returned Result: Returns a message indicating the success or failure of user registration.
-
-  16. /user/login
-  - Method: POST.
-  - Description: Authenticates user credentials (username and password) for login purposes.
-  - Parameters:
-    + username (string): User's username.
-    + password (string): User's password.
-  - Returned Result: Returns an access token and user details upon successful authentication.
-
-  17. /user/username-existed
-  - Method: GET.
-  - Description: Checks if a username already exists.
-  - Parameters: username (string): User's username to check.
-  - Returned Result: Returns a message indicating whether the username exists or not.
-
-  18. /user/email-existed
-  - Method: GET.
-  - Description: Checks if an email already exists.
-  - Parameters: email (string): User's email to check.
-  - Returned Result: Returns a message indicating whether the email exists or not.
-  
-  19. /api/chat-bot/
-  - Method: POST.
-  - Parameters:
-    + msg (string): The message content sent to the chatbot.
-    + sub_topic_id (string): ID of the sub-topic.
-    + room_id (string, optional): ID of the chat room. If not provided, a new room will be created.
-  - Description: This endpoint sends a message to the chatbot for processing and retrieves a response based on the message content. It interacts with the chatbot model to generate a response relevant to the provided message and topic.
-  - Returned Result: Upon successful interaction and retrieval of a response from the chatbot, the endpoint returns the chatbot's message in JSON format, including detailed information about the response message.
-
 # How to Install and Run the Project
 
 ## Setting Up the ReactJS Project:
@@ -308,6 +167,149 @@ Python (3.11.4)
   - Jenkins LTS (2.426.1)
   - Docker (24.0.7)
   - Docker-compose (1.29.2)
+
+
+
+# API Docs
+
+  1. /api/codification-topics/
+  - Method: GET.
+  - Description: This endpoint returns all topics about the encryption.
+  - Return result: List of topics about encoding is returned as JSON.
+
+  2. /api/codification-topics/<topic_id>/sub-topics/
+  - Method: GET.
+  - Parameters: `topic_id` - ID of the topic to get information about child topics.
+  - Description: This endpoint returns all child themes of a specific theme.
+  - Returned result: List of child topics of the topic with corresponding IDs returned as JSON.
+
+  3. /questions
+  - Method: GET.
+  - Description: Retrieves a list of questions with optional keyword-based search and pagination.
+  - Parameters:
+    + kw (string, optional): Keyword for searching questions.
+    + page (integer, optional): Page number for pagination (default is 1).
+  - Returned Result: Returns a JSON object containing the total number of pages, total questions, and a list of questions matching the search criteria.
+
+  4. /questions
+  - Method: POST.
+  - Description: Adds a new question.
+  - Parameters: Form data containing:
+    + title (string): Title of the question.
+    + description (string): Description of the question.
+    + user_id (string): ID of the user posting the question.
+    + topic_id (string): ID of the topic associated with the question.
+  - Returned Result:
+    + If successful, returns a JSON response indicating success: {"msg": "Post Question success"} with status code 201.
+    + If there's an error, returns a JSON response with an error message: {"msg": "Error message"} with status code 400.
+
+  5. questions/topic/<topic_id>
+  - Method: GET.
+  - Description: Retrieves all questions related to a specific topic.
+  - Parameters: <topic_id> (string) - ID of the topic to fetch related questions.
+  - Returned Result: Returns a JSON list containing the questions associated with the provided topic ID.
+
+  6. /questions/user/<user_id>
+  - Method: GET.
+  - Description: Retrieves all questions posted by a specific user.
+  - Parameters: <user_id> (string) - ID of the user to fetch related questions.
+  - Returned Result: Returns a JSON list containing the questions associated with the provided user ID.
+
+  7. /api/codification-indexes/<indexes_id>/children/
+  - Method: GET.
+  - Description: This endpoint retrieves all child indexes of a specific index.
+  - Parameters: <indexes_id> (string) - ID of the index to fetch child indexes information.
+  - Returned Result: Returns a JSON list of child indexes belonging to the corresponding index.
+
+  8. /api/codification-sub-topics/<sub_topic_id>/indexes/
+  - Method: GET.
+  - Description: Retrieves all indexes related to a specific sub-topic.
+  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related indexes.
+  - Returned Result: Returns a JSON list containing the indexes associated with the provided sub-topic.
+
+  9. /api/codification-sub-topics/<sub_topic_id>/legal-documents/
+  - Method: GET.
+  - Description: Retrieves all legal documents related to a specific sub-topic.
+  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related legal documents.
+  - Returned Result: Returns a JSON list containing the legal documents associated with the provided sub-topic.
+
+  10. /replies
+  - Method: POST.
+  - Description: Adds a reply to a question.
+  - Parameters: Form data containing:
+    + content (string): Content of the reply.
+    + user_id (string): ID of the user posting the reply.
+    + question_id (string): ID of the question the reply is posted to.
+  - Returned Result:
+    + If successful, returns a JSON response indicating success: {"msg": "Post Question success"} with status code 201.
+    + If there's an error, returns a JSON response with an error message: {"msg": "Error message"} with status code 400.
+
+  11. /replies/question?question_id=<question_id>
+  - Method: GET.
+  - Description: Retrieves all replies related to a specific question.
+  - Parameters: question_id (string) - ID of the question to fetch related replies.
+  - Returned Result: Returns a JSON list containing the replies associated with the provided question ID.
+
+  12. /replies/user?user_id=<user_id>
+  - Method: GET.
+  - Description: Retrieves all replies posted by a specific user.
+  - Parameters: user_id (string) - ID of the user to fetch related replies.
+  - Returned Result: Returns a JSON list containing the replies associated with the provided user ID.
+
+  13. /terminology
+  - Method: GET.
+  - Description: Retrieves a list of terminologies with optional keyword-based search and pagination.
+  - Parameters:
+    + kw (string, optional): Keyword for searching terminologies.
+    + page (integer, optional): Page number for pagination (default is 1).
+  - Returned Result: Returns a JSON object containing the total number of pages, total terminologies, and a list of terminologies matching the search criteria.
+
+  14. /terminology/search-paragraph
+  - Method: POST.
+  - Description: Searches for terminologies in a provided paragraph.
+  - Parameters: JSON data containing:
+    + paragraph (string): Paragraph to search for terminologies.
+  - Returned Result: Returns a JSON array containing the found terminologies from the provided paragraph.
+
+  15. /user/register
+  - Method: POST.
+  - Description: Registers a new user with provided details including username, email, name, password, and an optional avatar.
+  - Parameters:
+    + username (string): User's username.
+    + email (string): User's email.
+    + name (string): User's name.
+    + password (string): User's password.
+    + avatar (file, optional): User's avatar image file.
+  - Returned Result: Returns a message indicating the success or failure of user registration.
+
+  16. /user/login
+  - Method: POST.
+  - Description: Authenticates user credentials (username and password) for login purposes.
+  - Parameters:
+    + username (string): User's username.
+    + password (string): User's password.
+  - Returned Result: Returns an access token and user details upon successful authentication.
+
+  17. /user/username-existed
+  - Method: GET.
+  - Description: Checks if a username already exists.
+  - Parameters: username (string): User's username to check.
+  - Returned Result: Returns a message indicating whether the username exists or not.
+
+  18. /user/email-existed
+  - Method: GET.
+  - Description: Checks if an email already exists.
+  - Parameters: email (string): User's email to check.
+  - Returned Result: Returns a message indicating whether the email exists or not.
+  
+  19. /api/chat-bot/
+  - Method: POST.
+  - Parameters:
+    + msg (string): The message content sent to the chatbot.
+    + sub_topic_id (string): ID of the sub-topic.
+    + room_id (string, optional): ID of the chat room. If not provided, a new room will be created.
+  - Description: This endpoint sends a message to the chatbot for processing and retrieves a response based on the message content. It interacts with the chatbot model to generate a response relevant to the provided message and topic.
+  - Returned Result: Upon successful interaction and retrieval of a response from the chatbot, the endpoint returns the chatbot's message in JSON format, including detailed information about the response message.
 
 
 # Authors
