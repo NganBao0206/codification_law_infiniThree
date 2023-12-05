@@ -36,15 +36,3 @@ def get_questions():
     })
     
     return reponse, 200
-
-
-
-def get_question_by_topic(topic_id):
-    replies = question_dao.get_question_by_topic(topic_id)
-    return jsonify([reply.to_dict() for reply in replies])
-
-
-
-def get_question_by_user(user_id):
-    replies = question_dao.get_question_by_user(user_id)
-    return jsonify([reply.to_dict() for reply in replies])
