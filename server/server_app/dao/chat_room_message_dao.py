@@ -11,6 +11,9 @@ def add_message(chat_room_id, content, is_user_message):
 def get_message(chat_room_id):
     return db.session.query(Message).filter(Message.chat_room_id.__eq__(chat_room_id)).all()
 
+def get_chat_room(user_id):
+    return db.session.query(ChatRoom).filter(ChatRoom.user_id.__eq__(user_id)).all()
+
 
 def add_chat_room(name, user):
     room = ChatRoom(name=name, user=user)
