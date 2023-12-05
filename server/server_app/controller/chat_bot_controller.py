@@ -1,6 +1,6 @@
 import chromadb
 from flask import jsonify, request
-from server_app.dao.chat_room_message_dao import add_message, add_chat_room
+from server_app.dao import chat_room_message_dao
 from flask_jwt_extended import jwt_required, current_user
 from server_app import app, embeddings
 import os 
@@ -36,9 +36,26 @@ def split_with_source(text, source):
     for doc in documents:
         doc.metadata["source"] = source
     return documents
+    
+    
+
+# [GET] - /api/chat-bot/rooms/<room_id>/
+@jwt_required()
+def get_msg(room_id):
+    room = chat_room_message_dao.get_chat_room_by_id(room_id)
+    if room is not None and room.user_id == current_user.id:
+        return jsonify([m.to_dict() for m in room.messages])
+    else:
+        return jsonify({'msg': "not found"}), 404
 
 
-
+# [GET] - /api/chat-bot/rooms/
+@jwt_required()
+def get_rooms():
+    rooms = chat_room_message_dao.get_chat_room_of_user(current_user.id)
+    return jsonify([r.to_dict() for r in rooms])
+    
+    
 # [POST] - /api/chat-bot/
 @jwt_required()
 def send_msg():
@@ -82,39 +99,42 @@ def send_msg():
                 "context": context
             },
             })
-            step = 0  
-            while "error" in output and step < 20:
+            
+            step = 0
+            while "error" in output and step < 2:
                 print('fail')
-                step += 1
                 time.sleep(1)
+                step += 1
                 output = query({
                 "inputs": {
                     "question": question,
                     "context": context
                 },
                 })
+            
+            if (step >= 2 and "error" in output):
+                continue
                 
-            if "error" not in output:
-                result.append({
-                    'answer': output['answer'],
-                    'scores': output['score'],
-                    'sources': i.metadata['source']
-                })
+            result.append({
+                'answer': output['answer'],
+                'scores': output['score'],
+                'sources': i.metadata['source']
+            })
         
         best_answer = {}
         for r in result:
             if not best_answer:
                 best_answer = r
-            elif r.get('score') > best_answer.get('score'):
+            elif r.get('scores') > best_answer.get('scores'):
                     best_answer = r
                                          
         if best_answer:
             if chat_room_id is None:
-                room = add_chat_room(name=msg, user=current_user)
+                room = chat_room_message_dao.add_chat_room(name=msg, user=current_user)
                 chat_room_id = room.id
             
-            user_message = add_message(chat_room_id=room.id, content=msg, is_user_message=True)
-            bot_message = add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False)
+            user_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=msg, is_user_message=True)
+            bot_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False)
             
             return jsonify({'bot_msg': bot_message.to_dict()}), 200
     return jsonify({}), 404
