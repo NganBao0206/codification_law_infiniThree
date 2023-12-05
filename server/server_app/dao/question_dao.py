@@ -15,7 +15,7 @@ def add_question(title, description, topic_id, user_id):
     return question
 
 
-def get_question(kw: str = None, user_id: int = None, page: int = 1, per_page: int = PER_PAGE):
+def get_question(kw: str = None, user_id: int = None, topic_id: str = None, page: int = 1, per_page: int = PER_PAGE):
     query = db.session.query(Question)
 
     if kw and kw.strip() != "":
@@ -23,6 +23,9 @@ def get_question(kw: str = None, user_id: int = None, page: int = 1, per_page: i
 
     if user_id is not None:
         query = query.filter(Question.user_id.__eq__(user_id))
+
+    if topic_id is not None:
+        query = query.filter(Question.topic_id.__eq__(topic_id))
 
     query = query.offset((page - 1) * per_page).limit(per_page)
 
