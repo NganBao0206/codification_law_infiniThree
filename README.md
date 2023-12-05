@@ -17,13 +17,32 @@
   - Returned result: List of child topics of the topic with corresponding IDs returned as JSON.
 
   3. /api/chat-bot/
-  - Method: POST
+  - Method: POST.
   - Parameters:
     + msg (string): The message content sent to the chatbot.
     + sub_topic_id (string): ID of the sub-topic.
     + room_id (string, optional): ID of the chat room. If not provided, a new room will be created.
   - Description: This endpoint sends a message to the chatbot for processing and retrieves a response based on the message content. It interacts with the chatbot model to generate a response relevant to the provided message and topic.
   - Returned Result: Upon successful interaction and retrieval of a response from the chatbot, the endpoint returns the chatbot's message in JSON format, including detailed information about the response message.
+
+  4. /api/codification-indexes/<indexes_id>/children/
+  - Method: GET.
+  - Description: This endpoint retrieves all child indexes of a specific index.
+  - Parameters: <indexes_id> (string) - ID of the index to fetch child indexes information.
+  - Returned Result: Returns a JSON list of child indexes belonging to the corresponding index.
+
+  5. /api/codification-sub-topics/<sub_topic_id>/indexes/
+  - Method: GET.
+  - Description: Retrieves all indexes related to a specific sub-topic.
+  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related indexes.
+  - Returned Result: Returns a JSON list containing the indexes associated with the provided sub-topic.
+
+  6. /api/codification-sub-topics/<sub_topic_id>/legal-documents/
+  - Method: GET.
+  - Description: Retrieves all legal documents related to a specific sub-topic.
+  - Parameters: <sub_topic_id> (string) - ID of the sub-topic to fetch related legal documents.
+  - Returned Result: Returns a JSON list containing the legal documents associated with the provided sub-topic.
+
 
 
 # How to Install and Run the Project
