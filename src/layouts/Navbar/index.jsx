@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className="flex-none hidden lg:flex">
                 <ul className="navbar-menu">
                     <li><Link to="/">Trang chủ</Link></li>
-                    <li><Link to="/bo-phap-dien">Bộ pháp điển</Link></li>
+                    <li><Link to="/chat">Bộ pháp điển</Link></li>
                     <li>
                         <div className="dropdown dropdown-bottom dropdown-end ">
                             <div tabIndex={0} role="button" className="flex items-center gap-2">
@@ -40,6 +40,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                     </li>
+                    <li><Link to="/chat">Bot Chat</Link></li>
                     <li><Link to="/dien-dan-phap-luat">Diễn đàn</Link></li>
                     {
                         currentUser ? <>

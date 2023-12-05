@@ -5,6 +5,7 @@ import { schemaQuestion } from '../../validators/yupValidator';
 import { UserContext } from '../../App';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import "./style.css"
 
 const Forums = () => {
 
@@ -143,7 +144,7 @@ const Forums = () => {
                         <dialog id="question_modal" className="modal">
                             <div className="modal-box p-8 shadow-3xl  w-11/12 max-w-5xl rounded-none">
                                 <form method="dialog">
-                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    <button className="exit-btn">✕</button>
                                 </form>
                                 <h3 className="font-bold text-2xl">Đặt câu hỏi</h3>
                                 <form onSubmit={postQuestion} className="my-8 flex flex-col gap-3">
@@ -172,7 +173,7 @@ const Forums = () => {
                                         <textarea value={question.description} onChange={(evt) => changeQuestion(evt.target.value, evt.target.name)} name="description" rows="5" className="w-full p-2 text-lg focus:outline-none  border-[1px] border-dark" placeholder="Nhập nội dung ..." ></textarea>
                                         {showError ? <p id="standard_error_help" className="mt-2 text-sm text-button">{errors.question && errors.question.description}</p> : <></>}
                                     </div>
-                                    <button type="submit" className='px-4 py-2 bg-button hover:bg-buttonShadow text-white border-2 border-dark'>
+                                    <button className='ask-btn'>
                                         Đăng câu hỏi
                                     </button>
                                 </form>
@@ -184,8 +185,8 @@ const Forums = () => {
                                 {
                                     questions && questions.map((q, index) => {
                                         return (
-                                            <div key={index} className="w-full bg-white border-2 border-dark shadow-3xl p-5 grid grid-cols-6 items-start">
-                                                <div className="flex flex-col gap-2 items-center justify-start  border-r-2 border-dark py-10">
+                                            <div key={index} className="question-item">
+                                                <div className="question-bg">
                                                     {/* <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
                                                     <span className="font-bold text-lg">{q.user.name}</span> */}
                                                 </div>
@@ -201,7 +202,7 @@ const Forums = () => {
                                                         <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
                                                     </div>
                                                     <div className="flex justify-end items-center">
-                                                        <button className=" border-dark border-[2px] px-4 py-2 bg-button text-white hover:bg-buttonShadow w-[75%]">Xem câu trả lời</button>
+                                                        <button className="replies-btn">Xem câu trả lời</button>
                                                     </div>
                                                 </div>
                                             </div>

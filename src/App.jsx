@@ -15,6 +15,7 @@ import DictionaryLayout from "./layouts/DictionaryLayout"
 import DictionaryDetail from "./pages/DictionaryDetail"
 import Forums from "./pages/Forums"
 import Contact from "./pages/Contact"
+import BotChat from "./pages/BotChat"
 
 export const UserContext = createContext();
 
@@ -41,7 +42,7 @@ const App = () => {
                 <Route path="/dang-ky" element={<SignUp />} />
                 <Route path="/lien-he" element={<Contact />} />
                 <Route path="/gui-bai" element={<SendNews />} />
-
+                <Route path="/chat" element={<BotChat />}> </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
