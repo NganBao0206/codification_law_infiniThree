@@ -2,8 +2,12 @@ from server_app import app
 from server_app.api.codification_topic_api import codification_topics_bp
 from server_app.api.codification_sub_topic_api import codification_sub_topics_bp
 from server_app.api.codification_indexes_api import codification_indexes_bp
+
 from server_app.api.user_api import user_bp
 from server_app.api.chat_bot_api import chat_bot_bp
+
+from server_app.api.question_api import question_bp
+from server_app.api.reply_api import reply_bp
 
 from server_app.api.contact_api import contact_bp
 
@@ -28,6 +32,10 @@ app.register_blueprint(user_bp, url_prefix='/api/users')
 app.register_blueprint(contact_bp, url_prefix='/api/contact')
 app.register_blueprint(chat_bot_bp, url_prefix='/api/chat-bot')
 app.register_blueprint(terminology_bp, url_prefix='/api/terminologies')
+app.register_blueprint(question_bp, url_prefix='/api/questions')
+app.register_blueprint(reply_bp, url_prefix='/api/replies')
+
+
 
 @app.route('/')
 def home():

@@ -144,7 +144,7 @@ class ChatRoom(BaseModel):
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     name = Column(String(100), nullable=True)
     messages = relationship('Message', backref=backref('chat_room', lazy=True, uselist=False), uselist=True, lazy=True)
-    user = relationship('User', back_populates='chat_rooms', lazy=False)
+    user = relationship('User', back_populates='rooms', lazy=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
  
  
