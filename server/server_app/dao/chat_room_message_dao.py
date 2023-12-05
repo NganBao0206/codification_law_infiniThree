@@ -19,3 +19,12 @@ def add_chat_room(name, user):
     return room
 
 
+
+def get_chat_room_of_user(user_id):
+    return db.session.query(ChatRoom).filter(ChatRoom.user_id.__eq__(user_id)).all()
+
+
+def get_chat_room_by_id(chat_room_id):
+    return ChatRoom.query(chat_room_id).first()
+
+

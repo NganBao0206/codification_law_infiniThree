@@ -62,7 +62,7 @@ class User(BaseModel):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
     role = Column(db.Enum(UserRole), default=UserRole.USER)
-    rooms = relationship('ChatRoom', backref=backref('user'), lazy=True)
+    rooms = relationship('ChatRoom', back_populates='user', lazy=True)
     
     def __str__(self):
         return self.name
@@ -144,7 +144,8 @@ class ChatRoom(BaseModel):
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     name = Column(String(100), nullable=True)
     messages = relationship('Message', backref=backref('chat_room', lazy=True, uselist=False), uselist=True, lazy=True)
- 
+    user = relationship('User', back_populates='chat_rooms', lazy=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
  
  
 class Message(BaseModel):
@@ -153,7 +154,7 @@ class Message(BaseModel):
     chat_room_id = Column(Integer, ForeignKey(ChatRoom.id), nullable=False)
     content = Column(String(100), nullable=True)
     is_user_message = Column(Boolean, nullable=False)
-    
+    created_at = Column(DateTime, nullable=False, default=datetime.now())
     
 
 class Terminology(BaseModel):
