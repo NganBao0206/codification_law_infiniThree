@@ -5,6 +5,26 @@
 
 # API Docs
 
+  1. /api/codification-topics/
+  - Method: GET.
+  - Description: This endpoint returns all topics about the encryption.
+  - Return result: List of topics about encoding is returned as JSON.
+
+  2. /api/codification-topics/<topic_id>/sub-topics/
+  - Method: GET.
+  - Parameters: `topic_id` - ID of the topic to get information about child topics.
+  - Description: This endpoint returns all child themes of a specific theme.
+  - Returned result: List of child topics of the topic with corresponding IDs returned as JSON.
+
+  3. /api/chat-bot/
+  - Method: POST
+  - Parameters:
+    + msg (string): The message content sent to the chatbot.
+    + sub_topic_id (string): ID of the sub-topic.
+    + room_id (string, optional): ID of the chat room. If not provided, a new room will be created.
+  - Description: This endpoint sends a message to the chatbot for processing and retrieves a response based on the message content. It interacts with the chatbot model to generate a response relevant to the provided message and topic.
+  - Returned Result: Upon successful interaction and retrieval of a response from the chatbot, the endpoint returns the chatbot's message in JSON format, including detailed information about the response message.
+
 
 # How to Install and Run the Project
 
