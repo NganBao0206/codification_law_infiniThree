@@ -169,7 +169,7 @@ Python (3.11.4)
   - Tabulate (0.9.0)
   - Jenkins LTS (2.426.1)
   - Docker (24.0.7)
-  - Docker-compose (2.17.2)
+  - Docker-compose (1.29.2)
 
 
 # Authors
