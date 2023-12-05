@@ -52,7 +52,7 @@ Public server restful api: http://infinithree-law.site/
 ## Running the Program in VSCode
   1. Open *VSCode*.
   2. Go to `File -> Open Folder`.
-  3. Navigate to and select the `codification_law_infiniThree/InfiniThree/server` folder.
+  3. Navigate to and select the `codification_law_infiniThree/server` folder.
   4. Press `Ctrl+Shift+P` to open the Command Palette.
   5. Type and select `Python:Create Environment`.
   6. In the terminal, activate the virtual environment using the command `source .venv/bin/activate`.
@@ -62,7 +62,7 @@ Public server restful api: http://infinithree-law.site/
 ## Running the Program in PyCharm
   1. Open *PyCharm*.
   2. Go to `File -> Open...`.
-  3. Select the `codification_law_infiniThree/InfiniThree/server` folder.
+  3. Select the `codification_law_infiniThree/server` folder.
   4. Go to `File` -> `Setting` -> `Project: <Project-name>` -> `Python Interpreter`.
   5. Click on the plus (+) icon in the bottom right corner to add a new Python Interpreter.
   6. Select `Virtualenv Environment` on the left.
@@ -74,6 +74,11 @@ Public server restful api: http://infinithree-law.site/
   12. Install the required packages with `pip install -r requirements.txt`.
   13. Navigate to the `run.py` file in the PyCharm Project Tool Window.
   14. Right-click on the `run.py` file and select `Run 'run'`.
+
+## Running with Docker-compose
+  1. Open the terminal.
+  2. Navigate to folder where `codification_law_infiniThree` is located by typing `cd path/to/folder/codification_law_infiniThree`.
+  3. Start the Docker containers by typing docker-compose up -d
     
 ## Prepare Database
   1. Create a new database in MySQL Server.
