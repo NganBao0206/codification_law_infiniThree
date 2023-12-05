@@ -1,11 +1,12 @@
 from flask import jsonify, request
 from server_app.dao import reply_dao
+import math
+from config import PER_PAGE
 
 def add_reply():
-    content = request.form.get("content",None)
-    user_id = request.form.get('user_id', None)
-    question_id = request.form.get('question_id',None)
-    
+    content = request.json.get("content",None)
+    user_id = request.json.get('user_id', None)
+    question_id = request.json.get('question_id',None)
     try:
         question = reply_dao.add_reply(content=content, question_id=question_id,user_id = user_id)
         if question:
@@ -14,12 +15,17 @@ def add_reply():
         return jsonify({"msg": str(e)}), 400
     
     
+def get_replies():
+    question_id = request.args.get('question_id', default=None, type=str)
 
-def get_replies_by_question(question_id):
-    replies = reply_dao.get_replies_by_question(question_id)
-    return jsonify([reply.to_dict() for reply in replies])
+    results = reply_dao.get_replies(question_id)
+    count = reply_dao.count_replies(question_id)
+    total_pages = math.ceil(count / PER_PAGE)
 
-
-def get_replies_by_user(user_id):
-    replies = reply_dao.get_replies_by_user(user_id)
-    return jsonify([reply.to_dict() for reply in replies])
+    reponse = jsonify ({
+        "total_pages": total_pages,
+        "total_replies": count,
+        "replies": [result.to_dict() for result in results]
+    })
+    
+    return reponse, 200
