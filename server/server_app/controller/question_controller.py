@@ -24,8 +24,9 @@ def add_question():
 def get_questions():
     kw = request.args.get('kw', default=None, type=str)
     page = request.args.get('page', default=1, type=int)
-
-    results = question_dao.get_question(kw, page)
+    user_id = request.args.get('user_id', default=None, type=int)
+    
+    results = question_dao.get_question(kw, user_id, page)
     count = question_dao.count_question(kw)
     total_pages = math.ceil(count / PER_PAGE)
 
