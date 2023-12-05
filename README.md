@@ -74,11 +74,6 @@
   12. Install the required packages with `pip install -r requirements.txt`.
   13. Navigate to the `run.py` file in the PyCharm Project Tool Window.
   14. Right-click on the `run.py` file and select `Run 'run'`.
-
-## Running with Docker-compose
-  1. Open the terminal.
-  2. Navigate to folder where `codification_law_infiniThree` is located by typing `cd path/to/folder/codification_law_infiniThree`.
-  3. Start the Docker containers by typing docker-compose up -d
     
 ## Prepare Database
   1. Create a new database in MySQL Server.
@@ -111,6 +106,32 @@ You will need the following:
 - Pip Installation.
 
 2. Open your terminal and run the command: `pip install pytest`
+
+## Installing Docker Compose on Ubuntu 
+
+  1. By using the `-o` flag to specify the output file first rather than redirecting the output, this syntax avoids running into a permission denied error caused when using `sudo`.
+  2. Check the current release and if necessary, update it in the command below:
+```
+$ sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+```
+  3. Next set the permissions:
+```
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
+  4. Then you’ll verify that the installation was successful by checking the version:
+```
+  $ docker-compose --version
+```
+  5. This will print out the version you installed:
+```
+Output
+docker-compose version 1.29.2, build 5becea4c
+```
+
+## Running with Docker-compose
+  1. Open the terminal.
+  2. Navigate to folder where `codification_law_infiniThree` is located by typing `cd path/to/folder/codification_law_infiniThree`.
+  3. Start the Docker containers by typing docker-compose up -d
 
 # Features included in the project
 
