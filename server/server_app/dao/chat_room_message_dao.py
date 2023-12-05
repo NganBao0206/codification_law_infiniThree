@@ -9,7 +9,7 @@ def add_message(chat_room_id, content, is_user_message):
 
 
 def get_message(chat_room_id):
-    return db.session.query(Message).filter(Message.chat_room_id.__eq__(chat_room_id)).all()
+    return db.session.query(Message).filter(Message.chat_room_id.__eq__(chat_room_id)).order_by(Message.created_at).all()
 
 
 def add_chat_room(name, user):
