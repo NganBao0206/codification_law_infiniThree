@@ -12,6 +12,7 @@ const SignUp = () => {
     const [avatarFile, setAvatarFile] = useState(null);
     const [errors, setErrors] = useState({});
     const [showError, setShowError] = useState(false);
+    const [loading, setLoading] = useState(false);
     const nav = useNavigate();
 
     const changeUser = (value, field) => {
@@ -43,6 +44,10 @@ const SignUp = () => {
         };
         validateAll();
     }, [user]);
+
+    useEffect(() => {
+        setLoading(false);
+    }, [errors])
 
     const handleFileChange = (evt) => {
         if (evt.target.files && evt.target.files[0]) {
@@ -110,9 +115,11 @@ const SignUp = () => {
 
     const register = (evt) => {
         evt.preventDefault();
+        setLoading(true);
 
         if (Object.keys(errors).length > 0 || !avatarFile) {
             setShowError(true);
+            setLoading(false);
             return;
         }
         setShowError(false);
@@ -130,16 +137,18 @@ const SignUp = () => {
                     let res = await APIs.post(endpoints['register'], form);
                     if (res.status === 201) {
                         alert("Đăng ký tài khoản thành công");
+                        setLoading(false);
                         nav("/dang-nhap");
                     }
                     if (res.status === 400) {
-                        alert("Đã có lỗi xảy ra, vui lòng thử lại")
+                        alert("Đã có lỗi xảy ra, vui lòng thử lại");
+                        setLoading(false);
+                        return;
                     }
                 } catch (ex) {
                     console.error(ex);
                 }
             }
-
         }
         process();
     }
@@ -191,10 +200,12 @@ const SignUp = () => {
                     </div>
                 </div>
                 <div className="col-span-3 flex justify-center">
-                    <button className="register-btn">Đăng ký</button>
+                    {
+                        loading ? <span className="loading loading-infinity loading-lg bg-button"></span>
+                            : <button className="register-btn">Đăng ký</button>
+                    }
                 </div>
                 <h3 className="pt-5 text-center col-span-3 text-xs md:text-base">Bạn đã có tài khoản? <span className="text-link"><Link to="/dang-nhap">Đăng nhập</Link></span></h3>
-
             </form >
         </div >
     );

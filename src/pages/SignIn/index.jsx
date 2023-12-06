@@ -10,6 +10,7 @@ const SignIn = () => {
     const [user, setUser] = useState();
     const nav = useNavigate();
     const { dispatch, currentUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
 
     const changeUser = (value, field) => {
         setUser((current) => {
@@ -19,6 +20,7 @@ const SignIn = () => {
 
     const login = (evt) => {
         evt.preventDefault();
+        setLoading(true);
         const process = async () => {
             try {
                 let res = await APIs.post(endpoints['login'],
@@ -38,10 +40,12 @@ const SignIn = () => {
                         "type": "login",
                         "payload": res.data["user"]
                     });
-                    nav("/");
+                    setLoading(false);
+                    nav("/")
                 }
                 if (res.status === 401) {
                     alert("Đăng nhập thất bại, vui lòng kiểm tra tài khoản và mật khẩu");
+                    setLoading(false);
                     return;
                 }
             } catch (ex) {
@@ -67,7 +71,12 @@ const SignIn = () => {
                     <h3 className="mb-2">Mật khẩu</h3>
                     <input onChange={e => changeUser(e.target.value, e.target.name)} name="password" className="styled-input" type="password" />
                 </div>
-                <button onSubmit={login} className="login-btn">Đăng nhập</button>
+                {
+                    loading ? <div className="flex justify-center">
+                        <span className="loading loading-infinity loading-lg bg-button"></span>
+                    </div> :
+                        <button onSubmit={login} className="login-btn">Đăng nhập</button>
+                }
                 <h3 className="pt-5 text-center text-xs md:text-base">Chưa có tài khoản? <span className="text-link"><Link to="/dang-ky">Đăng ký ngay</Link></span></h3>
             </form>
         </div>

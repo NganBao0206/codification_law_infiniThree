@@ -34,6 +34,8 @@ const Forums = () => {
 
     // Current User
     const { currentUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         getTopics();
@@ -70,6 +72,23 @@ const Forums = () => {
         showReplies();
     }, [selectedQuestion])
 
+    useEffect(() => {
+        const getQuestionsByTopic = async () => {
+            try {
+                const res = await APIs.get(endpoints["questions"], {
+                    params: {
+                        "topic_id": selectedTopic
+                    }
+                });
+                if (res.status === 200) {
+                    setQuestions(res.data.questions);
+                }
+            } catch (ex) {
+                console.error(ex);
+            }
+        };
+        getQuestionsByTopic();
+    }, [selectedTopic])
 
     // All topics
     const getTopics = async () => {
@@ -111,8 +130,10 @@ const Forums = () => {
 
     const postQuestion = async (evt) => {
         evt.preventDefault();
+        setLoading(true);
         if (Object.keys(errors).length > 0) {
             setShowError(true);
+            setLoading(false);
             return;
         }
         setShowError(false);
@@ -126,7 +147,9 @@ const Forums = () => {
 
                 let res = await authApi().post(endpoints['questions'], form);
                 if (res.status === 201) {
-                    alert("Thêm câu hỏi thành công")
+                    alert("Thêm câu hỏi thành công");
+                    setLoading(false);
+                    setQuestion({});
                     getQuestions();
                 }
             } catch (ex) {

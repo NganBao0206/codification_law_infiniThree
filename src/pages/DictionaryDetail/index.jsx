@@ -8,6 +8,8 @@ const DictionaryDetail = () => {
 
     const { slugTopic } = useParams();
     const { file, setFile, html } = useContext(FileContext);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         const arr = slugTopic.split("&");
@@ -26,9 +28,9 @@ const DictionaryDetail = () => {
     return (
         <>
             <div className="p-10 bg-white shadow-3xl h-[120rem] overflow-y-auto">
-                {html &&
-                    <div dangerouslySetInnerHTML={{ __html: html }} />
-                }
+                <>
+                    {html ? (<div dangerouslySetInnerHTML={{ __html: html }} />) : (<span className="loading loading-infinity loading-lg bg-button"></span>)}
+                </>
             </div>
         </>
     );
