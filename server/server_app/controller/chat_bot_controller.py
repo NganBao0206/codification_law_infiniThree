@@ -67,18 +67,11 @@ def send_msg():
         msg += '?'
     
     if os.path.exists(folder_path):
-        documents = [Document(page_content="", metadata={'source': 0})]
-    
-        retriever = Chroma(persist_directory=(folder_path), embedding_function=embeddings).as_retriever(
-            search_kwargs={"k": 5}
-        )
+        my_chroma_db = Chroma(persist_directory=(folder_path), embedding_function=embeddings)
+        retriever = my_chroma_db.as_retriever(search_type="mmr")
         
-        bm25_retriever = BM25Retriever.from_documents(documents)
-        bm25_retriever.k = 5
-        ensemble_retriever = EnsembleRetriever(
-            retrievers=[bm25_retriever, retriever], weights=[0.5, 0.5]
-        )
-        docs = ensemble_retriever.get_relevant_documents(msg)
+        
+        docs = retriever.get_relevant_documents(msg)
         result = []
         
         import time
@@ -93,7 +86,7 @@ def send_msg():
             })
             
             step = 0
-            while "error" in output and step < 2:
+            while "error" in output and step < 20:
                 print('fail')
                 time.sleep(1)
                 step += 1
@@ -104,7 +97,7 @@ def send_msg():
                 },
                 })
             
-            if (step >= 2 and "error" in output):
+            if (step >= 20 and "error" in output):
                 continue
                 
             result.append({

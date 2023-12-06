@@ -27,7 +27,7 @@ def get_questions():
     user_id = request.args.get('user_id', default=None, type=int)
     topic_id = request.args.get('topic_id', default=None, type=int)
 
-    results = question_dao.get_question(kw, user_id, page)
+    results = question_dao.get_question(kw, user_id, topic_id, page)
     count = question_dao.count_question(kw)
     total_pages = math.ceil(count / PER_PAGE)
 

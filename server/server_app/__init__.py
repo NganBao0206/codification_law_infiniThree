@@ -5,14 +5,15 @@ from config import config, config_type, CORS_URL, JWT_SECRET_KEY, SOLR_HOST
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-import os
 from pysolr import Solr
+from datetime import timedelta
 
 
 app = Flask(__name__)
 app.config.from_object(config[config_type])
 app.config['JWT_SECRET_KEY'] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=3)
 app.logger.setLevel(logging.DEBUG)
 
 from langchain.embeddings import HuggingFaceEmbeddings
