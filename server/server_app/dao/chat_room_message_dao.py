@@ -1,14 +1,16 @@
 from server_app import db
 from models import Message, ChatRoom, MessageLegalDocument
 
-def add_message(chat_room_id, content, is_user_message, source=None):
+def add_message(chat_room_id, content, is_user_message, source=None, legal_document=None):
     msg = Message(chat_room_id = chat_room_id, content=content, is_user_message=is_user_message)
-    
+    if source is not None:
+        msg.source = source
+        
     db.session.add(msg)
     db.session.commit()
-    
-    if source is not None:
-        msg_legal_doc = MessageLegalDocument(message_id=msg.id, legal_document_id=source.id)
+
+    if legal_document is not None:
+        msg_legal_doc = MessageLegalDocument(message_id=msg.id, legal_document_id=legal_document.id)
         db.session.add(msg_legal_doc)
     db.session.commit()
     return msg 

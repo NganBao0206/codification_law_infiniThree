@@ -134,6 +134,7 @@ class Message(BaseModel):
     content = Column(String(100), nullable=True)
     is_user_message = Column(Boolean, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
+    source = Column(Text, nullable=True)
     legal_document = relationship('LegalDocument', secondary='message_legal_document', back_populates='messages', uselist=False, lazy=False)
 
 
