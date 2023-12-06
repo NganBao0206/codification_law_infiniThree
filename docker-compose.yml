@@ -1,0 +1,39 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: python run.py
+    ports:
+      - 5000:5000
+    environment:
+      - DB_USER=root
+      - DB_PASS=Admin@123
+      - DB_HOST=db
+      - DB_NAME=law-db
+      - DOCKER_ENV=1
+      - HOST=0.0.0.0
+      - CLOUDINARY_CLOUD_NAME=dljmwib1r
+      - CLOUDINARY_API_KEY=551239148838771
+      - CLOUDINARY_API_SECRET=FCXYKNM3fQHa9ein5j-WJB90H0s
+      - CORS_URL=https://infinithree.netlify.app
+      - EMAIL_NAME=infinithree.system@gmail.com
+      - EMAIL_PASS=gogkmvxtsmncrymt
+      - EMAIL_RECEIVER=nganbaoy@gmail.com
+      - JWT_SECRET_KEY=n3rfq83r18fhnc12rh19dic12ndcn3u9cuwecnjc2i3uhf981h12ufn1fo1u93fhi
+      - TOKEN_HUGGING_FACE=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
+    depends_on:
+      - db
+  db:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=Admin@123
+      - MYSQL_DATABASE=law-db
+    volumes:
+      - law-db-data:/var/lib/mysql    
+volumes:
+  law-db-data:
+  law-solr-data:
