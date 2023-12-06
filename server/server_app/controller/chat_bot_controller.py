@@ -5,10 +5,8 @@ from server_app.dao.legal_document_dao import get_legal_document_by_link
 from flask_jwt_extended import jwt_required, current_user
 from server_app import app, embeddings
 import os 
-from langchain.text_splitter import CharacterTextSplitter, RecusiveCharacterTextSplitter
-from langchain.docstore.document import Document
-from pyvi import ViTokenizer, ViPosTagger
-from langchain.retrievers import BM25Retriever, EnsembleRetriever
+from langchain.text_splitter import CharacterTextSplitter
+from pyvi import ViTokenizer
 import requests
 from langchain.vectorstores import Chroma
 
@@ -125,7 +123,7 @@ def send_msg():
             user_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=msg, is_user_message=True)
             bot_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False, source=source)
             
-            return jsonify({'bot_msg': bot_message.to_dict(), 'source': best_answer.get('sourcec')}), 200
+            return jsonify({'bot_msg': bot_message.to_dict(), 'source': best_answer.get('sources')}), 200
     return jsonify({}), 404
 
         

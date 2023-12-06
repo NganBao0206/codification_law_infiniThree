@@ -134,8 +134,7 @@ class Message(BaseModel):
     content = Column(String(100), nullable=True)
     is_user_message = Column(Boolean, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
-    legal_document = relationship('LegalDocument', secondary='message_legal_document', backref="messages" ,uselist=False, lazy=False)
-
+    legal_document = relationship('LegalDocument', secondary='message_legal_document', back_populates='messages', uselist=False, lazy=False)
 
 
 class LegalDocument(BaseModel):
@@ -148,6 +147,7 @@ class LegalDocument(BaseModel):
     effective_date = Column(DateTime, nullable=False)
     symbols = Column(String(20), nullable=False) 
     sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id))
+    messages = relationship('Message', secondary='message_legal_document', back_populates='legal_document', uselist=True, lazy=True)
 
 
 class MessageLegalDocument(BaseModel):
