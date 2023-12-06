@@ -313,6 +313,6 @@ Python (3.11.4)
 
 
 # Authors
-  1. Nguyen Kim Bao Ngan
-  2. Vo Phu Phat
-  3. Tran Le Lan
+  1. Nguyen Kim Bao Ngan (2051052087ngan@ou.edu.vn)
+  2. Vo Phu Phat (2051052097phat@ou.edu.vn)
+  3. Tran Le Lan (2151050223lan@ou.edu.vn)
