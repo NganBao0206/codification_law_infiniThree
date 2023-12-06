@@ -80,12 +80,6 @@ class CodificationTopic(BaseModel):
         return self.name
 
 
-codification_sub_topic_index = db.Table('codification_sub_topic_index',
-    Column('id', String(100), ForeignKey('codification_index.id'), primary_key=True),
-    Column('sub_topic_id', String(100), ForeignKey('codification_sub_topic.id')),
-)
-
-
 class CodificationSubTopic(BaseModel):
     __tablename__ = 'codification_sub_topic'
     id = Column(String(100), primary_key=True)
@@ -98,21 +92,6 @@ class CodificationSubTopic(BaseModel):
     codification_indexes = relationship('CodificationIndex', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
 
     legal_documents = relationship('LegalDocument', backref=backref('sub_topic', lazy=False, uselist=False), lazy=True)
-
-
-
-class LegalDocument(BaseModel):
-    __tablename__ = 'legal_document'
-    id = Column(String(100), primary_key=True)
-    order = Column(Integer, nullable=False)
-    name = Column(String(500), nullable=False)
-    link = Column(String(500), nullable=False) 
-    agency = Column(String(50), nullable=True)
-    issued_date = Column(DateTime, nullable=False)
-    effective_date = Column(DateTime, nullable=False)
-    symbols = Column(String(20), nullable=False) 
-    sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id), nullable=False)
-
 
     
 class CodificationIndex(BaseModel):
@@ -155,7 +134,28 @@ class Message(BaseModel):
     content = Column(String(100), nullable=True)
     is_user_message = Column(Boolean, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now())
-    
+    legal_document = relationship('LegalDocument', secondary='message_legal_document', backref="messages" ,uselist=False, lazy=False)
+
+
+
+class LegalDocument(BaseModel):
+    __tablename__ = 'legal_document'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String(500), nullable=False)
+    link = Column(String(500), nullable=False) 
+    agency = Column(String(50), nullable=True)
+    issued_date = Column(DateTime, nullable=False)
+    effective_date = Column(DateTime, nullable=False)
+    symbols = Column(String(20), nullable=False) 
+    sub_topic_id = Column(String(100), ForeignKey(CodificationSubTopic.id))
+
+
+class MessageLegalDocument(BaseModel):
+    __tablename__ = 'message_legal_document'
+    id = Column(Integer, ForeignKey(Message.id), nullable=False, primary_key=True)
+    legal_document_id = Column(Integer, ForeignKey(LegalDocument.id), nullable=False)
+
+
 
 class Terminology(BaseModel):
     __tablename__ = 'terminology'

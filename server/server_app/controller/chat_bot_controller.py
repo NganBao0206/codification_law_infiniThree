@@ -1,9 +1,11 @@
 from flask import jsonify, request
 from server_app.dao import chat_room_message_dao
+from server_app.dao.legal_document_dao import get_legal_document_by_link
+
 from flask_jwt_extended import jwt_required, current_user
 from server_app import app, embeddings
 import os 
-from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
+from langchain.text_splitter import CharacterTextSplitter, RecusiveCharacterTextSplitter
 from langchain.docstore.document import Document
 from pyvi import ViTokenizer, ViPosTagger
 from langchain.retrievers import BM25Retriever, EnsembleRetriever
@@ -118,8 +120,10 @@ def send_msg():
                 room = chat_room_message_dao.add_chat_room(name=msg, user=current_user)
                 chat_room_id = room.id
             
+            source = get_legal_document_by_link(best_answer.get('sources'))
+
             user_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=msg, is_user_message=True)
-            bot_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False)
+            bot_message = chat_room_message_dao.add_message(chat_room_id=room.id, content=best_answer.get('answer'), is_user_message=False, source=source)
             
             return jsonify({'bot_msg': bot_message.to_dict(), 'source': best_answer.get('sourcec')}), 200
     return jsonify({}), 404
