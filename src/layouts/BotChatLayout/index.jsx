@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaCaretDown } from "react-icons/fa6";
 import { UserContext } from '../../App';
-import { Link, Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import APIs, { authApi, endpoints } from '../../configs/APIs';
 import { MdAdd } from "react-icons/md";
 import "./style.css";
@@ -15,6 +15,9 @@ const BotChatLayout = () => {
     const [startMsg, setStartMsg] = useState(true);
     const { currentUser } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
+
+    const nav = useNavigate();
+
 
     useEffect(() => {
         getsubTopics();
@@ -63,7 +66,7 @@ const BotChatLayout = () => {
             if (res.status === 200) {
                 setLoading(false);
                 setMessege({});
-                console.log(res.data);
+                nav(`${res.data.chat_room_id}`);
             }
         }
 

@@ -6,6 +6,7 @@ import { UserContext } from '../../App';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import "./style.css"
+import { useDebounce } from 'use-debounce';
 
 const Forums = () => {
 
@@ -18,7 +19,8 @@ const Forums = () => {
         title: "",
         description: ""
     });
-    const [kw, setKw] = useState("");
+    const [filterTitle, setFilterTitle] = useState("");
+    const [debouncedfilterTitle] = useDebounce(filterTitle, 1000);
     const [questions, setQuestions] = useState([]);
     const [selectedQuestion, setSelectedQuestion] = useState({});
 
@@ -34,6 +36,7 @@ const Forums = () => {
 
     // Current User
     const { currentUser } = useContext(UserContext);
+
     const [loading, setLoading] = useState(false);
 
 
@@ -72,23 +75,17 @@ const Forums = () => {
         showReplies();
     }, [selectedQuestion])
 
+    // Load Questions By Topic
     useEffect(() => {
-        const getQuestionsByTopic = async () => {
-            try {
-                const res = await APIs.get(endpoints["questions"], {
-                    params: {
-                        "topic_id": selectedTopic
-                    }
-                });
-                if (res.status === 200) {
-                    setQuestions(res.data.questions);
-                }
-            } catch (ex) {
-                console.error(ex);
-            }
-        };
-        getQuestionsByTopic();
+        setLoading(true);
+        getQuestions();
     }, [selectedTopic])
+
+    // Load Questions By Title
+    useEffect(() => {
+        setLoading(true);
+        getQuestions();
+    }, [filterTitle])
 
     // All topics
     const getTopics = async () => {
@@ -104,13 +101,21 @@ const Forums = () => {
 
     // All questions
     const getQuestions = async () => {
+        console.log(debouncedfilterTitle);
         try {
-            const res = await APIs.get(endpoints["questions"]);
+            const res = await APIs.get(endpoints["questions"], {
+                params: {
+                    "kw": debouncedfilterTitle,
+                    "topic_id": selectedTopic
+                }
+            });
             if (res.status === 200) {
                 setQuestions(res.data.questions);
+                setLoading(false);
             }
         } catch (ex) {
             console.error(ex);
+            setLoading(false);
         }
     };
 
@@ -149,7 +154,12 @@ const Forums = () => {
                 if (res.status === 201) {
                     alert("Thêm câu hỏi thành công");
                     setLoading(false);
-                    setQuestion({});
+                    setQuestion({
+                        topic: "",
+                        title: "",
+                        description: "",
+                        user_id: undefined,
+                    });
                     getQuestions();
                 }
             } catch (ex) {
@@ -179,7 +189,7 @@ const Forums = () => {
             const newReply = {
                 ...reply,
                 user_id: currentUser.id,
-                question_id: selectedQuestion.id
+                question_id: selectedQuestion
             };
             setReply(newReply);
             try {
@@ -214,7 +224,7 @@ const Forums = () => {
                             <FaCaretDown className="arrow" />
                         </div>
                         <div className="col-span-10 lg:col-span-4">
-                            <input className="search-input" type="text" placeholder="Nhập từ khóa để tìm kiếm" />
+                            <input value={filterTitle} className="search-input" type="text" placeholder="Tìm kiếm tiêu đề của bài viết" onChange={(evt) => setFilterTitle(evt.target.value)} />
                         </div>
                         {
                             currentUser ? <div className="col-span-10 lg:col-span-2 flex justify-center">
@@ -263,46 +273,61 @@ const Forums = () => {
                         </dialog>
 
                         <div className="col-span-10">
-                            <>
-                                {
-                                    questions && questions.map((q, index) => {
-                                        return (
-                                            <div key={index} className="question-item">
-                                                <div className="question-bg">
-                                                    <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
-                                                    <span className="font-bold text-lg">{q.user.name}</span>
+                            <> {loading ?
+                                <span className="loading loading-infinity loading-lg bg-button"></span> :
+                                <>
+                                    {
+                                        questions.length ? questions.map((q, index) => {
+                                            return (
+                                                <div key={index} className="question-item">
+                                                    <div className="question-bg">
+                                                        <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
+                                                        <span className="font-bold text-lg">{q.user.name}</span>
+                                                    </div>
+                                                    <div className="col-span-5 flex flex-col gap-2 px-5">
+                                                        <h1 className="font-bold text-xl">{q.title}</h1>
+                                                        <p className="font-light">{q.description}</p>
+                                                    </div>
+                                                    <div className="col-span-6 flex border-t-2 border-dark px-5 pt-5 grid grid-cols-5 items-center">
+                                                        <div className="col-span-2">
+                                                            <h3 className='w-full truncate'><span className="font-bold">Chủ đề: </span>{q.topic.name}</h3>
+                                                        </div>
+                                                        <div>
+                                                            <h3><span className="font-bold">Lượt trả lời: </span></h3>
+                                                        </div>
+                                                        <div>
+                                                            <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
+                                                        </div>
+                                                        <div className="flex justify-end items-center">
+                                                            <button className="replies-btn" onClick={() => { setSelectedQuestion(q); document.getElementById('reply-modal').showModal() }}>Xem câu trả lời</button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="col-span-5 flex flex-col gap-2 px-5">
-                                                    <h1 className="font-bold text-xl">{q.title}</h1>
-                                                    <p className="font-light">{q.description}</p>
-                                                </div>
-                                                <div className="col-span-6 flex border-t-2 border-dark px-5 pt-5 grid grid-cols-5 items-center">
-                                                    <div className="col-span-2">
-                                                        <h3 className='w-full truncate'><span className="font-bold">Chủ đề: </span>{q.topic.name}</h3>
-                                                    </div>
-                                                    <div>
-                                                        <h3><span className="font-bold">Lượt trả lời: </span></h3>
-                                                    </div>
-                                                    <div>
-                                                        <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
-                                                    </div>
-                                                    <div className="flex justify-end items-center">
-                                                        <button className="replies-btn" onClick={() => { setSelectedQuestion(q); document.getElementById('reply-modal').showModal() }}>Xem câu trả lời</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                                            )
+                                        }) : (<>
+                                            <p className=' w-full flex justify-center items-center'>Không tìm thấy kết quả nào </p>
+                                        </>)
+                                    }
+                                </>
+                            }
                                 <dialog id="reply-modal" className="modal">
                                     <div className="modal-box p-8 shadow-3xl  w-11/12 max-w-5xl rounded-none">
                                         <form method="dialog">
                                             <button className="exit-btn">✕</button>
                                         </form>
-                                        <div className="w-full">
+                                        <div className="w-full flex flex-col gap-5 p-5">
                                             <>
                                                 {
-                                                    replies ? <div></div> : <div>
+                                                    replies.length ? replies.map((reply, index) => {
+                                                        return (<div key={index} className="grid grid-cols-10">
+                                                            <div className="col-span-2">
+
+                                                            </div>
+                                                            <div className="col-span-8 bg-gray-100">
+                                                                {reply.content}
+                                                            </div>
+                                                        </div>)
+                                                    }) : <div>
                                                         Chưa có câu trả lời nào
                                                     </div>
                                                 }

@@ -8,8 +8,6 @@ const DictionaryDetail = () => {
 
     const { slugTopic } = useParams();
     const { file, setFile, html } = useContext(FileContext);
-    const [loading, setLoading] = useState(false);
-
 
     useEffect(() => {
         const arr = slugTopic.split("&");
