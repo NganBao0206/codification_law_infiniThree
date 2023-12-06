@@ -9,12 +9,30 @@ import "./style.css"
 
 const Forums = () => {
 
+    // Topics
     const [topics, setTopics] = useState([]);
-    const [question, setQuestion] = useState({});
+    const [selectedTopic, setSelectedTopic] = useState();
+
+    // Questions
+    const [question, setQuestion] = useState({
+        title: "",
+        description: ""
+    });
+    const [kw, setKw] = useState("");
+    const [questions, setQuestions] = useState([]);
+    const [selectedQuestion, setSelectedQuestion] = useState({});
+
+    // Errors
     const [errors, setErrors] = useState({});
     const [showError, setShowError] = useState(false);
-    const [questions, setQuestions] = useState([]);
-    const [selectedTopic, setSelectedTopic] = useState();
+
+    // Replies
+    const [reply, setReply] = useState({
+        content: ""
+    });
+    const [replies, setReplies] = useState({});
+
+    // Current User
     const { currentUser } = useContext(UserContext);
 
     useEffect(() => {
@@ -22,6 +40,7 @@ const Forums = () => {
         getQuestions();
     }, [])
 
+    // Validation
     useEffect(() => {
         const validateAll = async () => {
             let schemas = [schemaQuestion];
@@ -46,23 +65,13 @@ const Forums = () => {
         validateAll();
     }, [question]);
 
+    // Load Replies
     useEffect(() => {
-        const filterTopic = async () => {
-            if (selectedTopic)
-                try {
-                    let url = endpoints.questionsByTopic(selectedTopic);
-                    const res = await APIs.get(url);
-                    if (res.status === 200) {
-                        setQuestions(res.data);
-                    }
-                } catch (ex) {
-                    console.error(ex);
-                }
-        }
+        showReplies();
+    }, [selectedQuestion])
 
-        filterTopic();
-    }, [selectedTopic]);
 
+    // All topics
     const getTopics = async () => {
         try {
             const res = await APIs.get(endpoints["topics"]);
@@ -74,6 +83,7 @@ const Forums = () => {
         }
     };
 
+    // All questions
     const getQuestions = async () => {
         try {
             const res = await APIs.get(endpoints["questions"]);
@@ -85,8 +95,16 @@ const Forums = () => {
         }
     };
 
+    // Update Question
     const changeQuestion = (value, field) => {
         setQuestion((current) => {
+            return { ...current, [field]: value }
+        })
+    }
+
+    // Update Replies
+    const changeReply = (value, field) => {
+        setReply((current) => {
             return { ...current, [field]: value }
         })
     }
@@ -118,8 +136,41 @@ const Forums = () => {
         process();
     }
 
+    const showReplies = async () => {
+        try {
+            const res = await APIs.get(endpoints["replies"], {
+                "question_id": selectedQuestion ? selectedQuestion.id : ""
+            });
+            if (res.status === 200) {
+                setReplies(res.data.replies);
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
+
     const replyQuestion = async (evt) => {
         evt.preventDefault();
+        if (reply.content.length > 0) {
+            const newReply = {
+                ...reply,
+                user_id: currentUser.id,
+                question_id: selectedQuestion.id
+            };
+            setReply(newReply);
+            try {
+                const res = await authApi().post(endpoints["replies"], reply);
+                if (res.status === 201) {
+                    setReply({
+                        content: ""
+                    });
+                    showReplies();
+                }
+            } catch (ex) {
+                console.error(ex);
+            }
+        }
     }
 
     return (
@@ -195,14 +246,17 @@ const Forums = () => {
                                         return (
                                             <div key={index} className="question-item">
                                                 <div className="question-bg">
-                                                    {/* <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
-                                                    <span className="font-bold text-lg">{q.user.name}</span> */}
+                                                    <img className="w-12 h-12 rounded-full object-cover border border-dark shadow-small" src={q.user.avatar} alt="avatar" />
+                                                    <span className="font-bold text-lg">{q.user.name}</span>
                                                 </div>
                                                 <div className="col-span-5 flex flex-col gap-2 px-5">
                                                     <h1 className="font-bold text-xl">{q.title}</h1>
                                                     <p className="font-light">{q.description}</p>
                                                 </div>
-                                                <div className="col-span-6 flex border-t-2 border-dark px-5 pt-5 grid grid-cols-3 items-center">
+                                                <div className="col-span-6 flex border-t-2 border-dark px-5 pt-5 grid grid-cols-5 items-center">
+                                                    <div className="col-span-2">
+                                                        <h3 className='w-full truncate'><span className="font-bold">Chủ đề: </span>{q.topic.name}</h3>
+                                                    </div>
                                                     <div>
                                                         <h3><span className="font-bold">Lượt trả lời: </span></h3>
                                                     </div>
@@ -210,7 +264,7 @@ const Forums = () => {
                                                         <h3><span className="font-bold">Thời gian đăng: </span>{moment(q['created_at']).fromNow()}</h3>
                                                     </div>
                                                     <div className="flex justify-end items-center">
-                                                        <button className="replies-btn" onClick={() => document.getElementById('reply-modal').showModal()}>Xem câu trả lời</button>
+                                                        <button className="replies-btn" onClick={() => { setSelectedQuestion(q); document.getElementById('reply-modal').showModal() }}>Xem câu trả lời</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -223,14 +277,18 @@ const Forums = () => {
                                             <button className="exit-btn">✕</button>
                                         </form>
                                         <div className="w-full">
-
+                                            <>
+                                                {
+                                                    replies ? <div></div> : <div>
+                                                        Chưa có câu trả lời nào
+                                                    </div>
+                                                }
+                                            </>
                                         </div>
                                         <form onSubmit={replyQuestion} className="mt-8 grid grid-cols-5 gap-3 w-full">
                                             <div className="col-span-4">
-                                                <input value={question.title} onChange={(evt) => changeQuestion(evt.target.value, evt.target.name)} name="title" className="styled-input" type="text" />
-                                                {showError ? <p id="standard_error_help" className="mt-2 text-sm text-button">{errors.question && errors.question.title}</p> : <></>}
+                                                <input value={reply.content} onChange={(evt) => changeReply(evt.target.value, evt.target.name)} name="content" className="styled-input" type="text" />
                                             </div>
-
                                             <button className='ask-btn'>
                                                 Gửi phản hồi
                                             </button>

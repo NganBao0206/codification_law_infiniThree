@@ -28,11 +28,13 @@ export const endpoints = {
     // Forum
     "questions": `/api/questions/`,
     "questionsByTopic": (id) => `/api/questions/topic/${id}`,
-    "repliesOfQuestion": (id) => `/api/replies/${id}`,
-    "repliesOfUser": `/api/replies/`,
 
     // Message 
-    "sendMessege": `/api/chat-bot/`
+    "sendMessege": `/api/chat-bot/`,
+
+    // Reply
+    "replies": `/api/replies/`
+
 
 }
 

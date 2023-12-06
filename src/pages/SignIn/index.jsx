@@ -39,7 +39,10 @@ const SignIn = () => {
                         "payload": res.data["user"]
                     });
                     nav("/");
-
+                }
+                if (res.status === 401) {
+                    alert("Đăng nhập thất bại, vui lòng kiểm tra tài khoản và mật khẩu");
+                    return;
                 }
             } catch (ex) {
                 console.error(ex);

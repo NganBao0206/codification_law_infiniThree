@@ -129,7 +129,11 @@ const SignUp = () => {
                     form.append("avatar", avatarFile[0]);
                     let res = await APIs.post(endpoints['register'], form);
                     if (res.status === 201) {
+                        alert("Đăng ký tài khoản thành công");
                         nav("/dang-nhap");
+                    }
+                    if (res.status === 400) {
+                        alert("Đã có lỗi xảy ra, vui lòng thử lại")
                     }
                 } catch (ex) {
                     console.error(ex);
