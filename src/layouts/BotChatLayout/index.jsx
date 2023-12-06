@@ -9,33 +9,16 @@ import "./style.css";
 
 const BotChatLayout = () => {
 
-    const data = [
-        {
-            "id": 1,
-            "user_id": 581,
-            "name": "Phòng chat mới"
-        }, {
-            "id": 2,
-            "user_id": 581,
-            "name": "Phòng chat mới 2"
-        }, {
-            "id": 3,
-            "user_id": 581,
-            "name": "Phòng chat mới 3"
-        }
-    ]
-
     const [messege, setMessege] = useState({});
     const [rooms, setRooms] = useState([]);
     const [subTopics, setSubTopics] = useState([]);
     const [startMsg, setStartMsg] = useState(true);
-    const [beDisabled, setBeDisabled] = useState(false);
-
     const { currentUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getsubTopics();
-        setRooms(data);
+        getRooms();
     }, [])
 
     const changeMessege = (value, field) => {
@@ -55,18 +38,31 @@ const BotChatLayout = () => {
         }
     };
 
+    const getRooms = async () => {
+        try {
+            const res = await authApi().get(endpoints["rooms"]);
+            if (res.status === 200) {
+                setRooms(res.data);
+            }
+        } catch (ex) {
+            console.error(ex);
+        }
+    }
+
     const sendMessege = (evt) => {
         evt.preventDefault();
+        setLoading(true);
         if (!messege.sub_topic_id && !messege.content) {
             alert("Lỗi");
+            setLoading(false);
             return;
         }
 
-
         const process = async () => {
-            console.log(messege)
             const res = await authApi().post(endpoints["sendMessege"], messege);
             if (res.status === 200) {
+                setLoading(false);
+                setMessege({});
                 console.log(res.data);
             }
         }
@@ -88,19 +84,24 @@ const BotChatLayout = () => {
                     </button></Link>
                     <div className="w-full my-5 flex flex-col">
                         <>
-                            {rooms && rooms.map(r => {
-                                return (<Link to={`${r.id}`} onClick={() => setStartMsg(false)}>
+                            {rooms ? rooms.map((r, index) => {
+                                return (<Link key={index} to={`${r.id}`} onClick={() => setStartMsg(false)}>
                                     <div className="w-full py-4 px-5 rounded-lg font-bold hover:bg-blue-100 ">
                                         {r.name}
                                     </div>
                                 </Link>)
-                            })}
+                            }) : <></>}
                         </>
                     </div>
                 </div>
                 <div className="col-span-10 lg:col-span-7 p-5 pr-0 relative flex flex-col gap-5">
                     {
                         startMsg ? <>
+                            {loading ? <div className="chat chat-start max-w-[75%]">
+                                <div className="chat-box">
+                                    <span className="loading loading-dots loading-sm"></span>
+                                </div>
+                            </div> : <></>}
                             <form onSubmit={sendMessege} className="w-full">
                                 <div className="absolute bottom-10 w-full ">
                                     <div className="w-full grid grid-cols-4">

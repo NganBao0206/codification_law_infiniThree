@@ -31,11 +31,10 @@ export const endpoints = {
 
     // Message 
     "sendMessege": `/api/chat-bot/`,
+    "rooms": `/api/chat-bot/rooms/`,
 
     // Reply
     "replies": `/api/replies/`
-
-
 }
 
 export const authApi = () => {

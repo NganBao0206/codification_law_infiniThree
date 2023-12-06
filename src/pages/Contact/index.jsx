@@ -7,6 +7,7 @@ import { UserContext } from '../../App';
 const Contact = () => {
     const [info, setInfo] = useState({});
     const { currentUser } = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
 
     const changeInfo = (value, field) => {
         setInfo((current) => {
@@ -15,19 +16,29 @@ const Contact = () => {
     }
 
     const sendInfo = (evt) => {
+        setLoading(true);
         evt.preventDefault();
 
+        if (!info.subject || !info.content) {
+            alert("Vui lòng nhập tiêu đề và nội dung");
+            setLoading(false);
+            return;
+        }
+
         const process = async () => {
-            const res = authApi().post(endpoints["contact"], {
+            const res = await authApi().post(endpoints["contact"], {
                 "subject": info.subject,
                 "content": info.content
             });
             if (res.status === 200) {
                 alert("Gửi thông tin thành công");
+                setInfo({});
+                setLoading(false);
             }
         }
         process();
     }
+
 
     if (!currentUser) {
         return <Navigate to="/dang-nhap?next=/lien-he" />
@@ -35,7 +46,7 @@ const Contact = () => {
 
     return (
         <div className="p-5 md:p-24 ">
-            <form onSubmit={sendInfo} className="contact-form">
+            <form onSubmit={(evt) => sendInfo(evt)} className="contact-form">
                 <h1 className="register-title">Thông tin liên hệ</h1>
                 <div className="flex flex-col gap-4 mb-5">
                     <div>
@@ -48,7 +59,9 @@ const Contact = () => {
                     </div>
                 </div>
                 <div className="col-span-3 flex justify-center">
-                    <button className="register-btn">Gửi thông tin</button>
+                    {
+                        loading ? <span className="loading loading-infinity loading-lg bg-button"></span> : <button className="register-btn">Gửi thông tin</button>
+                    }
                 </div>
             </form >
         </div >

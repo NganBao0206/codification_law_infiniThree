@@ -1,3 +1,7 @@
 .chat-input {
     @apply border border-dark/75 text-gray-900 focus:border-dark block w-full p-2 md:p-3;
 }
+
+.chat-box {
+    @apply chat-bubble bg-white text-dark border-2 border-dark before:hidden flex justify-center items-center;
+}
