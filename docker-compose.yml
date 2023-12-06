@@ -23,7 +23,6 @@ services:
       - EMAIL_RECEIVER=nganbaoy@gmail.com
       - JWT_SECRET_KEY=n3rfq83r18fhnc12rh19dic12ndcn3u9cuwecnjc2i3uhf981h12ufn1fo1u93fhi
       - TOKEN_HUGGING_FACE=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
-      - SOLR_HOST=solr
     depends_on:
       - db
   db:
@@ -35,16 +34,6 @@ services:
       - MYSQL_DATABASE=law-db
     volumes:
       - law-db-data:/var/lib/mysql    
-  solr:
-    image: solr:8
-    ports:
-      - 8983:8983
-    volumes:
-      - law-solr-data:/var/solr
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - law-db
 volumes:
   law-db-data:
   law-solr-data:

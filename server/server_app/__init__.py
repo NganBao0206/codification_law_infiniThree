@@ -1,7 +1,7 @@
 import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from config import config, config_type, CORS_URL, JWT_SECRET_KEY, SOLR_HOST
+from config import config, config_type, CORS_URL, JWT_SECRET_KEY
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -18,7 +18,6 @@ app.logger.setLevel(logging.DEBUG)
 
 from langchain.embeddings import HuggingFaceEmbeddings
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
-solr = Solr(f'http://{SOLR_HOST}:8983/solr/law-db') 
 
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
