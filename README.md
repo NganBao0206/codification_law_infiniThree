@@ -2,6 +2,7 @@
 
 ### Public client: https://infinithree.netlify.app/
 ### Public server restful api: http://infinithree-law.site/
+### Slide powerpoint: https://www.canva.com/design/DAF2QBFyF_8/5aQUC_jwhsr-n47JDp0lOQ/edit?utm_content=DAF2QBFyF_8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 # How to Install and Run the Project
 
