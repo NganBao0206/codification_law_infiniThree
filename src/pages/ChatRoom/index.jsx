@@ -20,12 +20,11 @@ const ChatRoom = () => {
             const url = endpoints.messeges(slugChat);
             const res = await authApi().get(url);
             if (res.status === 200) {
-                console.log(res.data);
                 setMesseges(res.data);
             }
         }
         getMesseges()
-    }, [slugChat])
+    }, [])
 
     useEffect(() => {
         getSubTopics();

@@ -172,9 +172,10 @@ const Forums = () => {
     const showReplies = async () => {
         try {
             const res = await APIs.get(endpoints["replies"], {
-                "question_id": selectedQuestion ? selectedQuestion.id : ""
+                "question_id": selectedQuestion.id
             });
             if (res.status === 200) {
+                console.log(res.data)
                 setReplies(res.data.replies);
             }
         } catch (ex) {
@@ -189,7 +190,7 @@ const Forums = () => {
             const newReply = {
                 ...reply,
                 user_id: currentUser.id,
-                question_id: selectedQuestion
+                question_id: selectedQuestion.id
             };
             setReply(newReply);
             try {
@@ -319,11 +320,11 @@ const Forums = () => {
                                             <>
                                                 {
                                                     replies.length ? replies.map((reply, index) => {
-                                                        return (<div key={index} className="grid grid-cols-10">
+                                                        return (<div key={index} className="grid grid-col-10">
                                                             <div className="col-span-2">
 
                                                             </div>
-                                                            <div className="col-span-8 bg-gray-100">
+                                                            <div className="col-span-8">
                                                                 {reply.content}
                                                             </div>
                                                         </div>)
