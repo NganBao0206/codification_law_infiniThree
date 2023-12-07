@@ -171,11 +171,11 @@ Python (3.11.4)
 
 # System Organizing
 
-(images/system.png)
+<img loading="lazy" src="./images/system.png" alt="Architecture" width="100%" height=600>
 
 # CI / CD
 
-(images/cicd.png)
+<img loading="lazy" src="./images/cicd.png" alt="Architecture" width="100%" height=600>
 
 # API Docs
 
